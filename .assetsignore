@@ -7,3 +7,6 @@ node_modules
 .wrangler
 .gitignore
 tools
+docs
+design
+CLAUDE.md
