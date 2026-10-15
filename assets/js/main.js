@@ -5,7 +5,7 @@
   // Where waitlist emails go: any endpoint that accepts a JSON POST {email, source}
   // (Formspree, a Supabase Edge Function, Google Apps Script…). Empty = fall back to email.
   const SIGNUP_ENDPOINT = "";
-  const CONTACT_EMAIL = "hello@quesly.me";
+  const CONTACT_EMAIL = "contact@quesly.me";
 
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
