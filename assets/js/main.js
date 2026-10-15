@@ -81,6 +81,24 @@
         const inner = marked.has(i) ? `<mark>${esc(w)}</mark>` : esc(w);
         return `<span class="qw">${inner}</span>`;
       }).join(" ") + "</span>";
+    const mini = $("[data-today-mini]");
+    if (mini) mini.textContent = text;
+  }
+
+  // ---------- Hero phone: today's answers type themselves into the composer ----------
+  function startTyping() {
+    const out = $("[data-typing]");
+    if (!out) return;
+    const answers = () => QUESTIONS[todayIndex()][2].map((a) => a[0]);
+    if (reduceMotion) { out.textContent = answers()[0]; return; }
+    let i = 0, n = 0, del = false;
+    const step = () => {
+      const a = answers()[i % answers().length];
+      if (!del) { out.textContent = a.slice(0, ++n); if (n === a.length) { del = true; return setTimeout(step, 2200); } }
+      else { out.textContent = a.slice(0, --n); if (n === 0) { del = false; i++; return setTimeout(step, 400); } }
+      setTimeout(step, del ? 22 : 55 + Math.random() * 60);
+    };
+    setTimeout(step, 3200);
   }
 
   function startCountdown() {
@@ -114,6 +132,7 @@
       const html = list.map(card).join("");
       track.innerHTML = html + html; // doubled for a seamless loop
     });
+    $$(".float-card").forEach((el, i) => (el.innerHTML = card(answers[i]).replace(/^<div class="answer-card">|<\/div>$/g, "")));
   }
 
   // ---------- Memories calendar (October 2026 starts on a Thursday) ----------
@@ -365,6 +384,9 @@
     gsap.set(qWords, { opacity: 0, y: 18 });
     gsap.set([".hero-eyebrow", ".hero-sub", ".hero-form", "#nav"], { opacity: 0, y: 20 });
     gsap.set(".river-row", { opacity: 0, y: 60 });
+    gsap.set(".device-hero", { opacity: 0, y: 80, rotateX: 18 });
+    gsap.set([".float-card", ".hero-chip"], { opacity: 0, scale: .85 });
+    gsap.set(".hero-ring", { opacity: 0, scale: .6 });
     lenis.stop();
 
     const mark = $(".loader-mark");
@@ -385,7 +407,25 @@
       .call(() => window.__heroQuby?.show(1), null, 2.15 + qWords.length * .09 + .2)
       .call(() => window.__heroQuby?.show(3), null, 2.15 + qWords.length * .09 + 1.4)
       .to([".hero-sub", ".hero-form", "#nav"], { opacity: 1, y: 0, duration: 1.1, stagger: .08 }, 2.3 + qWords.length * .06)
-      .to(".river-row", { opacity: 1, y: 0, duration: 1.4, stagger: .12 }, 2.5 + qWords.length * .06);
+      .to(".river-row", { opacity: 1, y: 0, duration: 1.4, stagger: .12 }, 2.5 + qWords.length * .06)
+      .to(".hero-ring", { opacity: 1, scale: 1, duration: 1.8, stagger: .12 }, 1.9)
+      .to(".device-hero", { opacity: 1, y: 0, rotateX: 0, duration: 1.6 }, 2.1)
+      .to([".float-card", ".hero-chip"], { opacity: 1, scale: 1, duration: 1.1, stagger: .14, ease: "back.out(1.6)" }, 2.6);
+
+    // ----- Hero stage: cards bob gently and drift with the cursor for depth -----
+    $$(".float-card, .hero-chip").forEach((el, i) =>
+      gsap.to(el, { y: i % 2 ? 10 : -10, duration: 3 + i * .5, ease: "sine.inOut", yoyo: true, repeat: -1, delay: i * .3 }));
+    if (finePointer) {
+      const stage = $(".hero");
+      const layers = $$("[data-depth]").map((el) => [gsap.quickTo(el, "x", { duration: 1.2, ease: "power3.out" }), +el.dataset.depth]);
+      const tiltX = gsap.quickTo(".device-hero", "rotateY", { duration: 1.2, ease: "power3.out" });
+      const tiltY = gsap.quickTo(".device-hero", "rotateX", { duration: 1.2, ease: "power3.out" });
+      stage.addEventListener("pointermove", (e) => {
+        const nx = e.clientX / innerWidth - .5, ny = e.clientY / innerHeight - .5;
+        layers.forEach(([fx, d]) => fx(nx * d * 18));
+        tiltX(nx * 10); tiltY(-ny * 8);
+      });
+    }
 
     // ----- Hero: endless answer stream that speeds up with scroll, gentle parallax on the way out -----
     const loops = tracks.map((t, r) =>
@@ -527,6 +567,7 @@
   buildCalendar();
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
   startCountdown();
+  startTyping();
   setupSignup();
   setupNav();
 

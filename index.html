@@ -61,9 +61,10 @@
 
   <!-- 1. Hero: today's question, hosted by Quby, answers streaming below -->
   <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero-bg" aria-hidden="true"><span class="hero-glow"></span><span class="hero-grid"></span></div>
     <div class="wrap hero-inner">
-      <svg class="quby quby-hero" viewBox="0 0 38.6 37" aria-hidden="true" data-quby-hero></svg>
-      <p class="hero-eyebrow"><span class="live"></span>Today's question · <span data-countdown>--:--:--</span> left</p>
+     <div class="hero-copy">
+      <p class="hero-eyebrow"><span class="live"></span>Today's question <i></i> <span data-countdown>--:--:--</span> left</p>
       <h1 class="hero-q" id="hero-title" data-today>If you had one <mark>superpower,</mark> what would it be?</h1>
       <p class="hero-sub"><b>One question a day. Millions of stories.</b> Answer today's, then see how your friends and the world answered it.</p>
       <form class="signup hero-form" data-signup novalidate>
@@ -75,6 +76,25 @@
         <p class="signup-note">Coming soon. One email when your invite is ready.</p>
         <p class="signup-msg" role="status" aria-live="polite"></p>
       </form>
+     </div>
+      <div class="hero-stage" aria-hidden="true">
+        <span class="hero-ring r1"></span><span class="hero-ring r2"></span><span class="hero-ring r3"></span>
+        <div class="device device-hero" data-tilt>
+          <svg class="quby quby-hero" viewBox="0 0 38.6 37" data-quby-hero></svg>
+          <div class="screen app-q">
+            <span class="app-island"></span>
+            <img class="app-logo" src="assets/img/quesly-logo-on-green.svg" alt="" width="96" height="16">
+            <p class="app-label">Today's question</p>
+            <p class="app-text" data-today-mini></p>
+            <p class="app-typing"><span data-typing></span><i></i></p>
+            <span class="app-btn">Answer</span>
+          </div>
+        </div>
+        <div class="float-card fc1" data-depth="1.6"></div>
+        <div class="float-card fc2" data-depth="-1.1"></div>
+        <div class="float-card fc3" data-depth="2.2"></div>
+        <div class="hero-chip" data-depth="-1.8"><span class="lock"></span>Answer to unlock the feed</div>
+      </div>
     </div>
     <div class="river" role="region" aria-label="Answers to today's question">
       <div class="river-row"><div class="river-track" data-river="0"></div></div>
