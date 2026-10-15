@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quesly feed</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --green: #07583D; --deep: #044330; --lime: #D4FF00; --ink: #111413; --gray: #8A918E; --paper: #F6F7F3; --line: #E7EAE6; }
+  * { box-sizing: border-box; margin: 0; }
+  body { min-height: 100vh; display: grid; place-items: center; padding: 40px 16px; background: #E9EEEA; color: var(--ink);
+    font: 16px/1.45 -apple-system, "Segoe UI", system-ui, sans-serif; }
+  .phone { position: relative; width: 390px; height: 844px; overflow: hidden; background: var(--paper); border-radius: 48px;
+    box-shadow: 0 40px 80px -30px rgba(2, 42, 30, .35), 0 0 0 10px #111, 0 0 0 11px #555; }
+  .island { position: absolute; top: 11px; left: 50%; translate: -50% 0; width: 120px; height: 34px; border-radius: 20px; background: #000; z-index: 9; }
+  .scroll { height: 100%; overflow: hidden; padding: 58px 16px 100px; }
+
+  /* Top bar */
+  .top { display: flex; align-items: center; justify-content: space-between; }
+  .top img { height: 20px; }
+  .streak { display: flex; align-items: center; gap: 4px; padding: 6px 11px; border-radius: 999px; background: #fff; font: 900 15px Outfit; box-shadow: 0 0 0 1px var(--line); }
+  .streak img { width: 18px; height: 18px; }
+  .tabs { display: flex; margin-top: 14px; border-bottom: 1px solid var(--line); }
+  .tabs b { flex: 1; text-align: center; padding: 10px 0; font: 700 15px Outfit; color: var(--gray); }
+  .tabs b.on { color: var(--green); border-bottom: 2px solid var(--green); margin-bottom: -1px; }
+
+  /* Question banner */
+  .q { margin-top: 14px; display: flex; gap: 12px; align-items: center; background: var(--green); color: #fff; border-radius: 22px; padding: 14px 16px; }
+  .q-mark { flex: none; width: 42px; height: 42px; border-radius: 12px; background: var(--lime); display: grid; place-items: center; }
+  .q-mark img { width: 28px; }
+  .q small { display: flex; justify-content: space-between; font: 700 11px/1 Outfit; letter-spacing: .1em; color: var(--lime); text-transform: uppercase; }
+  .q small span { color: rgba(255, 255, 255, .6); letter-spacing: 0; text-transform: none; font: 500 12px -apple-system, "Segoe UI", sans-serif; }
+  .q b { display: block; margin-top: 6px; font: 900 16px/1.08 Outfit; text-transform: uppercase; }
+
+  /* Answer card */
+  .card { position: relative; margin-top: 12px; background: #fff; border-radius: 24px; padding: 16px 16px 12px; box-shadow: 0 1px 0 rgba(0, 0, 0, .03), 0 10px 26px -18px rgba(2, 42, 30, .28); }
+  .head { display: flex; align-items: center; gap: 10px; }
+  .av { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font: 900 15px Outfit; }
+  .meta { min-width: 0; flex: 1; line-height: 1.2; }
+  .name { display: flex; align-items: center; gap: 5px; font-weight: 700; font-size: 15px; }
+  .name svg { width: 15px; height: 15px; }
+  .sub { font-size: 12.5px; color: var(--gray); margin-top: 2px; }
+  .sub i { font-style: normal; color: var(--green); font-weight: 600; }
+  .follow { border: 0; padding: 7px 13px; border-radius: 999px; background: #EAF4EE; color: var(--green); font: 700 13px Outfit; }
+  .more { width: 28px; height: 28px; display: grid; place-items: center; color: var(--gray); font-weight: 900; letter-spacing: 1px; }
+  .text { margin-top: 10px; font-size: 16.5px; line-height: 1.42; }
+  .foot { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #F0F2F0; }
+  .stuck { display: flex; align-items: center; padding-right: 8px; }
+  .stuck .st { --s: 28px; margin-right: -8px; }
+  .count { font-size: 12.5px; color: var(--gray); white-space: nowrap; }
+  .acts { margin-left: auto; display: flex; gap: 4px; }
+  .ic { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; border: 0; background: none; }
+  .ic.react { background: #F1F3F2; }
+  .ic svg { width: 22px; height: 22px; fill: none; stroke: var(--gray); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .ic svg .f { fill: var(--gray); stroke: none; }
+  .ic svg .badge { fill: #F1F3F2; stroke: none; }
+  .ic.saved svg { fill: var(--green); stroke: var(--green); }
+  .private { display: inline-flex; align-items: center; gap: 4px; }
+  .private svg { width: 12px; height: 12px; stroke: var(--gray); fill: none; stroke-width: 2; }
+
+  /* Die-cut sticker */
+  .st { --s: 44px; width: var(--s); height: var(--s); flex: none; border-radius: 50%; display: grid; place-items: center; position: relative;
+    background: #fff; box-shadow: 0 0 0 2.5px #fff, 0 3px 8px -2px rgba(2, 42, 30, .28); rotate: var(--tilt, 0deg); }
+  .st::before { content: ""; position: absolute; inset: 2.5px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F1FF9A, var(--lime) 55%, #B5DA00); }
+  .st img { position: relative; width: 64%; height: 64%; }
+  .st.word { width: auto; height: calc(var(--s) * .8); padding: 0 calc(var(--s) * .28); border-radius: 999px; }
+  .st.word::before { border-radius: 999px; background: var(--green); }
+  .st.word b { position: relative; font: 900 calc(var(--s) * .38)/1 Outfit; color: var(--lime); }
+
+  /* End of feed */
+  .end { margin-top: 18px; text-align: center; color: var(--gray); font-size: 13px; }
+
+  /* Tab bar */
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 88px; padding: 10px 28px 0; display: flex; justify-content: space-between; align-items: flex-start;
+    background: rgba(246, 247, 243, .92); backdrop-filter: blur(16px); border-top: 1px solid var(--line); }
+  .bar span { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; }
+  .bar span.on { background: var(--lime); }
+  .bar svg { width: 25px; height: 25px; fill: none; stroke: #5F6467; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .bar span.on svg { stroke: var(--green); }
+  .home { position: absolute; bottom: 8px; left: 50%; translate: -50% 0; width: 134px; height: 5px; border-radius: 3px; background: #111; }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="smile" viewBox="0 0 24 24"><circle cx="11" cy="12" r="8.2"/><circle cx="8.3" cy="10.3" r="1.1" class="f"/><circle cx="13.7" cy="10.3" r="1.1" class="f"/><path d="M7.6 14.2c1.8 2.3 5 2.3 6.8 0"/><circle cx="19" cy="6" r="4.6" class="badge"/><path d="M19 3.9v4.2M16.9 6h4.2" stroke-width="1.9"/></symbol>
+  <symbol id="share" viewBox="0 0 24 24"><path d="M21 3 10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></symbol>
+  <symbol id="save" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></symbol>
+  <symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="tick" viewBox="0 0 24 24"><path d="M12 2l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z" fill="#2F7FE0" stroke="none"/><path d="M8.5 12.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="phone">
+  <span class="island"></span>
+  <div class="scroll">
+    <div class="top"><img src="../../assets/img/quesly-logo-green.svg" alt="Quesly"><span class="streak"><img src="../../assets/img/emoji/fire.png" alt="">8</span></div>
+    <div class="tabs"><b class="on">World</b><b>Friends</b></div>
+
+    <div class="q"><span class="q-mark"><svg viewBox="0 -4 111 90" width="28" fill="#07583D"><rect y="-1.13" width="110.7" height="21.32"/><rect y="59.55" width="110.7" height="21.32"/><circle cx="20.83" cy="39.87" r="13.94"/><circle cx="55.35" cy="39.87" r="13.94"/><circle cx="89.87" cy="39.87" r="13.94"/></svg></span>
+      <div style="flex:1"><small>Today's question <span>5h left</span></small><b>What's the best advice you've ever received?</b></div></div>
+
+    <article class="card">
+      <div class="head"><span class="av" style="background:#111413;color:#D4FF00">L</span>
+        <div class="meta"><p class="name">leo.martin <svg><use href="#tick"/></svg></p><p class="sub">4m · <i>Friend</i></p></div>
+        <span class="more">···</span></div>
+      <p class="text">Nobody thinks about you as much as you think. Once I got that, I stopped being scared of looking stupid.</p>
+      <div class="foot">
+        <div class="stuck"><i class="st" style="--tilt:-6deg"><img src="../../assets/img/emoji/tears.png" alt=""></i><i class="st" style="--tilt:5deg"><img src="../../assets/img/emoji/heart.png" alt=""></i><i class="st word" style="--tilt:-5deg"><b>SAME</b></i></div>
+        <span class="count">You and 14 others</span>
+        <div class="acts"><button class="ic react" aria-label="Add a reaction"><svg><use href="#smile"/></svg></button><button class="ic" aria-label="Share to story"><svg><use href="#share"/></svg></button><button class="ic saved" aria-label="Saved"><svg><use href="#save"/></svg></button></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="head"><span class="av" style="background:#2F7FE0;color:#fff">C</span>
+        <div class="meta"><p class="name">camille_b</p><p class="sub">9m · Lyon</p></div>
+        <button class="follow">Follow</button><span class="more">···</span></div>
+      <p class="text">Sleep on it before you hit send. Every message I regret was written after 11 pm.</p>
+      <div class="foot">
+        <div class="stuck"><i class="st" style="--tilt:6deg"><img src="../../assets/img/emoji/joy.png" alt=""></i><i class="st" style="--tilt:-7deg"><img src="../../assets/img/emoji/wow.png" alt=""></i></div>
+        <span class="count">3 reactions</span>
+        <div class="acts"><button class="ic react" aria-label="Add a reaction"><svg><use href="#smile"/></svg></button><button class="ic" aria-label="Share to story"><svg><use href="#share"/></svg></button><button class="ic" aria-label="Save"><svg><use href="#save"/></svg></button></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="head"><span class="av" style="background:#FF6A1A;color:#fff">M</span>
+        <div class="meta"><p class="name">misslilly_57</p><p class="sub">just now · <span class="private"><svg><use href="#lock"/></svg>Friends only</span></p></div>
+        <span class="more">···</span></div>
+      <p class="text">My grandma: “Never trust anyone who is rude to a waiter.”</p>
+      <div class="foot">
+        <span class="count">Be the first to react</span>
+        <div class="acts"><button class="ic react" aria-label="Add a reaction"><svg><use href="#smile"/></svg></button><button class="ic" aria-label="Share to story"><svg><use href="#share"/></svg></button><button class="ic" aria-label="Save"><svg><use href="#save"/></svg></button></div>
+      </div>
+    </article>
+  </div>
+
+  <nav class="bar">
+    <span class="on"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg></span>
+    <span><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span>
+    <span><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg></span>
+    <span><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+  </nav>
+  <span class="home"></span>
+</div>
+</html>
