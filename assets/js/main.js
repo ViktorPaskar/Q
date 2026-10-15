@@ -164,7 +164,16 @@
   }
 
   // ---------- Emoji: swap the reaction emoji for one image set so every system shows the same ----------
-  const EMO = { "❤️": "heart", "❤": "heart", "🔥": "fire", "😂": "joy", "🥹": "tears", "✨": "sparkles", "🎉": "party" };
+  const EMO = { "❤️": "heart", "❤": "heart", "🔥": "fire", "😂": "joy", "🥹": "tears", "😮": "wow", "✨": "sparkles", "🎉": "party" };
+
+  // Reactions are stickers. In sample data 🔥 stands for SAME, the Quesly-only reaction.
+  const TILTS = [-8, 6, -4, 9, -6];
+  const stickers = (str) => str.trim().split(/\s+/).map((t, i) => {
+    const tilt = `--tilt:${TILTS[i % TILTS.length]}deg`;
+    if (t === "SAME" || t === "🔥") return `<i class="st word" style="${tilt}"><b>SAME</b></i>`;
+    const name = EMO[t] || EMO[t.replace(/\uFE0F/g, "")];
+    return name ? `<i class="st" style="${tilt}"><img src="assets/img/emoji/${name}.png" alt="${t}"></i>` : "";
+  }).join("");
   const EMO_RE = /❤️|❤|🔥|😂|🥹|✨|🎉/g;
   function emojify(root = document.body) {
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) =>
@@ -189,7 +198,7 @@
   // ---------- Hero answer stream: today's answers in two rows ----------
   function buildRiver() {
     const answers = QUESTIONS[todayIndex()][2];
-    const card = ([a, user, rx]) => `<div class="answer-card"><p class="who">${avatar(user)}${user}</p><p>${esc(a)}</p><p class="rx">${rx}</p></div>`;
+    const card = ([a, user, rx]) => `<div class="answer-card"><p class="who">${avatar(user)}${user}</p><p>${esc(a)}</p><p class="rx" aria-label="Reactions">${stickers(rx)}</p></div>`;
     $$("[data-river]").forEach((track, r) => {
       const list = r ? [...answers.slice(3), ...answers.slice(0, 3)] : answers;
       const html = list.map(card).join("");
@@ -485,6 +494,7 @@
   renderQuestion($("[data-today]"));
   $$("[data-split]").forEach(split);
   $$("[data-chars]").forEach(splitChars);
+  $$("[data-stickers]").forEach((el) => (el.innerHTML = stickers(el.textContent)));
   emojify();
   fitArt();
   addEventListener("resize", fitArt);

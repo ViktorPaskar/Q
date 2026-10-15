@@ -111,7 +111,9 @@ h1, h2, h3, p, ol { margin: 0; }
 
 /* ---------- Loader ---------- */
 .loader { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--deep); pointer-events: none; clip-path: inset(0 0 0 0); }
-.loader-mark { width: 92px; fill: var(--lime); overflow: visible; }
+.loader-mark { width: clamp(200px, 26vw, 300px); overflow: visible; }
+.loader-mark .m { fill: var(--lime); }
+.loader-mark .w { fill: #fff; }
 .loader-mark .dot { transform-box: fill-box; transform-origin: center; animation: dotPulse 1.2s var(--expo) infinite; }
 .loader-mark .dot:nth-of-type(2) { animation-delay: .15s; } .loader-mark .dot:nth-of-type(3) { animation-delay: .3s; }
 @keyframes dotPulse { 0%, 60%, 100% { transform: scale(1); } 30% { transform: scale(.55); } }
@@ -489,3 +491,27 @@ html:not(.js) .loader { display: none; }
 .rx-overlay span { display: grid; place-items: center; border-radius: 28%; background: #1F6B51; }
 .rx-overlay .emo { width: 46%; height: auto; vertical-align: 0; }
 .rx-overlay.is-on { opacity: 1; }
+
+/* Sticker reactions: die-cut sticker on the lime dot from the logo, each with its own tilt */
+.st { --s: 44px; width: var(--s); height: var(--s); flex: none; border-radius: 50%; display: inline-grid; place-items: center; position: relative; vertical-align: middle;
+  background: #fff; box-shadow: 0 0 0 calc(var(--s) * .06) #fff, 0 3px 8px -2px rgba(2, 42, 30, .3); rotate: var(--tilt, 0deg); }
+.st::before { content: ""; position: absolute; inset: calc(var(--s) * .06); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F1FF9A, var(--lime) 55%, #B5DA00); }
+.st img { position: relative; width: 64%; height: 64%; }
+.st.word { width: auto; height: calc(var(--s) * .8); padding: 0 calc(var(--s) * .28); border-radius: 999px; }
+.st.word::before { border-radius: 999px; background: var(--green); }
+.st.word b { position: relative; font: 900 calc(var(--s) * .38)/1 var(--display); color: var(--lime); letter-spacing: .02em; }
+.rx { display: flex !important; align-items: center; padding: 0 !important; background: none !important; }
+.rx .st { --s: 26px; margin-right: -6px; }
+.float-card .rx .st { --s: 22px; }
+.burst { gap: 8px; padding: 10px 14px; align-items: center; }
+.burst .st { --s: 46px; }
+.how-float.is-on .burst .st { animation: popIn .7s var(--spring) both; }
+.how-float.is-on .burst .st:nth-child(2) { animation-delay: .08s; } .how-float.is-on .burst .st:nth-child(3) { animation-delay: .16s; }
+.how-float.is-on .burst .st:nth-child(4) { animation-delay: .24s; } .how-float.is-on .burst .st:nth-child(5) { animation-delay: .32s; }
+.art-reactions { display: flex !important; flex-wrap: wrap; justify-content: center; align-content: center; gap: 16px 14px; padding: 0 8px; }
+.art-reactions .st { --s: 78px; animation: bob 4s ease-in-out infinite; }
+.art-reactions .st:nth-child(2) { animation-delay: -1s; } .art-reactions .st:nth-child(3) { animation-delay: -2s; } .art-reactions .st:nth-child(4) { animation-delay: -3s; }
+.rx-overlay .st { --s: 34px; }
+.rx-overlay .st.word { --s: 30px; padding: 0 6px; }
+.rx-overlay span { background: #1F6B51; }
+@media (max-width: 900px) { .burst .st { --s: 36px; } .art-reactions .st { --s: 64px; } }
