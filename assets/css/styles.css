@@ -260,7 +260,14 @@ html:not(.js) .loader { display: none; }
 .how-progress { margin-top: 24px; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; max-width: 420px; }
 .how-progress i { display: block; height: 100%; width: 100%; background: var(--green); transform-origin: left; transform: scaleX(.33); }
 .how-stage { position: relative; display: grid; place-items: center; min-height: min(640px, calc(100svh - 150px)); }
-.how-stage .device-xl { --w: clamp(190px, min(21vw, calc((100svh - 190px) * .4815)), 330px); }
+.how-stage .device-lg { --w: clamp(190px, min(23vw, calc((100vh - 170px) * .4815), calc((100svh - 170px) * .4815)), 340px); }
+@media (max-height: 900px) and (min-width: 901px) {
+  .how-pin { padding: 84px 0 28px; }
+  .how-copy .h2 { font-size: clamp(30px, 7vh, 56px); margin-top: 12px; }
+  .step h3 { font-size: clamp(20px, 3.4vh, 28px); }
+  .step p { margin-top: 4px; font-size: 15px; line-height: 1.45; }
+  .how-progress { margin-top: 12px; }
+}
 .how-ring { position: absolute; width: min(520px, 42vw, calc(100svh - 200px)); aspect-ratio: 1; border-radius: 50%; background: var(--lime); }
 .how-stage .device { z-index: 1; }
 .how-float { position: absolute; z-index: 2; opacity: 0; transform: translateY(20px) scale(.96); transition: opacity .6s var(--expo), transform .8s var(--expo); }
@@ -463,3 +470,7 @@ html:not(.js) .loader { display: none; }
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
   .loader { display: none; }
 }
+
+/* Dark theme: the nav over dark sections keeps the lime mark */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .nav.on-light .logo { --logo-mark: var(--lime); } }
+:root[data-theme="dark"] .nav.on-light .logo { --logo-mark: var(--lime); }
