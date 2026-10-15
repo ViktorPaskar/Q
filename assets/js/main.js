@@ -387,10 +387,11 @@
     };
     go(0);
     ScrollTrigger.create({
-      trigger: ".how", start: "top top", end: "+=220%", pin: ".how-pin", scrub: true,
+      trigger: ".how", start: "top top", end: "+=260%", pin: ".how-pin", anticipatePin: 1,
       onUpdate: (st) => {
-        go(Math.min(2, Math.floor(st.progress * 3)));
-        bar.style.transform = `scaleX(${.12 + st.progress * .88})`;
+        // steps play over the first 85%, then the last step rests so the release feels calm
+        go(Math.min(2, Math.floor(Math.min(st.progress / .85, .999) * 3)));
+        bar.style.transform = `scaleX(${.12 + Math.min(1, st.progress / .85) * .88})`;
       },
     });
     gsap.fromTo(".how-ring", { scale: .7 }, { scale: 1.08, ease: "none", scrollTrigger: { trigger: ".how", start: "top bottom", end: "+=320%", scrub: true } });
@@ -410,8 +411,10 @@
       const distance = () => rail.scrollWidth - innerWidth + parseFloat(getComputedStyle($(".rail-wrap")).paddingLeft) + 40;
       const scroller = gsap.to(rail, {
         x: () => -distance(), ease: "none",
-        scrollTrigger: { trigger: ".features", start: "top top", end: () => "+=" + distance(), pin: ".features-pin", scrub: 1, invalidateOnRefresh: true },
+        scrollTrigger: { trigger: ".features", start: "top top", end: () => "+=" + distance(), scrub: .6, invalidateOnRefresh: true },
       });
+      // The pin lasts a little longer than the slide, so the rail settles before the page moves on.
+      ScrollTrigger.create({ trigger: ".features", start: "top top", end: () => "+=" + (distance() + innerHeight * .35), pin: ".features-pin", anticipatePin: 1, invalidateOnRefresh: true });
       $$(".card").forEach((card) => {
         gsap.from(card, {
           y: 80, rotate: 3, opacity: .4, ease: "none",
