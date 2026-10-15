@@ -1,14 +1,16 @@
 # quesly.me
 
-Landing page for **Quesly** — one question a day. Plain HTML, CSS and JS: no build step, no dependencies.
+Landing page for **Quesly** — one question a day. Plain HTML, CSS and JS, no build step.
+Animations: GSAP + ScrollTrigger and Lenis smooth scroll, vendored in `assets/vendor/` (no CDN at runtime).
 
 ```
-index.html        landing (hero → today's question → how it works → why → ritual → widgets → stories → manifesto → FAQ → early access)
+index.html        landing (intro → hero scene → today's question → how it works (pinned) → features rail → answers wall → manifesto → FAQ → waitlist)
 privacy.html      Privacy Policy   (https://quesly.me/privacy)
 terms.html        Terms of Use     (https://quesly.me/terms)
 404.html
 assets/css/styles.css   design tokens mirror Quesly/Core/Theme.swift in the app
-assets/js/main.js       question of the day, countdown, scroll animations, sign-up form
+assets/js/main.js       question of the day, countdown, all animations, waitlist form
+assets/vendor/          gsap 3.12.5, ScrollTrigger 3.12.5, lenis 1.1.13
 assets/img/             app screenshots (from the app repo's ci-screenshots branch), logo SVGs, icons, og.png
 assets/fonts/           Outfit (OFL), subset to Latin
 ```

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Quesly — One question a day</title>
-  <meta name="description" content="One question a day. Millions of stories. Answer today's question, then see how your friends and the world answered it. Coming soon to iPhone.">
-  <meta name="theme-color" content="#07583D">
+  <meta name="description" content="One question a day. Millions of stories. Answer today's question, then see how your friends and the world answered it.">
+  <meta name="theme-color" content="#044330">
   <link rel="canonical" href="https://quesly.me/">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -19,9 +19,6 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="assets/css/styles.css">
   <script>document.documentElement.classList.add("js")</script>
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"MobileApplication","name":"Quesly","operatingSystem":"iOS 17+","applicationCategory":"SocialNetworkingApplication","description":"One question a day. Answer it, then see how your friends and the world answered.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
-  </script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -40,16 +37,22 @@
 </svg>
 <a class="skip" href="#main">Skip to content</a>
 
+<!-- Intro -->
+<div class="loader" aria-hidden="true">
+  <svg class="loader-mark" viewBox="0 -4 111 90"><rect x="0" y="-1.13" width="110.7" height="21.32"/><rect x="0" y="59.55" width="110.7" height="21.32"/><circle class="d" cx="20.83" cy="39.87" r="13.94"/><circle class="d" cx="55.35" cy="39.87" r="13.94"/><circle class="d" cx="89.87" cy="39.87" r="13.94"/></svg>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a class="logo" href="#top" aria-label="Quesly — home"><svg aria-hidden="true"><use href="#logo"/></svg></a>
-    <ul class="nav-links">
-      <li><a href="#how">How it works</a></li>
-      <li><a href="#vibes">Why Quesly</a></li>
-      <li><a href="#ritual">Ritual</a></li>
-      <li><a href="#faq">FAQ</a></li>
-    </ul>
-    <a class="btn btn-lime btn-sm" href="#join">Get early access</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-lime btn-sm magnetic" href="#join"><span>Join the waitlist</span></a>
   </div>
 </header>
 
@@ -57,335 +60,239 @@
 
   <!-- 1. Hero -->
   <section class="hero" id="top" aria-labelledby="hero-title">
-    <div class="hero-arc" aria-hidden="true"></div>
-    <div class="hero-arc two" aria-hidden="true"></div>
+    <div class="hero-pin">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="ring ring-a"></div>
+        <div class="ring ring-b"></div>
+      </div>
 
-    <div class="wrap hero-copy">
-      <a class="pill fade" style="--d:.1s" href="#join"><span class="dot"></span>Coming soon to iPhone · Join the beta</a>
-      <h1 id="hero-title">
-        <span class="line"><span class="w" style="--i:0">One</span> <span class="w" style="--i:1">question</span> <span class="w" style="--i:2">a</span> <span class="w" style="--i:3">day.</span></span>
-        <span class="line hl"><span class="w" style="--i:4">Millions</span> <span class="w" style="--i:5">of</span> <span class="w" style="--i:6">stories.</span></span>
+      <h1 class="hero-title" id="hero-title">
+        <span class="ht ht-1" data-split>One question</span>
+        <span class="ht ht-2 lime" data-split>a day.</span>
       </h1>
-      <p class="hero-sub fade" style="--d:.8s">Answer today's question, then see how your friends and the world answered it. One minute a day. Only good vibes.</p>
-      <div class="hero-form fade" style="--d:.95s">
-        <form class="signup" data-signup novalidate>
-          <label class="sr-only" for="email-hero">Email address</label>
-          <div class="signup-row">
-            <input id="email-hero" type="email" name="email" placeholder="Your email" autocomplete="email" required>
-            <button class="btn btn-lime" type="submit">Get early access <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+
+      <div class="hero-device">
+        <div class="tilt">
+          <div class="device device-xl">
+            <div class="screen">
+              <img class="layer is-on" src="assets/img/screen-04-question.webp" alt="" width="900" height="1952" fetchpriority="high">
+              <img class="layer layer-feed" src="assets/img/screen-06-feed.webp" alt="" width="900" height="1952">
+            </div>
           </div>
-          <p class="signup-note">Free. One email when the iPhone beta opens. No spam.</p>
-          <p class="signup-msg" role="status" aria-live="polite"></p>
-        </form>
-      </div>
-    </div>
-
-    <div class="wrap stage" aria-hidden="true" data-parallax>
-      <div class="phone p-left" data-depth="10"><img src="assets/img/screen-04-question.webp" alt="" width="640" height="1388" fetchpriority="high"></div>
-      <div class="phone p-center" data-depth="18">
-        <div class="screens" data-cycle="3800">
-          <img class="is-on" src="assets/img/screen-06-feed.webp" alt="" width="640" height="1388" fetchpriority="high">
-          <img src="assets/img/screen-15-story.webp" alt="" width="640" height="1388" loading="lazy">
-          <img src="assets/img/screen-18-profile.webp" alt="" width="640" height="1388" loading="lazy">
         </div>
+
+        <div class="float f-1" data-depth="26"><div class="answer-card">
+          <p class="who"><img src="assets/img/avatar-5.webp" alt="" width="28" height="28">john.john <span>2m</span></p>
+          <p>Pause time for 10 minutes every morning</p>
+          <p class="rx">❤️ 🔥</p>
+        </div></div>
+        <div class="float f-2" data-depth="34"><div class="answer-card">
+          <p class="who"><img src="assets/img/avatar-9.webp" alt="" width="28" height="28">koko_lilly <span>14m</span></p>
+          <p>Speaking every language in the world</p>
+        </div></div>
+        <div class="float f-3" data-depth="18"><div class="answer-card">
+          <p class="who"><img src="assets/img/avatar-3.webp" alt="" width="28" height="28">funnnnyyy1 <span>3m</span></p>
+          <p>Teleportation. No more 2-hour train rides to see my parents</p>
+        </div></div>
+        <div class="float f-4" data-depth="40"><div class="bubble">🥹</div></div>
+        <div class="float f-5" data-depth="48"><div class="bubble">🔥</div></div>
+        <div class="float f-6" data-depth="30"><div class="streak-pill"><span>🔥</span><b>8</b> day streak</div></div>
       </div>
-      <div class="phone p-right" data-depth="10"><img src="assets/img/screen-13-share.webp" alt="" width="640" height="1388"></div>
 
-      <div class="float-card fc-1" data-depth="30"><div>
-        <p class="who"><img src="assets/img/avatar-5.webp" alt="" width="26" height="26">john.john</p>
-        Pause time for 10 minutes every morning
-        <p class="r"><span>❤️ 🔥</span></p>
-      </div></div>
-      <div class="float-card fc-2" data-depth="26"><div>
-        <p class="who"><img src="assets/img/avatar-9.webp" alt="" width="26" height="26">koko_lilly</p>
-        Speaking every language in the world
-      </div></div>
-      <div class="float-card fc-3" data-depth="22"><div>
-        <p class="who"><img src="assets/img/avatar-3.webp" alt="" width="26" height="26">funnnnyyy1</p>
-        Teleportation. No more 2-hour train rides to see my parents
-        <p class="r"><span>🥹</span></p>
-      </div></div>
-      <div class="float-card fc-4" data-depth="28"><div>
-        <p class="who"><img src="assets/img/avatar-13.webp" alt="" width="26" height="26">yasmine.k</p>
-        Healing people with a touch. Med school would be way easier
-      </div></div>
-    </div>
-
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <p class="marquee-item"><b>Superpower?</b> Teleportation 🚀</p>
-        <p class="marquee-item"><b>Tiny joy?</b> First sip of coffee ☕</p>
-        <p class="marquee-item"><b>Live anywhere?</b> Lisbon, by the sea</p>
-        <p class="marquee-item"><b>Best advice?</b> Done is better than perfect</p>
-        <p class="marquee-item"><b>Good-mood song?</b> Dancing Queen 💃</p>
-        <p class="marquee-item"><b>Quietly proud?</b> I finally learned to swim</p>
-        <p class="marquee-item"><b>Meal like home?</b> Grandma's pierogi 🥟</p>
-        <p class="marquee-item"><b>Day off?</b> Phone off, long walk, good book</p>
+      <div class="hero-bottom wrap">
+        <div class="hero-left">
+          <a class="pill" href="#join"><span class="dot"></span>Coming soon · Join the waitlist</a>
+          <p class="hero-sub">Answer today's question, then see how your friends and the world answered it. One minute a day. Only good vibes.</p>
+        </div>
+        <a class="scroll-hint" href="#today"><span>Scroll</span><i></i></a>
       </div>
     </div>
   </section>
 
-  <!-- 2. Today's question (live) -->
-  <section class="sec today on-light" id="today" aria-labelledby="today-title">
+  <!-- 2. Today's question -->
+  <section class="today" id="today" aria-labelledby="today-title">
     <div class="wrap">
-      <div class="section-head center reveal">
-        <p class="eyebrow">Live right now</p>
-        <h2 class="h2" id="today-title">Everyone gets the same question</h2>
-        <p class="lead">One question drops at midnight for the whole world. You get one shot to answer it. Here's today's.</p>
-      </div>
-      <div class="today-card reveal" style="--d:.1s">
-        <div class="today-meta">
-          <span class="chip lime">Today's question</span>
-          <span class="chip"><svg aria-hidden="true"><use href="#i-clock"/></svg><span>Next one in <span data-countdown>--:--:--</span></span></span>
+      <p class="eyebrow" data-reveal><span class="live"></span>Live today · next question in <span data-countdown>--:--:--</span></p>
+      <h2 class="sr-only" id="today-title">Today's question</h2>
+      <p class="today-q" data-today>If you had one <mark>superpower,</mark> what would it be?</p>
+      <div class="today-foot">
+        <p class="lead" data-reveal>Everyone in the world gets the same question today. Answer it, and the feed unlocks.</p>
+        <div class="avatars" data-reveal>
+          <span class="stack"><img src="assets/img/avatar-1.webp" alt="" width="44" height="44"><img src="assets/img/avatar-7.webp" alt="" width="44" height="44"><img src="assets/img/avatar-12.webp" alt="" width="44" height="44"><img src="assets/img/avatar-4.webp" alt="" width="44" height="44"></span>
+          <span>Your friends are answering</span>
         </div>
-        <p class="today-q" data-today>If you had one <mark>superpower,</mark> what would it be?</p>
-        <p class="today-foot">Answer it in the app, then the feed unlocks.</p>
       </div>
     </div>
   </section>
 
   <!-- 3. How it works -->
-  <section class="sec tint on-light" id="how" aria-labelledby="how-title">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">How it works</p>
-        <h2 class="h2" id="how-title">One minute.<br>Three steps.</h2>
-      </div>
-
-      <div class="how-grid">
-        <div class="how-steps">
-          <article class="how-step is-active" data-step="0">
-            <span class="step-num">1</span>
-            <h3 class="h3">Answer the question</h3>
-            <p>A new question every day. Write up to 200 characters, honest and short. Choose who sees it: everyone or just friends.</p>
-            <ul>
-              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Same question for everyone, every day</li>
-              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Your draft saves itself</li>
-            </ul>
-            <div class="phone"><img src="assets/img/screen-04-question.webp" alt="Today's question screen: If you had one superpower, what would it be?" width="640" height="1388" loading="lazy"></div>
-          </article>
-          <article class="how-step" data-step="1">
-            <span class="step-num">2</span>
-            <h3 class="h3">The feed unlocks</h3>
-            <p>No answer, no peeking. Once you've answered, see what your friends said, then the whole world. When you've read it all, you're done.</p>
-            <ul>
-              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Friends' answers as stories</li>
-              <li><svg aria-hidden="true"><use href="#i-check"/></svg>A feed that ends: “You're all caught up”</li>
-            </ul>
-            <div class="phone"><img src="assets/img/screen-06-feed.webp" alt="The feed with friends' answers" width="640" height="1388" loading="lazy"></div>
-          </article>
-          <article class="how-step" data-step="2">
-            <span class="step-num">3</span>
-            <h3 class="h3">React &amp; share</h3>
-            <p>Send a ❤️, 🔥, 😂 or 🥹. Like an answer? Turn it into a story card for Instagram or TikTok in one tap.</p>
-            <ul>
-              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Only kind reactions</li>
-              <li><svg aria-hidden="true"><use href="#i-check"/></svg>9:16 story cards in three themes</li>
-            </ul>
-            <div class="phone"><img src="assets/img/screen-15-story.webp" alt="A friend's answer full screen with reactions" width="640" height="1388" loading="lazy"></div>
-          </article>
+  <section class="how" id="how" aria-labelledby="how-title">
+    <div class="how-pin">
+      <div class="wrap how-grid">
+        <div class="how-copy">
+          <p class="eyebrow">How it works</p>
+          <h2 class="h2" id="how-title" data-split>One minute. Three steps.</h2>
+          <ol class="steps">
+            <li class="step is-active">
+              <span class="step-n">01</span>
+              <div><h3>Answer the question</h3><p>A new question every day. Up to 200 characters, for your friends or the whole world.</p></div>
+            </li>
+            <li class="step">
+              <span class="step-n">02</span>
+              <div><h3>The feed unlocks</h3><p>No answer, no peeking. Then read what friends and the world said, until you're all caught up.</p></div>
+            </li>
+            <li class="step">
+              <span class="step-n">03</span>
+              <div><h3>React &amp; share</h3><p>Send ❤️ 🔥 😂 🥹 and turn any answer into a story for Instagram or TikTok.</p></div>
+            </li>
+          </ol>
+          <div class="how-progress" aria-hidden="true"><i></i></div>
         </div>
-
-        <div class="how-phone-col" aria-hidden="true">
-          <div class="how-phone-sticky">
-            <div class="phone">
-              <div class="screens" data-how-screens>
-                <img class="is-on" src="assets/img/screen-04-question.webp" alt="" width="640" height="1388" loading="lazy">
-                <img src="assets/img/screen-06-feed.webp" alt="" width="640" height="1388" loading="lazy">
-                <img src="assets/img/screen-15-story.webp" alt="" width="640" height="1388" loading="lazy">
-              </div>
+        <div class="how-stage" aria-hidden="true">
+          <div class="how-ring"></div>
+          <div class="device device-lg">
+            <div class="screen">
+              <img class="layer is-on" src="assets/img/screen-05-composer.webp" alt="" width="900" height="1952" loading="lazy">
+              <img class="layer" src="assets/img/screen-06-feed.webp" alt="" width="900" height="1952" loading="lazy">
+              <img class="layer" src="assets/img/screen-15-story.webp" alt="" width="900" height="1952" loading="lazy">
             </div>
           </div>
+          <div class="how-float hf-0 is-on"><div class="typing"><span class="t">Teleportation ✨ so I could visit my family anytime</span><span class="caret"></span></div></div>
+          <div class="how-float hf-1"><div class="unlock"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Feed unlocked</div></div>
+          <div class="how-float hf-2"><div class="burst"><span>❤️</span><span>🔥</span><span>😂</span><span>🥹</span></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4. Why Quesly — bento -->
-  <section class="sec on-light" id="vibes" aria-labelledby="vibes-title">
-    <div class="wrap">
-      <div class="section-head reveal">
+  <!-- 4. Features (horizontal rail) -->
+  <section class="features" id="features" aria-labelledby="features-title">
+    <div class="features-pin">
+      <div class="wrap features-head">
         <p class="eyebrow">Why Quesly</p>
-        <h2 class="h2" id="vibes-title">Social media,<br>minus the noise</h2>
-        <p class="lead">No endless scroll and no public like counts. Nobody is chasing likes. You get real answers from real people, once a day.</p>
+        <h2 class="h2" id="features-title" data-split>Social media, minus the noise</h2>
       </div>
-
-      <div class="bento">
-        <div class="tile green span-4 reveal">
-          <p class="eyebrow lime">Reactions</p>
-          <div class="emoji-row" style="margin-top:24px">
-            <span class="emoji" role="img" aria-label="heart">❤️</span>
-            <span class="emoji" role="img" aria-label="fire">🔥</span>
-            <span class="emoji" role="img" aria-label="laughing">😂</span>
-            <span class="emoji" role="img" aria-label="touched">🥹</span>
-          </div>
-          <h3 class="h3">Only good vibes</h3>
-          <p>Four reactions, all positive. Tap for ❤️, hold for more, or double-tap the answer. No dislikes and no comment wars.</p>
-        </div>
-        <div class="tile span-2 reveal" style="--d:.08s">
-          <span class="lock-badge"><svg aria-hidden="true"><use href="#i-lock"/></svg>Only you can see</span>
-          <h3 class="h3">Counts are private</h3>
-          <p>Only the author sees who reacted, so there's nothing to compete for.</p>
-        </div>
-        <div class="tile span-2 reveal">
-          <div class="caught" aria-hidden="true">
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-            <p class="end"><svg><use href="#i-check"/></svg>You're all caught up</p>
-          </div>
-          <h3 class="h3">A feed that ends</h3>
-          <p>Read today's answers, then put your phone down.</p>
-        </div>
-        <div class="tile lime span-4 reveal" style="--d:.08s">
-          <p class="eyebrow" style="color:var(--green)">Friends &amp; the world</p>
-          <p class="big" style="margin-top:20px">1 question.<br>Every voice.</p>
-          <h3 class="h3">See how the world answered</h3>
-          <p>Switch between your friends and everyone on Quesly. The same question gets a thousand different answers.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Ritual -->
-  <section class="sec tint on-light" id="ritual" aria-labelledby="ritual-title">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">The daily ritual</p>
-        <h2 class="h2" id="ritual-title">Small habit.<br>Big archive.</h2>
-        <p class="lead">Answer daily to build your streak. A year from now you'll have 365 small stories about yourself.</p>
-      </div>
-
-      <div class="ritual-grid">
-        <div class="tile reveal">
-          <p class="eyebrow">Streak</p>
-          <div class="streak-big" style="margin-top:20px"><span class="flame" aria-hidden="true">🔥</span><span class="big">8</span><span style="color:var(--gray);font-weight:600">day streak</span></div>
-          <div class="streak-days" aria-hidden="true">
-            <span>6</span><span>7</span><span>8</span><span>9</span><span class="frz">❄</span><span>11</span><span>12</span><span>13</span><span>14</span><span class="todo">15</span>
-          </div>
-          <h3 class="h3">Keep the fire going</h3>
-          <p>Every answer adds a day. Your streak shows up on your profile and in your widgets.</p>
-        </div>
-        <div class="tile ice reveal" style="--d:.08s">
-          <p class="eyebrow" style="color:var(--ice)">Streak freeze</p>
-          <p class="big" style="margin-top:20px;color:var(--ice)" aria-hidden="true">❄️</p>
-          <h3 class="h3">Life happens. We get it.</h3>
-          <p>Missed a day? A freeze saves your streak. You earn one for every 7 days in a row, and you can hold up to two.</p>
-        </div>
-        <div class="tile reveal" style="grid-column:1/-1">
-          <div class="split">
-            <div>
-              <p class="eyebrow">Memories</p>
-              <h3 class="h3" style="padding-top:16px;font-size:clamp(28px,3vw,40px)">Your year, one answer at a time</h3>
-              <p>A calendar on your profile holds every question you answered. Tap any day to see what you said and how people reacted.</p>
+      <div class="rail-wrap">
+        <div class="rail">
+          <article class="card c-green">
+            <div class="art art-reactions" aria-hidden="true"><span>❤️</span><span>🔥</span><span>😂</span><span>🥹</span></div>
+            <div class="card-copy"><span class="card-n">01</span><h3>Only good vibes</h3><p>Four reactions, all positive. No dislikes, no comment wars.</p></div>
+          </article>
+          <article class="card c-paper">
+            <div class="art art-private" aria-hidden="true">
+              <div class="count"><span>❤️🔥😂</span><b>50</b><em>reactions</em></div>
+              <div class="lock"><svg viewBox="0 0 24 24"><use href="#i-lock"/></svg>Only you can see</div>
             </div>
-            <div class="tile-shot top" style="margin:0;height:420px"><img src="assets/img/screen-19-memory.webp" alt="Memories: a past answer opened from the calendar" width="640" height="1388" loading="lazy"></div>
-          </div>
+            <div class="card-copy"><span class="card-n">02</span><h3>Counts are private</h3><p>Only the author sees who reacted, so there's nothing to compete for.</p></div>
+          </article>
+          <article class="card c-mint">
+            <div class="art art-end" aria-hidden="true">
+              <div class="rows"><i></i><i></i><i></i></div>
+              <div class="done"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg><b>You're all caught up</b></div>
+            </div>
+            <div class="card-copy"><span class="card-n">03</span><h3>A feed that ends</h3><p>Read today's answers, then put your phone down. That's the point.</p></div>
+          </article>
+          <article class="card c-dark">
+            <div class="art art-streak" aria-hidden="true"><span class="flame">🔥</span><b class="num" data-count="8">8</b><span class="lbl">day streak</span></div>
+            <div class="card-copy"><span class="card-n">04</span><h3>Keep the fire going</h3><p>Every answer adds a day to your streak.</p></div>
+          </article>
+          <article class="card c-ice">
+            <div class="art art-freeze" aria-hidden="true"><div class="days"><i>11</i><i>12</i><i class="frz">13</i><i>14</i><i>15</i></div></div>
+            <div class="card-copy"><span class="card-n">05</span><h3>Life happens</h3><p>Missed a day? A streak freeze saves it. You earn one every 7 days.</p></div>
+          </article>
+          <article class="card c-paper">
+            <div class="art art-cal" aria-hidden="true"><p class="m">October</p><div class="grid"></div></div>
+            <div class="card-copy"><span class="card-n">06</span><h3>Memories</h3><p>Every answer lands in your calendar. A year from now: 365 small stories.</p></div>
+          </article>
+          <article class="card c-green">
+            <div class="art art-widgets" aria-hidden="true">
+              <div class="w w-q"><small>TODAY'S QUESTION</small><b>IF YOU HAD ONE SUPERPOWER, WHAT WOULD IT BE?</b><em>Answer →</em></div>
+              <div class="w w-s"><span>🔥</span><b>8</b><small>3 friends answered</small></div>
+            </div>
+            <div class="card-copy"><span class="card-n">07</span><h3>Widgets</h3><p>Today's question on your Home Screen and Lock Screen.</p></div>
+          </article>
+          <article class="card c-lime">
+            <div class="art art-stories" aria-hidden="true">
+              <div class="sc sc-1"><small>QUESLY</small><b>IF YOU HAD ONE SUPERPOWER?</b><p>Teleportation ✨</p></div>
+              <div class="sc sc-2"><small>QUESLY</small><b>IF YOU HAD ONE SUPERPOWER?</b><p>Teleportation ✨</p></div>
+              <div class="sc sc-3"><small>QUESLY</small><b>IF YOU HAD ONE SUPERPOWER?</b><p>Teleportation ✨</p></div>
+            </div>
+            <div class="card-copy"><span class="card-n">08</span><h3>Story-ready</h3><p>One tap to Instagram or TikTok Stories, in three themes.</p></div>
+          </article>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 6. Widgets -->
-  <section class="sec green" id="widgets" aria-labelledby="widgets-title">
-    <div class="wrap split">
-      <div class="reveal">
-        <p class="eyebrow">Widgets</p>
-        <h2 class="h2" id="widgets-title">The question finds you</h2>
-        <p class="lead">Put today's question on your Home Screen or Lock Screen. Every time you unlock your phone, you see it, along with your streak and how many friends already answered.</p>
-        <ul class="feature-list">
-          <li><span class="ic"><svg aria-hidden="true"><use href="#i-widget"/></svg></span><div><b>Home Screen</b><span>Small and medium sizes</span></div></li>
-          <li><span class="ic"><svg aria-hidden="true"><use href="#i-phone"/></svg></span><div><b>Lock Screen</b><span>Rectangle, circle and inline</span></div></li>
-          <li><span class="ic"><svg aria-hidden="true"><use href="#i-users"/></svg></span><div><b>Friends answered</b><span>See who answered without opening the app</span></div></li>
-        </ul>
-      </div>
-      <div class="duo reveal" style="--d:.1s" aria-hidden="true">
-        <div class="phone"><img src="assets/img/screen-25-widgets.webp" alt="" width="640" height="1388" loading="lazy"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. Stories -->
-  <section class="sec on-light" id="stories" aria-labelledby="stories-title">
-    <div class="wrap split rev">
-      <div class="reveal">
-        <p class="eyebrow">Share to stories</p>
-        <h2 class="h2" id="stories-title">Your answer,<br>story-ready</h2>
-        <p class="lead">Turn any answer into a story card in one tap. Post it to Instagram or TikTok, or save it to Photos.</p>
-        <ul class="feature-list">
-          <li><span class="ic"><svg aria-hidden="true"><use href="#i-share"/></svg></span><div><b>Instagram &amp; TikTok Stories</b><span>Sized 9:16, ready to post</span></div></li>
-          <li><span class="ic"><svg aria-hidden="true"><use href="#i-palette"/></svg></span><div><b>Three themes</b><span>Green, Lime and Light</span></div></li>
-          <li><span class="ic"><svg aria-hidden="true"><use href="#i-sparkle"/></svg></span><div><b>“Answer yourself on Quesly”</b><span>Friends who see it can answer the same question</span></div></li>
-        </ul>
-      </div>
-      <div class="duo reveal" style="--d:.1s" aria-hidden="true">
-        <div class="phone"><img src="assets/img/screen-13-share.webp" alt="" width="640" height="1388" loading="lazy"></div>
-        <div class="phone"><img src="assets/img/screen-14-reactions.webp" alt="" width="640" height="1388" loading="lazy"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 8. Manifesto -->
-  <section class="sec deep manifesto" aria-label="Our belief">
+  <!-- 5. Answers wall -->
+  <section class="wall" aria-labelledby="wall-title">
     <div class="wrap">
-      <p class="eyebrow lime reveal">What we believe</p>
-      <p class="big" data-manifesto style="margin-top:28px">You don't need more feed. You need one good question, and the people you care about answering it.</p>
+      <h2 class="h2 center" id="wall-title" data-split>Millions of stories</h2>
+      <p class="lead center" data-reveal>Same question. A thousand different answers.</p>
+    </div>
+    <div class="wall-rows" aria-hidden="true">
+      <div class="wall-row"><div class="wall-track" data-row="0"></div></div>
+      <div class="wall-row"><div class="wall-track" data-row="1"></div></div>
     </div>
   </section>
 
-  <!-- 9. FAQ -->
-  <section class="sec on-light" id="faq" aria-labelledby="faq-title">
+  <!-- 6. Manifesto -->
+  <section class="manifesto" aria-label="What we believe">
     <div class="wrap">
-      <div class="section-head center reveal">
+      <p class="eyebrow lime" data-reveal>What we believe</p>
+      <p class="big" data-manifesto>You don't need more feed. You need one good question, and the people you care about answering it.</p>
+    </div>
+  </section>
+
+  <!-- 7. FAQ -->
+  <section class="faq-sec" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-grid">
+      <div class="faq-head">
         <p class="eyebrow">FAQ</p>
-        <h2 class="h2" id="faq-title">Questions about the question</h2>
+        <h2 class="h2" id="faq-title" data-split>Questions about the question</h2>
       </div>
-      <div class="faq reveal" style="--d:.08s">
+      <div class="faq">
         <details>
-          <summary>When can I download Quesly?<span class="plus" aria-hidden="true"></span></summary>
-          <p class="answer">Quesly is in private beta on iPhone. Leave your email and we'll send a TestFlight invite as soon as a spot opens. The App Store launch comes after.</p>
+          <summary>When can I get Quesly?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="answer"><p>We're in private beta. Join the waitlist and we'll send your invite as soon as a spot opens.</p></div>
         </details>
         <details>
           <summary>Is it free?<span class="plus" aria-hidden="true"></span></summary>
-          <p class="answer">Yes. Answering, reading, reacting and sharing are free.</p>
+          <div class="answer"><p>Yes. Answering, reading, reacting and sharing are free.</p></div>
         </details>
         <details>
           <summary>What if I miss a day?<span class="plus" aria-hidden="true"></span></summary>
-          <p class="answer">A streak freeze covers you. You earn one for every 7 days in a row and can hold two. If you have no freeze left, your streak starts again from zero. Your Memories stay.</p>
+          <div class="answer"><p>A streak freeze covers you. You earn one for every 7 days in a row and can hold two. If you have no freeze left, your streak starts again from zero. Your Memories stay.</p></div>
         </details>
         <details>
           <summary>Who sees my answers?<span class="plus" aria-hidden="true"></span></summary>
-          <p class="answer">You choose for each answer: <b>Everyone</b> or <b>Friends</b>. Only you can see your reaction counts and who reacted.</p>
+          <div class="answer"><p>You choose for each answer: Everyone or Friends. Only you can see your reaction counts and who reacted.</p></div>
         </details>
         <details>
           <summary>Why can't I see the feed before answering?<span class="plus" aria-hidden="true"></span></summary>
-          <p class="answer">So that every answer is your own. Answering first keeps it honest and makes reading everyone else's much more fun.</p>
+          <div class="answer"><p>So that every answer is your own. Answering first keeps it honest and makes reading everyone else's much more fun.</p></div>
         </details>
         <details>
           <summary>What about bad content?<span class="plus" aria-hidden="true"></span></summary>
-          <p class="answer">Reactions are positive-only by design. You can report any answer or block anyone in two taps, and a person reviews every report.</p>
-        </details>
-        <details>
-          <summary>Android?<span class="plus" aria-hidden="true"></span></summary>
-          <p class="answer">iPhone first. Leave your email and we'll let you know when Android is on the way.</p>
+          <div class="answer"><p>Reactions are positive-only by design. You can report any answer or block anyone in two taps, and a person reviews every report.</p></div>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- 10. Final CTA -->
-  <section class="sec green cta" id="join" aria-labelledby="join-title">
-    <div class="hero-arc" aria-hidden="true" style="top:auto;bottom:-60%;right:-30%"></div>
-    <div class="wrap">
-      <svg class="cta-mark reveal" viewBox="0 -4 111 90" aria-hidden="true"><use href="#mark"/></svg>
-      <p class="eyebrow lime reveal">Early access</p>
-      <h2 class="h2 reveal" id="join-title">Tomorrow's question<br><span class="hl">is waiting</span></h2>
-      <p class="lead reveal">Join the iPhone beta. We'll email you once, when your invite is ready.</p>
-      <form class="signup reveal" data-signup novalidate>
+  <!-- 8. CTA -->
+  <section class="cta" id="join" aria-labelledby="join-title">
+    <div class="ring ring-cta" aria-hidden="true"></div>
+    <div class="wrap cta-inner">
+      <p class="eyebrow lime" data-reveal>Early access</p>
+      <h2 class="cta-title" id="join-title"><span class="ct" data-split>Tomorrow's question</span><span class="ct lime" data-split>is waiting.</span></h2>
+      <form class="signup" data-signup data-reveal novalidate>
         <label class="sr-only" for="email-cta">Email address</label>
         <div class="signup-row">
           <input id="email-cta" type="email" name="email" placeholder="Your email" autocomplete="email" required>
-          <button class="btn btn-lime" type="submit">Get early access <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button class="btn btn-lime magnetic" type="submit"><span>Join the waitlist</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
         </div>
-        <p class="signup-note">By joining you agree to our <a href="privacy">Privacy Policy</a>.</p>
+        <p class="signup-note">One email when your invite is ready. No spam. <a href="privacy">Privacy</a></p>
         <p class="signup-msg" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -395,22 +302,27 @@
 <footer class="footer">
   <div class="wrap">
     <div class="footer-top">
-      <a class="logo" href="#top" aria-label="Quesly — back to top"><svg aria-hidden="true"><use href="#logo"/></svg></a>
+      <p class="tag">One question a day.<br><span class="lime">Millions of stories.</span></p>
       <nav aria-label="Footer">
         <a href="#how">How it works</a>
+        <a href="#features">Features</a>
         <a href="#faq">FAQ</a>
         <a href="privacy">Privacy</a>
         <a href="terms">Terms</a>
         <a href="mailto:hello@quesly.me">Contact</a>
       </nav>
     </div>
+    <div class="footer-word" aria-hidden="true"><svg><use href="#logo"/></svg></div>
     <div class="footer-bottom">
-      <span class="tag">ONE QUESTION A DAY. MILLIONS OF STORIES</span>
       <span>© <span data-year>2026</span> Quesly</span>
+      <span>Made for good questions</span>
     </div>
   </div>
 </footer>
 
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
