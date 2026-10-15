@@ -65,6 +65,9 @@
 
   function renderQuestion(el) {
     const [text, highlights] = QUESTIONS[todayIndex()];
+    const mini = $("[data-today-mini]");
+    if (mini) mini.textContent = text;
+    if (!el) return;
     const words = text.split(" ");
     const marked = new Set();
     for (const phrase of highlights) {
@@ -81,8 +84,6 @@
         const inner = marked.has(i) ? `<mark>${esc(w)}</mark>` : esc(w);
         return `<span class="qw">${inner}</span>`;
       }).join(" ") + "</span>";
-    const mini = $("[data-today-mini]");
-    if (mini) mini.textContent = text;
   }
 
   // ---------- Hero phone: today's answers type themselves into the composer ----------
@@ -131,6 +132,36 @@
     const [bg, fg] = AV[hsh % AV.length];
     return `<span class="av" style="--av-bg:${bg};--av-fg:${fg}" aria-hidden="true">${esc(user.replace(/[^a-z]/gi, "").slice(0, 1))}</span>`;
   };
+
+  // ---------- Hero title: one span per letter for the reveal ----------
+  function splitChars(el) {
+    el.setAttribute("aria-label", el.textContent.replace(/\s+/g, " ").trim());
+    const walk = (node) => [...node.childNodes].forEach((n) => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        for (const ch of n.textContent) {
+          const s = document.createElement("span");
+          s.className = "ch"; s.textContent = ch; s.setAttribute("aria-hidden", "true");
+          frag.appendChild(s);
+        }
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1 && n.tagName !== "BR") walk(n);
+    });
+    walk(el);
+  }
+
+  // ---------- Feature art: shrink to fit short cards so it never covers the text ----------
+  function fitArt() {
+    $$(".card .art").forEach((art) => {
+      art.style.setProperty("--fit", 1);
+      const kids = [...art.children];
+      const stories = art.classList.contains("art-stories");
+      const needH = stories ? Math.max(...kids.map((k) => k.offsetHeight)) * 1.08 : art.scrollHeight;
+      const needW = stories ? kids[0].offsetWidth * 2.1 : art.scrollWidth;
+      const fit = Math.min(1, art.clientHeight / needH, art.clientWidth / needW);
+      art.style.setProperty("--fit", fit.toFixed(3));
+    });
+  }
 
   // ---------- Hero answer stream: today's answers in two rows ----------
   function buildRiver() {
@@ -280,15 +311,13 @@
       lenis.scrollTo(target, { duration: 1.6, easing: (x) => 1 - Math.pow(1 - x, 4) });
     }));
 
-    // ----- Intro: the logo pulses, the curtain lifts, then the question types itself in -----
-    const qWords = $$(".hero-q .qw");
-    const tracks = $$("[data-river]");
-    gsap.set(qWords, { opacity: 0, y: 18 });
+    // ----- Intro: the logo pulses, the curtain lifts, the title surfaces letter by letter -----
+    const chars = $$(".hero-title .ch");
+    gsap.set(chars, { opacity: 0, yPercent: 60, filter: "blur(12px)" });
     gsap.set([".hero-eyebrow", ".hero-sub", ".hero-form", "#nav"], { opacity: 0, y: 20 });
-    gsap.set(".river-row", { opacity: 0, y: 60 });
-    gsap.set(".device-hero", { opacity: 0, y: 80, rotateX: 18 });
+    gsap.set(".hero-beam", { opacity: 0 });
+    gsap.set(".hero-scene", { opacity: 0, y: 120, rotateX: 34 });
     gsap.set([".float-card", ".hero-chip"], { opacity: 0, scale: .85 });
-    gsap.set(".hero-ring", { opacity: 0, scale: .6 });
     lenis.stop();
 
     const intro = gsap.timeline({ defaults: { ease: "expo.out" }, onComplete: () => lenis.start() });
@@ -296,45 +325,29 @@
       .to(".loader-mark", { scale: .8, opacity: 0, duration: .6, ease: "power2.in" }, 1.1)
       .to(".loader", { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "expo.inOut" }, 1.4)
       .set(".loader", { display: "none" }, 2.4)
+      .to(".hero-beam", { opacity: .9, duration: 2.4, ease: "power2.out" }, 1.8)
       .to(".hero-eyebrow", { opacity: 1, y: 0, duration: 1 }, 2.0)
-      // words arrive one by one, like the question screen in the app
-      .to(qWords, { opacity: 1, y: 0, duration: .7, stagger: .09, ease: "power3.out" }, 2.15)
-      .to([".hero-sub", ".hero-form", "#nav"], { opacity: 1, y: 0, duration: 1.1, stagger: .08 }, 2.3 + qWords.length * .06)
-      .to(".river-row", { opacity: 1, y: 0, duration: 1.4, stagger: .12 }, 2.5 + qWords.length * .06)
-      .to(".hero-ring", { opacity: 1, scale: 1, duration: 1.8, stagger: .12 }, 1.9)
-      .to(".device-hero", { opacity: 1, y: 0, rotateX: 0, duration: 1.6 }, 2.1)
-      .to([".float-card", ".hero-chip"], { opacity: 1, scale: 1, duration: 1.1, stagger: .14, ease: "back.out(1.6)" }, 2.6);
+      .to(chars, { opacity: 1, yPercent: 0, filter: "blur(0px)", duration: 1.1, stagger: .035, ease: "power3.out" }, 2.1)
+      .to([".hero-sub", ".hero-form", "#nav"], { opacity: 1, y: 0, duration: 1.1, stagger: .08 }, 2.5)
+      .to(".hero-scene", { opacity: 1, y: 0, rotateX: 24, duration: 2, ease: "expo.out" }, 2.5)
+      .to([".float-card", ".hero-chip"], { opacity: 1, scale: 1, duration: 1.1, stagger: .14, ease: "back.out(1.6)" }, 3.0);
 
-    // ----- Hero stage: cards bob gently and drift with the cursor for depth -----
+    // ----- Hero: the phone straightens up as you scroll, cards drift with the cursor -----
+    gsap.to(".hero-scene", { rotateX: 0, y: () => -innerHeight * .1, ease: "none",
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to(".hero-inner", { y: () => -innerHeight * .12, opacity: 0, ease: "none",
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "60% top", scrub: true } });
     $$(".float-card, .hero-chip").forEach((el, i) =>
       gsap.to(el, { y: i % 2 ? 10 : -10, duration: 3 + i * .5, ease: "sine.inOut", yoyo: true, repeat: -1, delay: i * .3 }));
     if (finePointer) {
-      const stage = $(".hero");
       const layers = $$("[data-depth]").map((el) => [gsap.quickTo(el, "x", { duration: 1.2, ease: "power3.out" }), +el.dataset.depth]);
-      const tiltX = gsap.quickTo(".device-hero", "rotateY", { duration: 1.2, ease: "power3.out" });
-      const tiltY = gsap.quickTo(".device-hero", "rotateX", { duration: 1.2, ease: "power3.out" });
-      stage.addEventListener("pointermove", (e) => {
-        const nx = e.clientX / innerWidth - .5, ny = e.clientY / innerHeight - .5;
+      const beamX = gsap.quickTo(".hero-beam", "x", { duration: 2, ease: "power3.out" });
+      $(".hero").addEventListener("pointermove", (e) => {
+        const nx = e.clientX / innerWidth - .5;
         layers.forEach(([fx, d]) => fx(nx * d * 18));
-        tiltX(nx * 10); tiltY(-ny * 8);
+        beamX(nx * 80);
       });
     }
-
-    // ----- Hero: endless answer stream that speeds up with scroll, gentle parallax on the way out -----
-    const loops = tracks.map((t, r) =>
-      gsap.fromTo(t, { xPercent: r ? -50 : 0 }, { xPercent: r ? 0 : -50, duration: 60, ease: "none", repeat: -1 }));
-    ScrollTrigger.create({
-      trigger: ".hero", start: "top top", end: "bottom top",
-      onUpdate: (st) => {
-        const boost = 1 + Math.min(6, Math.abs(st.getVelocity()) / 350);
-        loops.forEach((l) => gsap.to(l, { timeScale: boost, duration: .2, overwrite: true, onComplete: () => gsap.to(l, { timeScale: 1, duration: 1.2 }) }));
-      },
-    });
-    gsap.to(".hero-inner", { yPercent: -18, opacity: .2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-    if (finePointer) $$(".river-row").forEach((row) => {
-      row.addEventListener("pointerenter", () => loops.forEach((l) => gsap.to(l, { timeScale: .25, duration: .6 })));
-      row.addEventListener("pointerleave", () => loops.forEach((l) => gsap.to(l, { timeScale: 1, duration: .6 })));
-    });
 
     // ----- Split headings -----
     $$("main [data-split]").forEach((el) => {
@@ -449,6 +462,10 @@
   // ---------- Boot ----------
   renderQuestion($("[data-today]"));
   $$("[data-split]").forEach(split);
+  $$("[data-chars]").forEach(splitChars);
+  fitArt();
+  addEventListener("resize", fitArt);
+  document.fonts?.ready.then(fitArt);
   const mf = $("[data-manifesto]");
   if (mf) {
     const text = mf.textContent.trim();
