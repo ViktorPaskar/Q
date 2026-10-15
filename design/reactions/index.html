@@ -83,9 +83,10 @@
   const IMG = "../../assets/img/emoji/";
   const REACTIONS = [
     { id: "love", label: "Love", img: "heart.png", tilt: -8 },
-    { id: "ha", label: "Ha", img: "joy.png", tilt: 6 },
+    { id: "green", label: "Green heart", img: "green-heart.png", tilt: 7 },
+    { id: "adore", label: "Adore", img: "hearts.png", tilt: -5 },
     { id: "touched", label: "Touched", img: "tears.png", tilt: -4 },
-    { id: "wow", label: "Wow", img: "wow.png", tilt: 9 },
+    { id: "like", label: "Like", img: "thumbs.png", tilt: 9 },
     { id: "same", label: "Same", word: "SAME", tilt: -6 },
   ];
   const sticker = (r) => r.word
@@ -102,7 +103,7 @@
 
     picker.innerHTML = REACTIONS.map((r) => `<button type="button" role="menuitem" aria-label="${r.label}" data-r="${r.id}">${sticker(r)}</button>`).join("");
     const render = () => {
-      const base = ci ? ["ha"] : ["touched", "love"];
+      const base = ci ? ["like"] : ["touched", "love"];
       const ids = mine ? [...base.filter((b) => b !== mine), mine] : base;
       stuck.innerHTML = ids.map((id) => sticker(REACTIONS.find((r) => r.id === id))).join("");
       count.textContent = mine ? `You and ${others} others` : `${others} reactions`;

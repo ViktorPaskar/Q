@@ -17,45 +17,45 @@
   // Each question carries a handful of sample answers for the hero stream: [answer, username, reactions].
   const QUESTIONS = [
     ["If you only had one day off, what would you do?", ["day off,", "you do?"], [
-      ["Phone off, long walk, good book", "nata.ver", "❤️"], ["Sleep till noon, then pancakes", "chill_mara", "😂 🔥"],
-      ["Take my dog to the beach", "leo.martin", "🥹"], ["Finally finish that 1000-piece puzzle", "camille_b", "😂"],
+      ["Phone off, long walk, good book", "nata.ver", "❤️"], ["Sleep till noon, then pancakes", "chill_mara", "🥰 🔥"],
+      ["Take my dog to the beach", "leo.martin", "🥹"], ["Finally finish that 1000-piece puzzle", "camille_b", "🥰"],
       ["Cook something slow with friends", "alexo91", "❤️ 🔥"], ["Ride my bike to nowhere", "theo_runs", "🔥"]]],
     ["What's a small thing that makes you happy every day?", ["happy"], [
       ["First sip of coffee while everyone's still asleep", "alexo91", "❤️"], ["My cat waiting for me at the door", "koko_lilly", "🥹 ❤️"],
-      ["Fresh sheets night", "AnnaViva", "🔥"], ["Green lights all the way home", "mr.smith", "😂"],
+      ["Fresh sheets night", "AnnaViva", "🔥"], ["Green lights all the way home", "mr.smith", "🥰"],
       ["Voice notes from my sister", "yasmine.k", "🥹"], ["Sunlight on my desk at 4pm", "arturo_sun", "❤️ 🔥"]]],
     ["If you could live anywhere in the world, where would it be?", ["anywhere", "world,"], [
-      ["Lisbon. Sun, tiles and the sea", "leo.martin", "🔥"], ["A cabin with a view and fast Wi-Fi", "chill_mara", "😂"],
+      ["Lisbon. Sun, tiles and the sea", "leo.martin", "🔥"], ["A cabin with a view and fast Wi-Fi", "chill_mara", "🥰"],
       ["Tokyo, for the trains and the ramen", "theo_runs", "🔥 ❤️"], ["Wherever my friends are", "camille_b", "🥹"],
-      ["A tiny island in Greece", "AnnaViva", "❤️"], ["Montréal, snow included", "van.derss2", "😂"]]],
+      ["A tiny island in Greece", "AnnaViva", "❤️"], ["Montréal, snow included", "van.derss2", "🥰"]]],
     ["If you had one superpower, what would it be?", ["superpower,"], [
-      ["Teleportation. No more 2-hour train rides to see my parents", "funnnnyyy1", "❤️ 🥹"], ["Pause time for 10 minutes every morning", "john.john", "😂 🔥"],
+      ["Teleportation. No more 2-hour train rides to see my parents", "funnnnyyy1", "❤️ 🥹"], ["Pause time for 10 minutes every morning", "john.john", "🥰 🔥"],
       ["Speaking every language in the world", "koko_lilly", "🔥"], ["Healing people with a touch. Med school would be way easier", "yasmine.k", "❤️"],
-      ["Never get tired. Imagine the running PRs", "theo_runs", "🔥 😂"], ["Infinite phone battery. Simple but life-changing", "chill_mara", "😂"]]],
+      ["Never get tired. Imagine the running PRs", "theo_runs", "🔥 🥰"], ["Infinite phone battery. Simple but life-changing", "chill_mara", "🥰"]]],
     ["What's the best advice you've ever received?", ["best advice"], [
       ["Done is better than perfect", "mr.smith", "❤️ 🔥"], ["Call your mom more often", "arturo_sun", "🥹 ❤️"],
-      ["Sleep on it before you hit send", "camille_b", "😂"], ["Be the friend you want to have", "van.derss2", "❤️"],
-      ["Nobody thinks about you as much as you think", "leo.martin", "🔥"], ["Drink water. Seriously.", "AnnaViva", "😂"]]],
+      ["Sleep on it before you hit send", "camille_b", "🥰"], ["Be the friend you want to have", "van.derss2", "❤️"],
+      ["Nobody thinks about you as much as you think", "leo.martin", "🔥"], ["Drink water. Seriously.", "AnnaViva", "🥰"]]],
     ["Which song always puts you in a good mood?", ["song", "good mood?"], [
-      ["Dancing Queen, every single time", "AnnaViva", "😂"], ["Mr. Blue Sky", "john.john", "🔥"],
+      ["Dancing Queen, every single time", "AnnaViva", "🥰"], ["Mr. Blue Sky", "john.john", "🔥"],
       ["Anything my dad played in the car", "nata.ver", "🥹 ❤️"], ["Here Comes the Sun", "koko_lilly", "❤️"],
-      ["September by Earth, Wind & Fire", "theo_runs", "🔥 😂"], ["The Friends theme. Don't judge", "funnnnyyy1", "😂"]]],
+      ["September by Earth, Wind & Fire", "theo_runs", "🔥 🥰"], ["The Friends theme. Don't judge", "funnnnyyy1", "🥰"]]],
     ["What's something you're quietly proud of?", ["proud"], [
       ["I finally learned to swim at 27", "camille_b", "🥹 ❤️"], ["Six months without smoking", "mr.smith", "🔥"],
-      ["I said no to a job that wasn't me", "yasmine.k", "❤️"], ["My sourdough actually rose", "alexo91", "😂 🔥"],
+      ["I said no to a job that wasn't me", "yasmine.k", "❤️"], ["My sourdough actually rose", "alexo91", "🥰 🔥"],
       ["I called my grandma every Sunday this year", "van.derss2", "🥹"], ["Ran my first 10K", "theo_runs", "🔥 ❤️"]]],
     ["What tiny moment made your week better?", ["tiny moment"], [
       ["A stranger held the door and smiled", "yasmine.k", "❤️"], ["My barista remembered my name", "leo.martin", "🥹"],
       ["Rain on the window while I read", "nata.ver", "❤️ 🔥"], ["My kid said thank you without being asked", "mr.smith", "🥹 ❤️"],
-      ["Found 10 euros in an old jacket", "funnnnyyy1", "😂"], ["Sunset from the bus window", "chill_mara", "🔥"]]],
+      ["Found 10 euros in an old jacket", "funnnnyyy1", "🥰"], ["Sunset from the bus window", "chill_mara", "🔥"]]],
     ["What's one skill you'd love to learn this year?", ["skill"], [
       ["Film photography. Slow and real", "koko_lilly", "🔥"], ["Italian, to talk with my nonna", "camille_b", "🥹 ❤️"],
-      ["Piano. Just one song", "AnnaViva", "❤️"], ["Cooking without a recipe", "alexo91", "😂"],
-      ["Skateboarding. At 34. Why not", "john.john", "😂 🔥"], ["Sign language", "yasmine.k", "❤️ 🔥"]]],
+      ["Piano. Just one song", "AnnaViva", "❤️"], ["Cooking without a recipe", "alexo91", "🥰"],
+      ["Skateboarding. At 34. Why not", "john.john", "🥰 🔥"], ["Sign language", "yasmine.k", "❤️ 🔥"]]],
     ["What meal feels like home to you?", ["home"], [
       ["Grandma's dumplings on a Sunday", "van.derss2", "🥹"], ["Mom's lentil soup", "yasmine.k", "❤️"],
-      ["Pancakes with way too much syrup", "funnnnyyy1", "😂"], ["Rice, egg, soy sauce. Every time", "leo.martin", "🔥"],
-      ["My dad's terrible but perfect pasta", "arturo_sun", "😂 ❤️"], ["Borscht with sour cream", "nata.ver", "🥹 🔥"]]],
+      ["Pancakes with way too much syrup", "funnnnyyy1", "🥰"], ["Rice, egg, soy sauce. Every time", "leo.martin", "🔥"],
+      ["My dad's terrible but perfect pasta", "arturo_sun", "🥰 ❤️"], ["Borscht with sour cream", "nata.ver", "🥹 🔥"]]],
   ];
   const DAYS_BEFORE_1970 = 719163;
   const todayIndex = (now = new Date()) =>
@@ -164,7 +164,7 @@
   }
 
   // ---------- Emoji: swap the reaction emoji for one image set so every system shows the same ----------
-  const EMO = { "❤️": "heart", "❤": "heart", "🔥": "fire", "😂": "joy", "🥹": "tears", "😮": "wow", "✨": "sparkles", "🎉": "party" };
+  const EMO = { "❤️": "heart", "❤": "heart", "🔥": "fire", "😂": "joy", "🥹": "tears", "😮": "wow", "💚": "green-heart", "🥰": "hearts", "👍": "thumbs", "✨": "sparkles", "🎉": "party" };
 
   // Reactions are stickers. In sample data 🔥 stands for SAME, the Quesly-only reaction.
   const TILTS = [-8, 6, -4, 9, -6];
@@ -174,10 +174,10 @@
     const name = EMO[t] || EMO[t.replace(/\uFE0F/g, "")];
     return name ? `<i class="st" style="${tilt}"><img src="assets/img/emoji/${name}.png" alt="${t}"></i>` : "";
   }).join("");
-  const EMO_RE = /❤️|❤|🔥|😂|🥹|✨|🎉/g;
+  const EMO_RE = /❤️|❤|💚|🥰|👍|🔥|😂|🥹|✨|🎉/g;
   function emojify(root = document.body) {
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) =>
-      /❤|🔥|😂|🥹|✨|🎉/.test(n.nodeValue) && !n.parentElement.closest("script, style, textarea, input, [data-typing], .sr-only") ? 1 : 2 });
+      /❤|💚|🥰|👍|🔥|😂|🥹|✨|🎉/.test(n.nodeValue) && !n.parentElement.closest("script, style, textarea, input, [data-typing], .sr-only") ? 1 : 2 });
     const nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach((n) => {
