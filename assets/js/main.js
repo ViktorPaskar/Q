@@ -5,7 +5,7 @@
   // Where early-access emails go. Any endpoint that accepts a JSON POST {email} works
   // (Formspree, Supabase Edge Function, Google Apps Script…). Empty = fall back to email.
   const SIGNUP_ENDPOINT = "";
-  const CONTACT_EMAIL = "hello@quesly.app";
+  const CONTACT_EMAIL = "hello@quesly.me";
 
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const $ = (s, el = document) => el.querySelector(s);

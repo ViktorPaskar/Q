@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://quesly.app/sitemap.xml
+Sitemap: https://quesly.me/sitemap.xml

@@ -2,7 +2,6 @@ name: Deploy site
 
 on:
   push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -16,6 +15,8 @@ concurrency:
 
 jobs:
   deploy:
+    # Only the default branch goes live; other branches are previews you check locally.
+    if: github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -26,7 +27,7 @@ jobs:
       - name: Collect site files
         run: |
           mkdir _site
-          cp -r index.html privacy.html terms.html 404.html robots.txt sitemap.xml .nojekyll assets _site/
+          cp -r index.html privacy.html terms.html 404.html robots.txt sitemap.xml .nojekyll CNAME assets _site/
       - uses: actions/upload-pages-artifact@v3
       - id: deployment
         uses: actions/deploy-pages@v4
