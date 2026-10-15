@@ -93,7 +93,7 @@
     ["Best advice", "Call your mom more often", "arturo_sun", 8, "🥹 ❤️"],
   ];
   function buildWall() {
-    const card = ([q, a, user, av, rx]) => `<div class="answer-card"><p class="q">${q}</p><p class="who"><img src="assets/img/avatar-${av}.webp" alt="" width="28" height="28" loading="lazy">${user}</p><p>${esc(a)}</p><p class="rx">${rx}</p></div>`;
+    const card = ([q, a, user, av, rx]) => `<div class="answer-card"><p class="q">${q}</p><p class="who"><img src="assets/img/avatars/${user}.svg" alt="" width="28" height="28" loading="lazy">${user}</p><p>${esc(a)}</p><p class="rx">${rx}</p></div>`;
     $$(".wall-track").forEach((track, r) => {
       const list = r === 0 ? ANSWERS.slice(0, 7) : ANSWERS.slice(7);
       const html = list.map(card).join("");
@@ -116,6 +116,107 @@
       if (d > 14) return;
       setTimeout(() => el.classList.add(d === 10 ? "frz" : "on"), d * 70);
     });
+  }
+
+  // ---------- Quby, the mascot (geometry mirrors tools/quby.py) ----------
+  const Q = { W: 38.6, R: 5.32, BAR1: 14.5, BAR2: 27.68, BH: 9.32, SHORT: 21, GAP: 14.51 };
+  Q.CENTER = (Q.W - Q.GAP) / 2;           // left eye x when centred
+  Q.LOOK = Q.CENTER - Q.R;                // max sideways eye shift
+  const MOODS = {
+    1: ["full", "top", 0, "full", "Wink"],
+    2: ["top", "top", 0, "full", "Happy"],
+    3: ["full", "full", 0, "full", "Hi"],
+    4: ["bottom", "full", 0, "full", "Sly"],
+    5: ["full", "full", -1, "full", "Looks left"],
+    6: ["full", "full", 1, "full", "Looks right"],
+    7: ["full", "full", 0, "left", "Thinking"],
+    8: ["full", "full", 0, "right", "Hmm"],
+  };
+  const eyeShape = (cx, kind) => {
+    const { R } = Q;
+    if (kind === "full") return `<circle cx="${cx}" cy="${R}" r="${R}"/>`;
+    const sweep = kind === "top" ? 1 : 0;
+    return `<path d="M${cx - R} ${R}A${R} ${R} 0 0 ${sweep} ${cx + R} ${R}Z"/>`;
+  };
+  const staticFace = (m) => {
+    const [l, r, look, bar] = MOODS[m];
+    const x = Q.CENTER + look * Q.LOOK;
+    const [bx, bw] = bar === "full" ? [0, Q.W] : bar === "left" ? [0, Q.SHORT] : [Q.W - Q.SHORT, Q.SHORT];
+    return eyeShape(x, l) + eyeShape(x + Q.GAP, r) +
+      `<rect y="${Q.BAR1}" width="${Q.W}" height="${Q.BH}"/><rect x="${bx}" y="${Q.BAR2}" width="${bw}" height="${Q.BH}"/>`;
+  };
+
+  function setupQuby(gsap) {
+    const svg = $("[data-quby]");
+    const moodsEl = $("[data-moods]");
+    if (!svg || !moodsEl) return;
+    svg.innerHTML = `<g class="q-eyes"><g class="q-eye q-l"></g><g class="q-eye q-r"></g></g>` +
+      `<rect y="${Q.BAR1}" width="${Q.W}" height="${Q.BH}"/><rect class="q-bar2" y="${Q.BAR2}" width="${Q.W}" height="${Q.BH}"/>`;
+    const eyes = $(".q-eyes", svg), eL = $(".q-l", svg), eR = $(".q-r", svg), bar2 = $(".q-bar2", svg);
+    const animated = gsap && !reduceMotion;
+    let mood = 3, kinds = ["", ""], lookLock = 0, auto = 0;
+
+    moodsEl.innerHTML = Object.keys(MOODS).map((m) =>
+      `<button class="mood" type="button" data-mood="${m}" aria-pressed="false" aria-label="${MOODS[m][4]}"><svg viewBox="0 0 38.6 37" aria-hidden="true">${staticFace(m)}</svg></button>`).join("");
+    const buttons = $$(".mood", moodsEl);
+
+    const setEyes = (l, r) => {
+      if (l !== kinds[0]) eL.innerHTML = eyeShape(Q.CENTER, l);
+      if (r !== kinds[1]) eR.innerHTML = eyeShape(Q.CENTER + Q.GAP, r);
+      kinds = [l, r];
+    };
+    const lookTo = (t, dur = .6) => {
+      const x = t * Q.LOOK;
+      if (animated) gsap.to(eyes, { x, duration: dur, ease: "power3.out", overwrite: "auto" });
+      else eyes.setAttribute("transform", `translate(${x} 0)`);
+    };
+    const show = (m, { pop = true } = {}) => {
+      mood = Number(m);
+      const [l, r, look, bar] = MOODS[mood];
+      setEyes(l, r);
+      const [bx, bw] = bar === "full" ? [0, Q.W] : bar === "left" ? [0, Q.SHORT] : [Q.W - Q.SHORT, Q.SHORT];
+      if (animated) gsap.to(bar2, { attr: { x: bx, width: bw }, duration: .5, ease: "expo.out" });
+      else { bar2.setAttribute("x", bx); bar2.setAttribute("width", bw); }
+      if (look) { lookLock = Date.now() + 2500; lookTo(look); } else lookTo(0);
+      if (animated && pop) gsap.fromTo(svg, { scale: .92 }, { scale: 1, duration: .7, ease: "elastic.out(1, .45)", transformOrigin: "50% 100%" });
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mood === String(mood))));
+    };
+    show(3, { pop: false });
+
+    const stopAuto = () => { clearInterval(auto); auto = 0; };
+    buttons.forEach((b) => b.addEventListener("click", () => { stopAuto(); show(b.dataset.mood); }));
+    svg.addEventListener("click", () => { stopAuto(); show(mood === 2 ? 3 : 2); });
+    if (!animated) return;
+
+    // Eyes follow the pointer sideways (the Figma "looks left / right" range).
+    addEventListener("pointermove", (e) => {
+      if (Date.now() < lookLock || MOODS[mood][2]) return;
+      const r = svg.getBoundingClientRect();
+      const t = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (innerWidth / 2.2)));
+      lookTo(t, .5);
+    }, { passive: true });
+
+    // Blink now and then, only with round eyes.
+    const blink = () => {
+      if (kinds[0] === "full" && kinds[1] === "full") {
+        gsap.timeline().to([eL, eR], { scaleY: .12, duration: .08, ease: "power2.in", transformOrigin: "50% 50%" })
+          .to([eL, eR], { scaleY: 1, duration: .16, ease: "power2.out" });
+      }
+      setTimeout(blink, 2200 + Math.random() * 2800);
+    };
+    setTimeout(blink, 1800);
+
+    // Until someone picks a mood, Quby shows them off on its own while on screen.
+    const order = [3, 1, 5, 6, 2, 7, 8, 4];
+    let k = 0;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !auto && k >= 0) auto = setInterval(() => show(order[++k % order.length]), 2200);
+      else if (!e.isIntersecting && auto) stopAuto();
+    }, { threshold: .4 });
+    io.observe(svg);
+    const stopForGood = () => { k = -1; stopAuto(); io.disconnect(); };
+    buttons.forEach((b) => b.addEventListener("click", stopForGood));
+    svg.addEventListener("click", stopForGood);
   }
 
   // ---------- Waitlist form ----------
@@ -449,6 +550,7 @@
 
   const libs = window.gsap && window.ScrollTrigger && window.Lenis;
   setupFaq(libs ? window.gsap : null);
+  setupQuby(window.gsap || null);
   if (!libs || reduceMotion) {
     showAllStatic();
     return;
