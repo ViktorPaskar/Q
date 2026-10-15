@@ -189,7 +189,7 @@ html:not(.js) .loader { display: none; }
   font: 700 12px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: rgba(255, 255, 255, .6); font-variant-numeric: tabular-nums; }
 .hero-eyebrow i { width: 1px; height: 12px; background: rgba(255, 255, 255, .2); }
 .hero-eyebrow [data-countdown] { color: var(--lime); }
-.hero-title { margin-top: clamp(20px, 3vh, 30px); font: 900 clamp(46px, min(7.4vw, 12.5vh), 124px)/.92 var(--display); letter-spacing: -.035em; text-transform: uppercase; color: #fff; }
+.hero-title { margin-top: 0; font: 900 clamp(46px, min(7.4vw, 12.5vh), 124px)/.92 var(--display); letter-spacing: -.035em; text-transform: uppercase; color: #fff; }
 .hero-title em { font-style: normal; color: var(--lime); text-shadow: 0 0 40px rgba(212, 255, 0, .3); }
 .hero-title .ch { display: inline-block; white-space: pre; }
 .hero-sub { margin-top: clamp(16px, 2.4vh, 24px); max-width: 32em; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.55; color: rgba(255, 255, 255, .58); text-wrap: balance; }
@@ -261,8 +261,8 @@ html:not(.js) .loader { display: none; }
 .how-progress i { display: block; height: 100%; width: 100%; background: var(--green); transform-origin: left; transform: scaleX(.33); }
 .how-stage { position: relative; display: grid; place-items: center; min-height: min(640px, calc(100svh - 150px)); }
 .how-stage .device-lg { --w: clamp(190px, min(23vw, calc((100vh - 170px) * .4815), calc((100svh - 170px) * .4815)), 340px); }
-@media (max-height: 900px) and (min-width: 901px) {
-  .how-pin { padding: 84px 0 28px; }
+@media (max-height: 1000px) and (min-width: 901px) {
+  .how-pin { padding: 88px 0 56px; }
   .how-copy .h2 { font-size: clamp(30px, 7vh, 56px); margin-top: 12px; }
   .step h3 { font-size: clamp(20px, 3.4vh, 28px); }
   .step p { margin-top: 4px; font-size: 15px; line-height: 1.45; }
@@ -479,3 +479,13 @@ html:not(.js) .loader { display: none; }
 /* Dark theme: the nav over dark sections keeps the lime mark */
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .nav.on-light .logo { --logo-mark: var(--lime); } }
 :root[data-theme="dark"] .nav.on-light .logo { --logo-mark: var(--lime); }
+
+/* One emoji style everywhere (Fluent 3D, MIT), whatever the visitor's system */
+.emo { display: inline-block; width: 1.15em; height: 1.15em; vertical-align: -.22em; object-fit: contain; }
+.burst .emo, .art-reactions .emo { width: 60%; height: 60%; vertical-align: 0; }
+.rx .emo + .emo { margin-left: 3px; }
+/* Story screenshot: redraw its reaction row with the same emoji set as the rest of the site */
+.rx-overlay { position: absolute; z-index: 2; left: 5%; right: 5%; top: 89.6%; height: 7.6%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.4%; opacity: 0; transition: opacity .5s; }
+.rx-overlay span { display: grid; place-items: center; border-radius: 28%; background: #1F6B51; }
+.rx-overlay .emo { width: 46%; height: auto; vertical-align: 0; }
+.rx-overlay.is-on { opacity: 1; }

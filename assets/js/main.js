@@ -163,6 +163,29 @@
     });
   }
 
+  // ---------- Emoji: swap the reaction emoji for one image set so every system shows the same ----------
+  const EMO = { "❤️": "heart", "❤": "heart", "🔥": "fire", "😂": "joy", "🥹": "tears", "✨": "sparkles", "🎉": "party" };
+  const EMO_RE = /❤️|❤|🔥|😂|🥹|✨|🎉/g;
+  function emojify(root = document.body) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) =>
+      /❤|🔥|😂|🥹|✨|🎉/.test(n.nodeValue) && !n.parentElement.closest("script, style, textarea, input, [data-typing], .sr-only") ? 1 : 2 });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((n) => {
+      const frag = document.createDocumentFragment();
+      let last = 0;
+      n.nodeValue.replace(EMO_RE, (m, i) => {
+        frag.append(n.nodeValue.slice(last, i));
+        const img = new Image();
+        img.className = "emo"; img.src = "assets/img/emoji/" + EMO[m] + ".png"; img.alt = m; img.draggable = false;
+        frag.append(img);
+        last = i + m.length;
+      });
+      frag.append(n.nodeValue.slice(last));
+      n.replaceWith(frag);
+    });
+  }
+
   // ---------- Hero answer stream: today's answers in two rows ----------
   function buildRiver() {
     const answers = QUESTIONS[todayIndex()][2];
@@ -225,7 +248,7 @@
           });
           if (!res.ok) throw new Error(String(res.status));
           form.classList.add("is-done");
-          say("You're on the list 🎉 We'll email you when your invite is ready.", "ok");
+          say("You're on the list 🎉 We'll email you when your invite is ready.", "ok"); emojify(msg);
         } catch {
           say("Something went wrong. Please try again in a moment.", "error");
         } finally {
@@ -314,7 +337,7 @@
     // ----- Intro: the logo pulses, the curtain lifts, the title surfaces letter by letter -----
     const chars = $$(".hero-title .ch");
     gsap.set(chars, { opacity: 0, yPercent: 60, filter: "blur(12px)" });
-    gsap.set([".hero-eyebrow", ".hero-sub", ".hero-form", "#nav"], { opacity: 0, y: 20 });
+    gsap.set([".hero-sub", ".hero-form", "#nav"], { opacity: 0, y: 20 });
     gsap.set(".hero-beam", { opacity: 0 });
     gsap.set(".hero-scene", { opacity: 0, y: 120, rotateX: 34 });
     gsap.set([".float-card", ".hero-chip"], { opacity: 0, scale: .85 });
@@ -326,17 +349,12 @@
       .to(".loader", { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "expo.inOut" }, 1.4)
       .set(".loader", { display: "none" }, 2.4)
       .to(".hero-beam", { opacity: .9, duration: 2.4, ease: "power2.out" }, 1.8)
-      .to(".hero-eyebrow", { opacity: 1, y: 0, duration: 1 }, 2.0)
       .to(chars, { opacity: 1, yPercent: 0, filter: "blur(0px)", duration: 1.1, stagger: .035, ease: "power3.out" }, 2.1)
       .to([".hero-sub", ".hero-form", "#nav"], { opacity: 1, y: 0, duration: 1.1, stagger: .08 }, 2.5)
       .to(".hero-scene", { opacity: 1, y: 0, rotateX: 24, duration: 2, ease: "expo.out" }, 2.5)
       .to([".float-card", ".hero-chip"], { opacity: 1, scale: 1, duration: 1.1, stagger: .14, ease: "back.out(1.6)" }, 3.0);
 
-    // ----- Hero: the phone straightens up as you scroll, cards drift with the cursor -----
-    gsap.to(".hero-scene", { rotateX: 0, y: () => -innerHeight * .1, ease: "none",
-      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-    gsap.to(".hero-inner", { y: () => -innerHeight * .12, opacity: 0, ease: "none",
-      scrollTrigger: { trigger: ".hero", start: "top top", end: "60% top", scrub: true } });
+    // ----- Hero: cards drift gently with the cursor (nothing moves on scroll) -----
     $$(".float-card, .hero-chip").forEach((el, i) =>
       gsap.to(el, { y: i % 2 ? 10 : -10, duration: 3 + i * .5, ease: "sine.inOut", yoyo: true, repeat: -1, delay: i * .3 }));
     if (finePointer) {
@@ -377,6 +395,7 @@
       current = n;
       steps.forEach((s, k) => s.classList.toggle("is-active", k === n));
       hFloats.forEach((f, k) => f.classList.toggle("is-on", k === n));
+      $(".rx-overlay")?.classList.toggle("is-on", n === 2);
       layers.forEach((l, k) => {
         if (k === n) gsap.fromTo(l, { opacity: 0, scale: 1.06, filter: "blur(6px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: .8, ease: "expo.out", overwrite: true });
         else if (k === prev) gsap.to(l, { opacity: 0, duration: .5, ease: "power2.out", overwrite: true });
@@ -466,6 +485,7 @@
   renderQuestion($("[data-today]"));
   $$("[data-split]").forEach(split);
   $$("[data-chars]").forEach(splitChars);
+  emojify();
   fitArt();
   addEventListener("resize", fitArt);
   document.fonts?.ready.then(fitArt);
