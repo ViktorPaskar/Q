@@ -438,7 +438,7 @@
     });
 
     // ----- CTA -----
-    gsap.fromTo(".ring-cta", { rotate: -40, yPercent: -10 }, { rotate: 60, yPercent: -40, ease: "none", scrollTrigger: { trigger: ".cta", start: "top bottom", end: "bottom top", scrub: true } });
+    gsap.fromTo(".cta-glow", { scale: .7, opacity: .4 }, { scale: 1.1, opacity: 1, ease: "none", scrollTrigger: { trigger: ".cta", start: "top bottom", end: "bottom top", scrub: true } });
 
     // ----- Footer wordmark rises -----
     gsap.from(".footer-word svg", { yPercent: 60, opacity: 0, ease: "expo.out", duration: 1.6, scrollTrigger: { trigger: ".footer-word", start: "top 95%" } });

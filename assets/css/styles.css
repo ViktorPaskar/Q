@@ -423,7 +423,12 @@ html:not(.js) .loader { display: none; }
 
 /* ---------- CTA ---------- */
 .cta { position: relative; overflow: hidden; background: var(--deep); color: #fff; padding: clamp(140px, 18vw, 260px) 0; text-align: center; isolation: isolate; }
-.ring-cta { z-index: -1; width: clamp(500px, 70vw, 1100px); aspect-ratio: 1; border: clamp(40px, 6vw, 96px) solid var(--lime); border-right-color: transparent; border-top-color: transparent; top: 100%; rotate: 25deg; }
+.cta { background: #010604; }
+.cta-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.cta-glow { position: absolute; left: 50%; bottom: -55%; width: min(1300px, 150vw); aspect-ratio: 2 / 1; translate: -50% 0; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(212, 255, 0, .32), rgba(7, 88, 61, .55) 45%, transparent); filter: blur(30px); }
+.cta-horizon { position: absolute; left: 50%; bottom: 22%; width: min(1000px, 110vw); height: 2px; translate: -50% 0;
+  background: linear-gradient(90deg, transparent, rgba(212, 255, 0, .8), transparent); box-shadow: 0 0 50px 8px rgba(212, 255, 0, .2); opacity: .5; }
 .cta-inner { display: flex; flex-direction: column; align-items: center; }
 .cta-title { margin-top: 24px; font: 900 clamp(44px, min(7vw, 13vh), 118px)/.9 var(--display); letter-spacing: -.035em; text-transform: uppercase; }
 .cta-title .ct { display: block; }
