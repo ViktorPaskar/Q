@@ -323,6 +323,7 @@
   }
 
   // =================================================================
+  let mm2;
   function animate() {
     const { gsap, ScrollTrigger, Lenis } = window;
     gsap.registerPlugin(ScrollTrigger);
@@ -375,6 +376,20 @@
         beamX(nx * 80);
       });
     }
+
+    // ----- Real moments: photos drift at their own pace, stickers slap on as each card arrives -----
+    mm2 = gsap.matchMedia();
+    mm2.add("(min-width: 901px)", () => {
+      $$(".moment").forEach((m) => gsap.to(m, { yPercent: -12 * Number(m.dataset.speed), ease: "none",
+        scrollTrigger: { trigger: ".moments", start: "top bottom", end: "bottom top", scrub: true } }));
+    });
+    $$(".moment").forEach((m) => {
+      const st = $(".st", m);
+      if (!st) return;
+      gsap.fromTo(st, { scale: 2.2, opacity: 0, rotate: -30 }, { scale: 1, opacity: 1, rotate: 0, duration: .55, ease: "back.out(2.2)",
+        scrollTrigger: { trigger: m, start: "top 75%", once: true } });
+      gsap.from($("img", m), { scale: 1.08, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: m, start: "top 90%", once: true } });
+    });
 
     // ----- Split headings -----
     $$("main [data-split]").forEach((el) => {
@@ -495,6 +510,7 @@
   $$("[data-split]").forEach(split);
   $$("[data-chars]").forEach(splitChars);
   $$("[data-stickers]").forEach((el) => (el.innerHTML = stickers(el.textContent)));
+  $$("[data-avatar]").forEach((el) => el.insertAdjacentHTML("afterbegin", avatar(el.dataset.avatar)));
   emojify();
   fitArt();
   addEventListener("resize", fitArt);
