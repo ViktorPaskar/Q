@@ -30,20 +30,9 @@ then open http://localhost:8000.
   While it's empty, the form opens the visitor's mail app addressed to `CONTACT_EMAIL`.
 - **Question of the day** in `main.js` mirrors `Shared/QuestionBank.swift`. Keep both lists in the same order
   until the questions come from the backend.
-- **Deploy.** Every push to the default branch deploys to GitHub Pages (Settings → Pages → Source: *GitHub Actions*).
-- **Domain `quesly.me`.** Settings → Pages → Custom domain: `quesly.me`, then *Enforce HTTPS*. DNS at the registrar:
-
-  | Type | Host | Value |
-  |---|---|---|
-  | A | @ | 185.199.108.153 |
-  | A | @ | 185.199.109.153 |
-  | A | @ | 185.199.110.153 |
-  | A | @ | 185.199.111.153 |
-  | AAAA | @ | 2606:50c0:8000::153 |
-  | AAAA | @ | 2606:50c0:8001::153 |
-  | AAAA | @ | 2606:50c0:8002::153 |
-  | AAAA | @ | 2606:50c0:8003::153 |
-  | CNAME | www | viktorpaskar.github.io |
+- **Hosting: Cloudflare Pages.** The project is connected to this repo; every push to the production branch
+  goes live on https://quesly.me in about a minute. No build step: framework preset *None*, build command empty,
+  output directory empty (repo root). `_headers` sets caching and security headers.
 - **The app** still links to `quesly.app/privacy` and `quesly.app/terms` (Settings screen) — switch them to `quesly.me`.
 
 ## Logo
