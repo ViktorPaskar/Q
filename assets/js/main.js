@@ -123,10 +123,19 @@
     el.innerHTML = text.split(/\s+/).map((w) => `<span class="sw" aria-hidden="true"><span>${esc(w)}</span></span>`).join(" ");
   }
 
+  // ---------- Initials avatars: colour pair picked from the username, so it never changes ----------
+  const AV = [["#07583D", "#D4FF00"], ["#D4FF00", "#07583D"], ["#022A1E", "#FFFFFF"], ["#EAF4EE", "#07583D"], ["#111413", "#D4FF00"], ["#FF6A1A", "#FFFFFF"], ["#2F7FE0", "#FFFFFF"], ["#F6F7F3", "#111413"]];
+  const avatar = (user) => {
+    let hsh = 0;
+    for (const ch of user) hsh = (hsh * 31 + ch.charCodeAt(0)) >>> 0;
+    const [bg, fg] = AV[hsh % AV.length];
+    return `<span class="av" style="--av-bg:${bg};--av-fg:${fg}" aria-hidden="true">${esc(user.replace(/[^a-z]/gi, "").slice(0, 1))}</span>`;
+  };
+
   // ---------- Hero answer stream: today's answers in two rows ----------
   function buildRiver() {
     const answers = QUESTIONS[todayIndex()][2];
-    const card = ([a, user, rx]) => `<div class="answer-card"><p class="who"><img src="assets/img/avatars/${user}.svg" alt="" width="28" height="28">${user}</p><p>${esc(a)}</p><p class="rx">${rx}</p></div>`;
+    const card = ([a, user, rx]) => `<div class="answer-card"><p class="who">${avatar(user)}${user}</p><p>${esc(a)}</p><p class="rx">${rx}</p></div>`;
     $$("[data-river]").forEach((track, r) => {
       const list = r ? [...answers.slice(3), ...answers.slice(0, 3)] : answers;
       const html = list.map(card).join("");
@@ -150,111 +159,6 @@
       if (d > 14) return;
       setTimeout(() => el.classList.add(d === 10 ? "frz" : "on"), d * 70);
     });
-  }
-
-  // ---------- Quby, the mascot (geometry mirrors tools/quby.py) ----------
-  const Q = { W: 38.6, R: 5.32, BAR1: 14.5, BAR2: 27.68, BH: 9.32, SHORT: 21, GAP: 14.51 };
-  Q.CENTER = (Q.W - Q.GAP) / 2;           // left eye x when centred
-  Q.LOOK = Q.CENTER - Q.R;                // max sideways eye shift
-  const MOODS = {
-    1: ["full", "top", 0, "full", "Wink"],
-    2: ["top", "top", 0, "full", "Happy"],
-    3: ["full", "full", 0, "full", "Hi"],
-    4: ["bottom", "full", 0, "full", "Sly"],
-    5: ["full", "full", -1, "full", "Looks left"],
-    6: ["full", "full", 1, "full", "Looks right"],
-    7: ["full", "full", 0, "left", "Thinking"],
-    8: ["full", "full", 0, "right", "Hmm"],
-  };
-  const eyeShape = (cx, kind) => {
-    const { R } = Q;
-    if (kind === "full") return `<circle cx="${cx}" cy="${R}" r="${R}"/>`;
-    const sweep = kind === "top" ? 1 : 0;
-    return `<path d="M${cx - R} ${R}A${R} ${R} 0 0 ${sweep} ${cx + R} ${R}Z"/>`;
-  };
-  const staticFace = (m) => {
-    const [l, r, look, bar] = MOODS[m];
-    const x = Q.CENTER + look * Q.LOOK;
-    const [bx, bw] = bar === "full" ? [0, Q.W] : bar === "left" ? [0, Q.SHORT] : [Q.W - Q.SHORT, Q.SHORT];
-    return eyeShape(x, l) + eyeShape(x + Q.GAP, r) +
-      `<rect y="${Q.BAR1}" width="${Q.W}" height="${Q.BH}"/><rect x="${bx}" y="${Q.BAR2}" width="${bw}" height="${Q.BH}"/>`;
-  };
-
-  // A live Quby: swappable eyes, eyes that follow the pointer, blinking.
-  function liveQuby(svg, gsap) {
-    svg.innerHTML = `<g class="q-eyes"><g class="q-eye q-l"></g><g class="q-eye q-r"></g></g>` +
-      `<rect y="${Q.BAR1}" width="${Q.W}" height="${Q.BH}"/><rect class="q-bar2" y="${Q.BAR2}" width="${Q.W}" height="${Q.BH}"/>`;
-    const eyes = $(".q-eyes", svg), eL = $(".q-l", svg), eR = $(".q-r", svg), bar2 = $(".q-bar2", svg);
-    const animated = gsap && !reduceMotion;
-    const st = { mood: 3, kinds: ["", ""], lookLock: 0 };
-    const setEyes = (l, r) => {
-      if (l !== st.kinds[0]) eL.innerHTML = eyeShape(Q.CENTER, l);
-      if (r !== st.kinds[1]) eR.innerHTML = eyeShape(Q.CENTER + Q.GAP, r);
-      st.kinds = [l, r];
-    };
-    const lookTo = (t, dur = .6) => {
-      const x = t * Q.LOOK;
-      if (animated) gsap.to(eyes, { x, duration: dur, ease: "power3.out", overwrite: "auto" });
-      else eyes.setAttribute("transform", `translate(${x} 0)`);
-    };
-    const show = (m, { pop = true } = {}) => {
-      st.mood = Number(m);
-      const [l, r, look, bar] = MOODS[st.mood];
-      setEyes(l, r);
-      const [bx, bw] = bar === "full" ? [0, Q.W] : bar === "left" ? [0, Q.SHORT] : [Q.W - Q.SHORT, Q.SHORT];
-      if (animated) gsap.to(bar2, { attr: { x: bx, width: bw }, duration: .5, ease: "expo.out" });
-      else { bar2.setAttribute("x", bx); bar2.setAttribute("width", bw); }
-      if (look) { st.lookLock = Date.now() + 2500; lookTo(look); } else lookTo(0);
-      if (animated && pop) gsap.fromTo(svg, { scale: .92 }, { scale: 1, duration: .7, ease: "elastic.out(1, .45)", transformOrigin: "50% 100%" });
-    };
-    show(3, { pop: false });
-    if (animated) {
-      addEventListener("pointermove", (e) => {
-        if (Date.now() < st.lookLock || MOODS[st.mood][2]) return;
-        const r = svg.getBoundingClientRect();
-        lookTo(Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (innerWidth / 2.2))), .5);
-      }, { passive: true });
-      const blink = () => {
-        if (st.kinds[0] === "full" && st.kinds[1] === "full") {
-          gsap.timeline().to([eL, eR], { scaleY: .12, duration: .08, ease: "power2.in", transformOrigin: "50% 50%" })
-            .to([eL, eR], { scaleY: 1, duration: .16, ease: "power2.out" });
-        }
-        setTimeout(blink, 2200 + Math.random() * 2800);
-      };
-      setTimeout(blink, 1500 + Math.random() * 1500);
-    }
-    return { show, st };
-  }
-
-  function setupQuby(gsap) {
-    const hero = $("[data-quby-hero]");
-    if (hero) {
-      const q = liveQuby(hero, gsap);
-      hero.addEventListener("click", () => q.show(q.st.mood === 2 ? 3 : 2));
-      window.__heroQuby = q;
-    }
-    const svg = $("[data-quby]");
-    const moodsEl = $("[data-moods]");
-    if (!svg || !moodsEl) return;
-    const q = liveQuby(svg, gsap);
-    moodsEl.innerHTML = Object.keys(MOODS).map((m) =>
-      `<button class="mood" type="button" data-mood="${m}" aria-pressed="false" aria-label="${MOODS[m][4]}"><svg viewBox="0 0 38.6 37" aria-hidden="true">${staticFace(m)}</svg></button>`).join("");
-    const buttons = $$(".mood", moodsEl);
-    const show = (m, o) => { q.show(m, o); buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mood === String(q.st.mood)))); };
-    show(3, { pop: false });
-    let auto = 0, k = 0, io = null;
-    const stopAuto = () => { clearInterval(auto); auto = 0; };
-    const pick = (m) => { k = -1; stopAuto(); io && io.disconnect(); show(m); };
-    buttons.forEach((b) => b.addEventListener("click", () => pick(b.dataset.mood)));
-    svg.addEventListener("click", () => pick(q.st.mood === 2 ? 3 : 2));
-    if (!gsap || reduceMotion) return;
-    // Until someone picks a mood, Quby shows them off on its own while on screen.
-    const order = [3, 1, 5, 6, 2, 7, 8, 4];
-    io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !auto && k >= 0) auto = setInterval(() => show(order[++k % order.length]), 2200);
-      else if (!e.isIntersecting && auto) stopAuto();
-    }, { threshold: .4 });
-    io.observe(svg);
   }
 
   // ---------- Waitlist form ----------
@@ -376,11 +280,9 @@
       lenis.scrollTo(target, { duration: 1.6, easing: (x) => 1 - Math.pow(1 - x, 4) });
     }));
 
-    // ----- Intro: the loader's Quby flies into the hero, then the question types itself in -----
-    const heroQuby = $("[data-quby-hero]");
+    // ----- Intro: the logo pulses, the curtain lifts, then the question types itself in -----
     const qWords = $$(".hero-q .qw");
     const tracks = $$("[data-river]");
-    gsap.set(heroQuby, { opacity: 0 });
     gsap.set(qWords, { opacity: 0, y: 18 });
     gsap.set([".hero-eyebrow", ".hero-sub", ".hero-form", "#nav"], { opacity: 0, y: 20 });
     gsap.set(".river-row", { opacity: 0, y: 60 });
@@ -389,23 +291,14 @@
     gsap.set(".hero-ring", { opacity: 0, scale: .6 });
     lenis.stop();
 
-    const mark = $(".loader-mark");
-    const from = mark.getBoundingClientRect(), to = heroQuby.getBoundingClientRect();
     const intro = gsap.timeline({ defaults: { ease: "expo.out" }, onComplete: () => lenis.start() });
     intro
-      .to(mark, {
-        x: to.left + to.width / 2 - (from.left + from.width / 2),
-        y: to.top + to.height / 2 - (from.top + from.height / 2),
-        scale: to.width / from.width, duration: 1.1, ease: "expo.inOut",
-      }, 1.0)
-      .to(".loader", { backgroundColor: "rgba(4, 67, 48, 0)", duration: .6, ease: "power2.out" }, 1.5)
-      .set(heroQuby, { opacity: 1 }, 2.1)
-      .set(".loader", { display: "none" }, 2.1)
+      .to(".loader-mark", { scale: .8, opacity: 0, duration: .6, ease: "power2.in" }, 1.1)
+      .to(".loader", { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "expo.inOut" }, 1.4)
+      .set(".loader", { display: "none" }, 2.4)
       .to(".hero-eyebrow", { opacity: 1, y: 0, duration: 1 }, 2.0)
       // words arrive one by one, like the question screen in the app
       .to(qWords, { opacity: 1, y: 0, duration: .7, stagger: .09, ease: "power3.out" }, 2.15)
-      .call(() => window.__heroQuby?.show(1), null, 2.15 + qWords.length * .09 + .2)
-      .call(() => window.__heroQuby?.show(3), null, 2.15 + qWords.length * .09 + 1.4)
       .to([".hero-sub", ".hero-form", "#nav"], { opacity: 1, y: 0, duration: 1.1, stagger: .08 }, 2.3 + qWords.length * .06)
       .to(".river-row", { opacity: 1, y: 0, duration: 1.4, stagger: .12 }, 2.5 + qWords.length * .06)
       .to(".hero-ring", { opacity: 1, scale: 1, duration: 1.8, stagger: .12 }, 1.9)
@@ -573,7 +466,6 @@
 
   const libs = window.gsap && window.ScrollTrigger && window.Lenis;
   setupFaq(libs ? window.gsap : null);
-  setupQuby(window.gsap || null);
   if (!libs || reduceMotion) {
     showAllStatic();
     return;
