@@ -30,9 +30,10 @@ then open http://localhost:8000.
   While it's empty, the form opens the visitor's mail app addressed to `CONTACT_EMAIL`.
 - **Question of the day** in `main.js` mirrors `Shared/QuestionBank.swift`. Keep both lists in the same order
   until the questions come from the backend.
-- **Hosting: Cloudflare Pages.** The project is connected to this repo; every push to the production branch
-  goes live on https://quesly.me in about a minute. No build step: framework preset *None*, build command empty,
-  output directory empty (repo root). `_headers` sets caching and security headers.
+- **Hosting: Cloudflare Workers (static assets).** The Worker `q` is connected to this repo; every push to the
+  production branch runs `npx wrangler deploy` and goes live on https://quesly.me in about a minute. Config is in
+  `wrangler.jsonc`; `.assetsignore` keeps repo files (README, config) off the site; `_headers` sets caching and
+  security headers.
 - **The app** still links to `quesly.app/privacy` and `quesly.app/terms` (Settings screen) — switch them to `quesly.me`.
 
 ## Logo
