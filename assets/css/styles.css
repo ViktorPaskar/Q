@@ -80,13 +80,13 @@ h1, h2, h3, p, ol { margin: 0; }
 /* ---------- Buttons ---------- */
 .btn {
   position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  min-height: 56px; padding: 0 28px; border-radius: 999px; border: 0; cursor: pointer; overflow: hidden;
-  font: 700 16px/1 var(--ui); text-decoration: none; white-space: nowrap; isolation: isolate;
-  transition: transform .5s var(--expo);
+  min-height: 56px; padding: 0 28px; border-radius: 999px; border: 0; cursor: pointer;
+  font: 700 16px/1 var(--ui); text-decoration: none; white-space: nowrap;
+  transition: background-color .35s var(--expo), transform .5s var(--expo);
 }
-.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: #fff; transform: translateY(101%); transition: transform .5s var(--expo); }
-.btn:hover::before { transform: none; }
+.btn:active { transform: scale(.97); }
 .btn-lime { background: var(--lime); color: var(--green); }
+.btn-lime:hover { background: #fff; }
 .btn svg { width: 18px; height: 18px; transition: transform .5s var(--expo); }
 .btn:hover svg { transform: translateX(4px); }
 .btn-sm { min-height: 44px; padding: 0 20px; font-size: 15px; }
