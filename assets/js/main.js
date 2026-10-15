@@ -11,21 +11,51 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = matchMedia("(pointer: fine)").matches;
-  const desktop = () => matchMedia("(min-width: 901px)").matches;
 
   // ---------- Question of the day ----------
   // Mirrors Shared/QuestionBank.swift: index = (day ordinal since 0001-01-01) % count, local time.
+  // Each question carries a handful of sample answers for the hero stream: [answer, username, reactions].
   const QUESTIONS = [
-    ["If you only had one day off, what would you do?", ["day off,", "you do?"]],
-    ["What's a small thing that makes you happy every day?", ["happy"]],
-    ["If you could live anywhere in the world, where would it be?", ["anywhere", "world,"]],
-    ["If you had one superpower, what would it be?", ["superpower,"]],
-    ["What's the best advice you've ever received?", ["best advice"]],
-    ["Which song always puts you in a good mood?", ["song", "good mood?"]],
-    ["What's something you're quietly proud of?", ["proud"]],
-    ["What tiny moment made your week better?", ["tiny moment"]],
-    ["What's one skill you'd love to learn this year?", ["skill"]],
-    ["What meal feels like home to you?", ["home"]],
+    ["If you only had one day off, what would you do?", ["day off,", "you do?"], [
+      ["Phone off, long walk, good book", "nata.ver", "❤️"], ["Sleep till noon, then pancakes", "chill_mara", "😂 🔥"],
+      ["Take my dog to the beach", "leo.martin", "🥹"], ["Finally finish that 1000-piece puzzle", "camille_b", "😂"],
+      ["Cook something slow with friends", "alexo91", "❤️ 🔥"], ["Ride my bike to nowhere", "theo_runs", "🔥"]]],
+    ["What's a small thing that makes you happy every day?", ["happy"], [
+      ["First sip of coffee while everyone's still asleep", "alexo91", "❤️"], ["My cat waiting for me at the door", "koko_lilly", "🥹 ❤️"],
+      ["Fresh sheets night", "AnnaViva", "🔥"], ["Green lights all the way home", "mr.smith", "😂"],
+      ["Voice notes from my sister", "yasmine.k", "🥹"], ["Sunlight on my desk at 4pm", "arturo_sun", "❤️ 🔥"]]],
+    ["If you could live anywhere in the world, where would it be?", ["anywhere", "world,"], [
+      ["Lisbon. Sun, tiles and the sea", "leo.martin", "🔥"], ["A cabin with a view and fast Wi-Fi", "chill_mara", "😂"],
+      ["Tokyo, for the trains and the ramen", "theo_runs", "🔥 ❤️"], ["Wherever my friends are", "camille_b", "🥹"],
+      ["A tiny island in Greece", "AnnaViva", "❤️"], ["Montréal, snow included", "van.derss2", "😂"]]],
+    ["If you had one superpower, what would it be?", ["superpower,"], [
+      ["Teleportation. No more 2-hour train rides to see my parents", "funnnnyyy1", "❤️ 🥹"], ["Pause time for 10 minutes every morning", "john.john", "😂 🔥"],
+      ["Speaking every language in the world", "koko_lilly", "🔥"], ["Healing people with a touch. Med school would be way easier", "yasmine.k", "❤️"],
+      ["Never get tired. Imagine the running PRs", "theo_runs", "🔥 😂"], ["Infinite phone battery. Simple but life-changing", "chill_mara", "😂"]]],
+    ["What's the best advice you've ever received?", ["best advice"], [
+      ["Done is better than perfect", "mr.smith", "❤️ 🔥"], ["Call your mom more often", "arturo_sun", "🥹 ❤️"],
+      ["Sleep on it before you hit send", "camille_b", "😂"], ["Be the friend you want to have", "van.derss2", "❤️"],
+      ["Nobody thinks about you as much as you think", "leo.martin", "🔥"], ["Drink water. Seriously.", "AnnaViva", "😂"]]],
+    ["Which song always puts you in a good mood?", ["song", "good mood?"], [
+      ["Dancing Queen, every single time", "AnnaViva", "😂"], ["Mr. Blue Sky", "john.john", "🔥"],
+      ["Anything my dad played in the car", "nata.ver", "🥹 ❤️"], ["Here Comes the Sun", "koko_lilly", "❤️"],
+      ["September by Earth, Wind & Fire", "theo_runs", "🔥 😂"], ["The Friends theme. Don't judge", "funnnnyyy1", "😂"]]],
+    ["What's something you're quietly proud of?", ["proud"], [
+      ["I finally learned to swim at 27", "camille_b", "🥹 ❤️"], ["Six months without smoking", "mr.smith", "🔥"],
+      ["I said no to a job that wasn't me", "yasmine.k", "❤️"], ["My sourdough actually rose", "alexo91", "😂 🔥"],
+      ["I called my grandma every Sunday this year", "van.derss2", "🥹"], ["Ran my first 10K", "theo_runs", "🔥 ❤️"]]],
+    ["What tiny moment made your week better?", ["tiny moment"], [
+      ["A stranger held the door and smiled", "yasmine.k", "❤️"], ["My barista remembered my name", "leo.martin", "🥹"],
+      ["Rain on the window while I read", "nata.ver", "❤️ 🔥"], ["My kid said thank you without being asked", "mr.smith", "🥹 ❤️"],
+      ["Found 10 euros in an old jacket", "funnnnyyy1", "😂"], ["Sunset from the bus window", "chill_mara", "🔥"]]],
+    ["What's one skill you'd love to learn this year?", ["skill"], [
+      ["Film photography. Slow and real", "koko_lilly", "🔥"], ["Italian, to talk with my nonna", "camille_b", "🥹 ❤️"],
+      ["Piano. Just one song", "AnnaViva", "❤️"], ["Cooking without a recipe", "alexo91", "😂"],
+      ["Skateboarding. At 34. Why not", "john.john", "😂 🔥"], ["Sign language", "yasmine.k", "❤️ 🔥"]]],
+    ["What meal feels like home to you?", ["home"], [
+      ["Grandma's dumplings on a Sunday", "van.derss2", "🥹"], ["Mom's lentil soup", "yasmine.k", "❤️"],
+      ["Pancakes with way too much syrup", "funnnnyyy1", "😂"], ["Rice, egg, soy sauce. Every time", "leo.martin", "🔥"],
+      ["My dad's terrible but perfect pasta", "arturo_sun", "😂 ❤️"], ["Borscht with sour cream", "nata.ver", "🥹 🔥"]]],
   ];
   const DAYS_BEFORE_1970 = 719163;
   const todayIndex = (now = new Date()) =>
@@ -49,7 +79,7 @@
     el.innerHTML = `<span class="sr-only">${esc(text)}</span><span aria-hidden="true">` +
       words.map((w, i) => {
         const inner = marked.has(i) ? `<mark>${esc(w)}</mark>` : esc(w);
-        return `<span class="sw"><span>${inner}</span></span>`;
+        return `<span class="qw">${inner}</span>`;
       }).join(" ") + "</span>";
   }
 
@@ -62,7 +92,7 @@
       const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
       const s = Math.max(0, Math.floor((next - now) / 1000));
       out.forEach((el) => (el.textContent = `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`));
-      if (todayIndex(now) !== last) { last = todayIndex(now); renderQuestion($("[data-today]")); }
+      if (todayIndex(now) !== last) { last = todayIndex(now); renderQuestion($("[data-today]")); buildRiver(); }
     };
     tick();
     setInterval(tick, 1000);
@@ -75,27 +105,12 @@
     el.innerHTML = text.split(/\s+/).map((w) => `<span class="sw" aria-hidden="true"><span>${esc(w)}</span></span>`).join(" ");
   }
 
-  // ---------- Answers wall ----------
-  const ANSWERS = [
-    ["Superpower", "Teleportation. No more 2-hour train rides to see my parents", "funnnnyyy1", 3, "❤️ 🥹"],
-    ["Tiny joy", "First sip of coffee while everyone's still asleep", "alexo91", 2, "☕"],
-    ["Live anywhere", "Lisbon. Sun, tiles and the sea", "leo.martin", 11, "🔥"],
-    ["Best advice", "Done is better than perfect", "mr.smith", 4, "❤️ 🔥"],
-    ["Good-mood song", "Dancing Queen, every single time", "AnnaViva", 7, "😂"],
-    ["Quietly proud", "I finally learned to swim at 27", "camille_b", 12, "🥹 ❤️"],
-    ["Meal like home", "Grandma's dumplings on a Sunday", "van.derss2", 1, "🥹"],
-    ["Day off", "Phone off, long walk, good book", "nata.ver", 10, "❤️"],
-    ["Superpower", "Pause time for 10 minutes every morning", "john.john", 5, "😂 🔥"],
-    ["Skill to learn", "Film photography. Slow and real", "koko_lilly", 9, "🔥"],
-    ["Tiny moment", "A stranger held the door and smiled", "yasmine.k", 13, "❤️"],
-    ["Superpower", "Never get tired. Imagine the running PRs", "theo_runs", 14, "🔥 😂"],
-    ["Live anywhere", "A cabin with a view and fast Wi-Fi", "chill_mara", 6, "😂"],
-    ["Best advice", "Call your mom more often", "arturo_sun", 8, "🥹 ❤️"],
-  ];
-  function buildWall() {
-    const card = ([q, a, user, av, rx]) => `<div class="answer-card"><p class="q">${q}</p><p class="who"><img src="assets/img/avatars/${user}.svg" alt="" width="28" height="28" loading="lazy">${user}</p><p>${esc(a)}</p><p class="rx">${rx}</p></div>`;
-    $$(".wall-track").forEach((track, r) => {
-      const list = r === 0 ? ANSWERS.slice(0, 7) : ANSWERS.slice(7);
+  // ---------- Hero answer stream: today's answers in two rows ----------
+  function buildRiver() {
+    const answers = QUESTIONS[todayIndex()][2];
+    const card = ([a, user, rx]) => `<div class="answer-card"><p class="who"><img src="assets/img/avatars/${user}.svg" alt="" width="28" height="28">${user}</p><p>${esc(a)}</p><p class="rx">${rx}</p></div>`;
+    $$("[data-river]").forEach((track, r) => {
+      const list = r ? [...answers.slice(3), ...answers.slice(0, 3)] : answers;
       const html = list.map(card).join("");
       track.innerHTML = html + html; // doubled for a seamless loop
     });
@@ -146,24 +161,17 @@
       `<rect y="${Q.BAR1}" width="${Q.W}" height="${Q.BH}"/><rect x="${bx}" y="${Q.BAR2}" width="${bw}" height="${Q.BH}"/>`;
   };
 
-  function setupQuby(gsap) {
-    const svg = $("[data-quby]");
-    const moodsEl = $("[data-moods]");
-    if (!svg || !moodsEl) return;
+  // A live Quby: swappable eyes, eyes that follow the pointer, blinking.
+  function liveQuby(svg, gsap) {
     svg.innerHTML = `<g class="q-eyes"><g class="q-eye q-l"></g><g class="q-eye q-r"></g></g>` +
       `<rect y="${Q.BAR1}" width="${Q.W}" height="${Q.BH}"/><rect class="q-bar2" y="${Q.BAR2}" width="${Q.W}" height="${Q.BH}"/>`;
     const eyes = $(".q-eyes", svg), eL = $(".q-l", svg), eR = $(".q-r", svg), bar2 = $(".q-bar2", svg);
     const animated = gsap && !reduceMotion;
-    let mood = 3, kinds = ["", ""], lookLock = 0, auto = 0;
-
-    moodsEl.innerHTML = Object.keys(MOODS).map((m) =>
-      `<button class="mood" type="button" data-mood="${m}" aria-pressed="false" aria-label="${MOODS[m][4]}"><svg viewBox="0 0 38.6 37" aria-hidden="true">${staticFace(m)}</svg></button>`).join("");
-    const buttons = $$(".mood", moodsEl);
-
+    const st = { mood: 3, kinds: ["", ""], lookLock: 0 };
     const setEyes = (l, r) => {
-      if (l !== kinds[0]) eL.innerHTML = eyeShape(Q.CENTER, l);
-      if (r !== kinds[1]) eR.innerHTML = eyeShape(Q.CENTER + Q.GAP, r);
-      kinds = [l, r];
+      if (l !== st.kinds[0]) eL.innerHTML = eyeShape(Q.CENTER, l);
+      if (r !== st.kinds[1]) eR.innerHTML = eyeShape(Q.CENTER + Q.GAP, r);
+      st.kinds = [l, r];
     };
     const lookTo = (t, dur = .6) => {
       const x = t * Q.LOOK;
@@ -171,52 +179,63 @@
       else eyes.setAttribute("transform", `translate(${x} 0)`);
     };
     const show = (m, { pop = true } = {}) => {
-      mood = Number(m);
-      const [l, r, look, bar] = MOODS[mood];
+      st.mood = Number(m);
+      const [l, r, look, bar] = MOODS[st.mood];
       setEyes(l, r);
       const [bx, bw] = bar === "full" ? [0, Q.W] : bar === "left" ? [0, Q.SHORT] : [Q.W - Q.SHORT, Q.SHORT];
       if (animated) gsap.to(bar2, { attr: { x: bx, width: bw }, duration: .5, ease: "expo.out" });
       else { bar2.setAttribute("x", bx); bar2.setAttribute("width", bw); }
-      if (look) { lookLock = Date.now() + 2500; lookTo(look); } else lookTo(0);
+      if (look) { st.lookLock = Date.now() + 2500; lookTo(look); } else lookTo(0);
       if (animated && pop) gsap.fromTo(svg, { scale: .92 }, { scale: 1, duration: .7, ease: "elastic.out(1, .45)", transformOrigin: "50% 100%" });
-      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mood === String(mood))));
     };
     show(3, { pop: false });
+    if (animated) {
+      addEventListener("pointermove", (e) => {
+        if (Date.now() < st.lookLock || MOODS[st.mood][2]) return;
+        const r = svg.getBoundingClientRect();
+        lookTo(Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (innerWidth / 2.2))), .5);
+      }, { passive: true });
+      const blink = () => {
+        if (st.kinds[0] === "full" && st.kinds[1] === "full") {
+          gsap.timeline().to([eL, eR], { scaleY: .12, duration: .08, ease: "power2.in", transformOrigin: "50% 50%" })
+            .to([eL, eR], { scaleY: 1, duration: .16, ease: "power2.out" });
+        }
+        setTimeout(blink, 2200 + Math.random() * 2800);
+      };
+      setTimeout(blink, 1500 + Math.random() * 1500);
+    }
+    return { show, st };
+  }
 
+  function setupQuby(gsap) {
+    const hero = $("[data-quby-hero]");
+    if (hero) {
+      const q = liveQuby(hero, gsap);
+      hero.addEventListener("click", () => q.show(q.st.mood === 2 ? 3 : 2));
+      window.__heroQuby = q;
+    }
+    const svg = $("[data-quby]");
+    const moodsEl = $("[data-moods]");
+    if (!svg || !moodsEl) return;
+    const q = liveQuby(svg, gsap);
+    moodsEl.innerHTML = Object.keys(MOODS).map((m) =>
+      `<button class="mood" type="button" data-mood="${m}" aria-pressed="false" aria-label="${MOODS[m][4]}"><svg viewBox="0 0 38.6 37" aria-hidden="true">${staticFace(m)}</svg></button>`).join("");
+    const buttons = $$(".mood", moodsEl);
+    const show = (m, o) => { q.show(m, o); buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mood === String(q.st.mood)))); };
+    show(3, { pop: false });
+    let auto = 0, k = 0, io = null;
     const stopAuto = () => { clearInterval(auto); auto = 0; };
-    buttons.forEach((b) => b.addEventListener("click", () => { stopAuto(); show(b.dataset.mood); }));
-    svg.addEventListener("click", () => { stopAuto(); show(mood === 2 ? 3 : 2); });
-    if (!animated) return;
-
-    // Eyes follow the pointer sideways (the Figma "looks left / right" range).
-    addEventListener("pointermove", (e) => {
-      if (Date.now() < lookLock || MOODS[mood][2]) return;
-      const r = svg.getBoundingClientRect();
-      const t = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (innerWidth / 2.2)));
-      lookTo(t, .5);
-    }, { passive: true });
-
-    // Blink now and then, only with round eyes.
-    const blink = () => {
-      if (kinds[0] === "full" && kinds[1] === "full") {
-        gsap.timeline().to([eL, eR], { scaleY: .12, duration: .08, ease: "power2.in", transformOrigin: "50% 50%" })
-          .to([eL, eR], { scaleY: 1, duration: .16, ease: "power2.out" });
-      }
-      setTimeout(blink, 2200 + Math.random() * 2800);
-    };
-    setTimeout(blink, 1800);
-
+    const pick = (m) => { k = -1; stopAuto(); io && io.disconnect(); show(m); };
+    buttons.forEach((b) => b.addEventListener("click", () => pick(b.dataset.mood)));
+    svg.addEventListener("click", () => pick(q.st.mood === 2 ? 3 : 2));
+    if (!gsap || reduceMotion) return;
     // Until someone picks a mood, Quby shows them off on its own while on screen.
     const order = [3, 1, 5, 6, 2, 7, 8, 4];
-    let k = 0;
-    const io = new IntersectionObserver(([e]) => {
+    io = new IntersectionObserver(([e]) => {
       if (e.isIntersecting && !auto && k >= 0) auto = setInterval(() => show(order[++k % order.length]), 2200);
       else if (!e.isIntersecting && auto) stopAuto();
     }, { threshold: .4 });
     io.observe(svg);
-    const stopForGood = () => { k = -1; stopAuto(); io.disconnect(); };
-    buttons.forEach((b) => b.addEventListener("click", stopForGood));
-    svg.addEventListener("click", stopForGood);
   }
 
   // ---------- Waitlist form ----------
@@ -295,7 +314,7 @@
       lastY = y;
       const under = document.elementsFromPoint(innerWidth / 2, 42).find((el) => el.closest("main section, footer"));
       const sec = under && under.closest("main section, footer");
-      nav.classList.toggle("on-light", !!sec && sec.matches(".today, .how, .wall, .faq-sec"));
+      nav.classList.toggle("on-light", !!sec && sec.matches(".how, .faq-sec"));
     };
     update();
     addEventListener("scroll", update, { passive: true });
@@ -338,83 +357,58 @@
       lenis.scrollTo(target, { duration: 1.6, easing: (x) => 1 - Math.pow(1 - x, 4) });
     }));
 
-    // ----- Intro -----
-    const heroWords = $$(".hero-title .sw > span");
-    const floats = $$(".hero .float");
-    gsap.set(heroWords, { yPercent: 115 });
-    gsap.set(".hero-device .tilt", { y: "60vh", rotationX: 40, rotationY: -30, rotationZ: 10 });
-    gsap.set(floats.map((f) => f.firstElementChild), { scale: 0, opacity: 0 });
-    gsap.set(".ring-b", { rotate: -200, scale: .6, opacity: 0 });
-    gsap.set([".hero-bottom", "#nav"], { opacity: 0, y: 24 });
+    // ----- Intro: the loader's Quby flies into the hero, then the question types itself in -----
+    const heroQuby = $("[data-quby-hero]");
+    const qWords = $$(".hero-q .qw");
+    const tracks = $$("[data-river]");
+    gsap.set(heroQuby, { opacity: 0 });
+    gsap.set(qWords, { opacity: 0, y: 18 });
+    gsap.set([".hero-eyebrow", ".hero-sub", ".hero-form", "#nav"], { opacity: 0, y: 20 });
+    gsap.set(".river-row", { opacity: 0, y: 60 });
     lenis.stop();
 
+    const mark = $(".loader-mark");
+    const from = mark.getBoundingClientRect(), to = heroQuby.getBoundingClientRect();
     const intro = gsap.timeline({ defaults: { ease: "expo.out" }, onComplete: () => lenis.start() });
     intro
-      .to(".loader-mark", { scale: .6, opacity: 0, duration: .5, ease: "power3.in" }, .9)
-      .to(".loader", { clipPath: "inset(0 0 100% 0)", duration: 1.1, ease: "expo.inOut" }, 1.1)
-      .set(".loader", { display: "none" })
-      .to(".ring-b", { rotate: -20, scale: 1, opacity: 1, duration: 2.2 }, 1.4)
-      .to(heroWords, { yPercent: 0, duration: 1.4, stagger: .08 }, 1.5)
-      .to(".hero-device .tilt", { y: 0, rotationX: 8, rotationY: -14, rotationZ: 4, duration: 2 }, 1.6)
-      .to(floats.map((f) => f.firstElementChild), { scale: 1, opacity: 1, duration: 1.2, stagger: .08, ease: "back.out(1.6)" }, 2.1)
-      .to([".hero-bottom", "#nav"], { opacity: 1, y: 0, duration: 1.2, stagger: .1 }, 2.2);
+      .to(mark, {
+        x: to.left + to.width / 2 - (from.left + from.width / 2),
+        y: to.top + to.height / 2 - (from.top + from.height / 2),
+        scale: to.width / from.width, duration: 1.1, ease: "expo.inOut",
+      }, 1.0)
+      .to(".loader", { backgroundColor: "rgba(4, 67, 48, 0)", duration: .6, ease: "power2.out" }, 1.5)
+      .set(heroQuby, { opacity: 1 }, 2.1)
+      .set(".loader", { display: "none" }, 2.1)
+      .to(".hero-eyebrow", { opacity: 1, y: 0, duration: 1 }, 2.0)
+      // words arrive one by one, like the question screen in the app
+      .to(qWords, { opacity: 1, y: 0, duration: .7, stagger: .09, ease: "power3.out" }, 2.15)
+      .call(() => window.__heroQuby?.show(1), null, 2.15 + qWords.length * .09 + .2)
+      .call(() => window.__heroQuby?.show(3), null, 2.15 + qWords.length * .09 + 1.4)
+      .to([".hero-sub", ".hero-form", "#nav"], { opacity: 1, y: 0, duration: 1.1, stagger: .08 }, 2.3 + qWords.length * .06)
+      .to(".river-row", { opacity: 1, y: 0, duration: 1.4, stagger: .12 }, 2.5 + qWords.length * .06);
 
-    // ----- Hero: pointer parallax -----
-    if (finePointer) {
-      const dev = $(".hero-device .device");
-      const rx = gsap.quickTo(dev, "rotationX", { duration: .8, ease: "power3" });
-      const ry = gsap.quickTo(dev, "rotationY", { duration: .8, ease: "power3" });
-      const movers = floats.map((f) => ({ x: gsap.quickTo(f, "x", { duration: 1, ease: "power3" }), y: gsap.quickTo(f, "y", { duration: 1, ease: "power3" }), d: Number(f.dataset.depth) }));
-      const titleX = gsap.quickTo(".hero-title", "x", { duration: 1.2, ease: "power3" });
-      $(".hero").addEventListener("pointermove", (e) => {
-        const px = e.clientX / innerWidth - .5;
-        const py = e.clientY / innerHeight - .5;
-        ry(px * 16); rx(-py * 12);
-        movers.forEach((m) => { m.x(px * m.d); m.y(py * m.d); });
-        titleX(-px * 24);
-      });
-    }
-
-    // ----- Hero: scroll scene (title splits, phone straightens, feed unlocks) -----
-    const feed = $(".layer-feed");
-    gsap.set(feed, { opacity: 1, clipPath: "inset(100% 0% 0% 0%)" });
-    const heroTl = gsap.timeline({
-      scrollTrigger: { trigger: ".hero", start: "top top", end: "+=130%", pin: ".hero-pin", scrub: 1 },
-      defaults: { ease: "none" },
+    // ----- Hero: endless answer stream that speeds up with scroll, gentle parallax on the way out -----
+    const loops = tracks.map((t, r) =>
+      gsap.fromTo(t, { xPercent: r ? -50 : 0 }, { xPercent: r ? 0 : -50, duration: 60, ease: "none", repeat: -1 }));
+    ScrollTrigger.create({
+      trigger: ".hero", start: "top top", end: "bottom top",
+      onUpdate: (st) => {
+        const boost = 1 + Math.min(6, Math.abs(st.getVelocity()) / 350);
+        loops.forEach((l) => gsap.to(l, { timeScale: boost, duration: .2, overwrite: true, onComplete: () => gsap.to(l, { timeScale: 1, duration: 1.2 }) }));
+      },
     });
-    // fromTo + immediateRender:false so the intro owns the start state until the first scroll.
-    const ft = (t, from, to, at) => heroTl.fromTo(t, from, { ...to, immediateRender: false }, at);
-    ft(".ht-1", { xPercent: 0, opacity: 1 }, { xPercent: -45, opacity: 0 }, 0);
-    ft(".ht-2", { xPercent: 0, opacity: 1 }, { xPercent: 45, opacity: 0 }, 0);
-    ft(".hero-device .tilt", { y: 0, rotationX: 8, rotationY: -14, rotationZ: 4, scale: 1 }, { y: 0, rotationX: 0, rotationY: 0, rotationZ: 0, scale: desktop() ? 1.18 : 1.08 }, 0);
-    ft(".ring-b", { rotate: -20, scale: 1, opacity: 1 }, { rotate: 160, scale: 1.5, opacity: 1 }, 0);
-    ft(".hero-bottom", { opacity: 1, y: 0 }, { opacity: 0, y: -20 }, 0);
-    ft(feed, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: .6 }, .3);
-    floats.forEach((f, i) => {
-      const side = f.getBoundingClientRect().left + f.offsetWidth / 2 < innerWidth / 2 ? -1 : 1;
-      ft(f.firstElementChild, { x: 0, y: 0, rotate: 0, opacity: 1, scale: 1 }, { x: side * (220 + i * 30), y: -120 - i * 40, rotate: side * 18, opacity: 0, scale: 1, duration: .7 }, .05 + i * .03);
+    gsap.to(".hero-inner", { yPercent: -18, opacity: .2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    if (finePointer) $$(".river-row").forEach((row) => {
+      row.addEventListener("pointerenter", () => loops.forEach((l) => gsap.to(l, { timeScale: .25, duration: .6 })));
+      row.addEventListener("pointerleave", () => loops.forEach((l) => gsap.to(l, { timeScale: 1, duration: .6 })));
     });
 
     // ----- Split headings -----
     $$("main [data-split]").forEach((el) => {
-      if (el.closest(".hero")) return;
       gsap.from($$(".sw > span", el), {
         yPercent: 115, duration: 1.3, ease: "expo.out", stagger: .06,
         scrollTrigger: { trigger: el, start: "top 88%" },
       });
-    });
-
-    // ----- Today's question -----
-    const tq = $("[data-today]");
-    const tqWords = $$(".sw > span", tq);
-    gsap.set(tqWords, { yPercent: 115 });
-    gsap.set($$("mark", tq), { "--hl": 0 });
-    ScrollTrigger.create({
-      trigger: tq, start: "top 85%", once: true,
-      onEnter: () => {
-        gsap.to(tqWords, { yPercent: 0, duration: 1.3, ease: "expo.out", stagger: .05 });
-        gsap.to($$("mark", tq), { "--hl": 1, duration: 1, ease: "expo.inOut", delay: .6 });
-      },
     });
 
     // ----- How it works: pinned, three steps -----
@@ -487,18 +481,6 @@
       return () => io.disconnect();
     });
 
-    // ----- Answers wall: endless rows that speed up with scroll -----
-    const loops = $$(".wall-track").map((track, r) =>
-      gsap.fromTo(track, { xPercent: r ? -50 : 0 }, { xPercent: r ? 0 : -50, duration: 70, ease: "none", repeat: -1 }));
-    ScrollTrigger.create({
-      trigger: ".wall", start: "top bottom", end: "bottom top",
-      onUpdate: (st) => {
-        const boost = 1 + Math.min(6, Math.abs(st.getVelocity()) / 400);
-        loops.forEach((l) => gsap.to(l, { timeScale: boost, duration: .2, overwrite: true, onComplete: () => gsap.to(l, { timeScale: 1, duration: 1.2 }) }));
-      },
-    });
-    gsap.from(".wall-rows", { rotate: -3, scale: 1.08, ease: "none", scrollTrigger: { trigger: ".wall", start: "top bottom", end: "center center", scrub: true } });
-
     // ----- Manifesto: words light up with scroll -----
     const mws = $$(".manifesto .mw");
     ScrollTrigger.create({
@@ -541,7 +523,7 @@
     mf.innerHTML = `<span class="sr-only">${esc(text)}</span><span aria-hidden="true">` +
       text.split(/\s+/).map((w) => `<span class="mw${hl.has(w.toLowerCase()) ? " hl" : ""}">${esc(w)}</span>`).join(" ") + "</span>";
   }
-  buildWall();
+  buildRiver();
   buildCalendar();
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
   startCountdown();

@@ -59,73 +59,28 @@
 
 <main id="main">
 
-  <!-- 1. Hero -->
+  <!-- 1. Hero: today's question, hosted by Quby, answers streaming below -->
   <section class="hero" id="top" aria-labelledby="hero-title">
-    <div class="hero-pin">
-      <div class="hero-bg" aria-hidden="true">
-        <div class="ring ring-a"></div>
-        <div class="ring ring-b"></div>
-      </div>
-
-      <h1 class="hero-title" id="hero-title">
-        <span class="ht ht-1" data-split>One question</span>
-        <span class="ht ht-2 lime" data-split>a day.</span>
-      </h1>
-
-      <div class="hero-device">
-        <div class="tilt">
-          <div class="device device-xl">
-            <div class="screen">
-              <img class="layer is-on" src="assets/img/screen-04-question.webp" alt="" width="900" height="1952" fetchpriority="high">
-              <img class="layer layer-feed" src="assets/img/screen-06-feed.webp" alt="" width="900" height="1952">
-            </div>
-          </div>
+    <div class="wrap hero-inner">
+      <svg class="quby quby-hero" viewBox="0 0 38.6 37" aria-hidden="true" data-quby-hero></svg>
+      <p class="hero-eyebrow"><span class="live"></span>Today's question · <span data-countdown>--:--:--</span> left</p>
+      <h1 class="hero-q" id="hero-title" data-today>If you had one <mark>superpower,</mark> what would it be?</h1>
+      <p class="hero-sub"><b>One question a day. Millions of stories.</b> Answer today's, then see how your friends and the world answered it.</p>
+      <form class="signup hero-form" data-signup novalidate>
+        <label class="sr-only" for="email-hero">Email address</label>
+        <div class="signup-row">
+          <input id="email-hero" type="email" name="email" placeholder="Your email" autocomplete="email" required>
+          <button class="btn btn-lime" type="submit"><span>Join the waitlist</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
         </div>
-
-        <div class="float f-1" data-depth="26"><div class="answer-card">
-          <p class="who"><img src="assets/img/avatars/john.john.svg" alt="" width="28" height="28">john.john <span>2m</span></p>
-          <p>Pause time for 10 minutes every morning</p>
-          <p class="rx">❤️ 🔥</p>
-        </div></div>
-        <div class="float f-2" data-depth="34"><div class="answer-card">
-          <p class="who"><img src="assets/img/avatars/koko_lilly.svg" alt="" width="28" height="28">koko_lilly <span>14m</span></p>
-          <p>Speaking every language in the world</p>
-        </div></div>
-        <div class="float f-3" data-depth="18"><div class="answer-card">
-          <p class="who"><img src="assets/img/avatars/funnnnyyy1.svg" alt="" width="28" height="28">funnnnyyy1 <span>3m</span></p>
-          <p>Teleportation. No more 2-hour train rides to see my parents</p>
-        </div></div>
-        <div class="float f-4" data-depth="40"><div class="bubble">🥹</div></div>
-        <div class="float f-5" data-depth="48"><div class="bubble">🔥</div></div>
-        <div class="float f-6" data-depth="30"><div class="streak-pill"><span>🔥</span><b>8</b> day streak</div></div>
-      </div>
-
-      <div class="hero-bottom wrap">
-        <div class="hero-left">
-          <a class="pill" href="#join"><span class="dot"></span>Coming soon · Join the waitlist</a>
-          <p class="hero-sub">Answer today's question, then see how your friends and the world answered it. One minute a day. Only good vibes.</p>
-        </div>
-        <a class="scroll-hint" href="#today"><span>Scroll</span><i></i></a>
-      </div>
+        <p class="signup-note">Coming soon. One email when your invite is ready.</p>
+        <p class="signup-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="river" role="region" aria-label="Answers to today's question">
+      <div class="river-row"><div class="river-track" data-river="0"></div></div>
+      <div class="river-row"><div class="river-track" data-river="1"></div></div>
     </div>
   </section>
-
-  <!-- 2. Today's question -->
-  <section class="today" id="today" aria-labelledby="today-title">
-    <div class="wrap">
-      <p class="eyebrow" data-reveal><span class="live"></span>Live today · next question in <span data-countdown>--:--:--</span></p>
-      <h2 class="sr-only" id="today-title">Today's question</h2>
-      <p class="today-q" data-today>If you had one <mark>superpower,</mark> what would it be?</p>
-      <div class="today-foot">
-        <p class="lead" data-reveal>Everyone in the world gets the same question today. Answer it, and the feed unlocks.</p>
-        <div class="avatars" data-reveal>
-          <span class="stack"><img src="assets/img/avatars/van.derss2.svg" alt="" width="44" height="44"><img src="assets/img/avatars/AnnaViva.svg" alt="" width="44" height="44"><img src="assets/img/avatars/camille_b.svg" alt="" width="44" height="44"><img src="assets/img/avatars/mr.smith.svg" alt="" width="44" height="44"></span>
-          <span>Your friends are answering</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
 
   <!-- 2b. Meet Quby -->
   <section class="meet" id="quby" aria-labelledby="quby-title">
@@ -244,18 +199,6 @@
           </article>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- 5. Answers wall -->
-  <section class="wall" aria-labelledby="wall-title">
-    <div class="wrap">
-      <h2 class="h2 center" id="wall-title" data-split>Millions of stories</h2>
-      <p class="lead center" data-reveal>Same question. A thousand different answers.</p>
-    </div>
-    <div class="wall-rows" aria-hidden="true">
-      <div class="wall-row"><div class="wall-track" data-row="0"></div></div>
-      <div class="wall-row"><div class="wall-track" data-row="1"></div></div>
     </div>
   </section>
 
