@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quesly reactions</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --green: #07583D; --lime: #D4FF00; --ink: #111413; --paper: #F6F7F3; }
+  * { box-sizing: border-box; margin: 0; }
+  body { min-height: 100vh; display: grid; place-items: center; padding: 40px 16px; background: #E9EEEA; color: var(--ink);
+    font: 16px/1.45 -apple-system, "Segoe UI", system-ui, sans-serif; }
+  .phone { width: min(390px, 100%); background: var(--paper); border-radius: 44px; padding: 22px 18px 28px;
+    box-shadow: 0 40px 80px -30px rgba(2, 42, 30, .35), 0 0 0 10px #111, 0 0 0 11px #555; }
+  .q { background: var(--green); color: #fff; border-radius: 22px; padding: 16px 18px; }
+  .q small { font: 700 11px/1 Outfit; letter-spacing: .12em; color: var(--lime); text-transform: uppercase; }
+  .q b { display: block; margin-top: 8px; font: 900 19px/1.08 Outfit; text-transform: uppercase; }
+  .card { position: relative; background: #fff; border-radius: 24px; padding: 18px 18px 16px; margin-top: 14px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .04), 0 12px 30px -18px rgba(2, 42, 30, .25); }
+  .who { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }
+  .who span { font-weight: 400; color: #8a8f93; font-size: 13px; }
+  .av { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font: 900 14px Outfit; }
+  .text { margin-top: 10px; font-size: 17px; line-height: 1.42; }
+  .foot { display: flex; align-items: center; gap: 12px; margin-top: 14px; min-height: 34px; }
+  .stuck { display: flex; align-items: center; }
+  .stuck { padding-right: 9px; }
+  .stuck .st { margin-right: -9px; }
+  .count { font-size: 13px; color: #8a8f93; }
+  .react { margin-left: auto; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #F1F3F2; cursor: pointer;
+    font: 700 20px/1 Outfit; color: #6b7470; }
+
+  /* Die-cut sticker: white rim, lime dot from the logo, a tilt of its own */
+  .st { --s: 44px; width: var(--s); height: var(--s); flex: none; border-radius: 50%; display: grid; place-items: center; position: relative;
+    background: #fff; box-shadow: 0 0 0 3px #fff, 0 4px 10px -2px rgba(2, 42, 30, .28), 0 1px 2px rgba(2, 42, 30, .18); rotate: var(--tilt, 0deg); }
+  .st::before { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F1FF9A, var(--lime) 55%, #B5DA00); }
+  .st img { position: relative; width: 64%; height: 64%; pointer-events: none; }
+  .st.word { width: auto; height: calc(var(--s) * .78); padding: 0 calc(var(--s) * .27); border-radius: 999px; }
+  .st.word::before { border-radius: 999px; background: var(--green); }
+  .st.word b { position: relative; font: 900 calc(var(--s) * .36)/1 Outfit; color: var(--lime); letter-spacing: .02em; }
+  .stuck .st { --s: 30px; }
+
+  /* Picker */
+  .picker { position: absolute; left: 12px; right: 12px; bottom: 58px; z-index: 5; display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 12px; border-radius: 999px; background: #fff; box-shadow: 0 18px 40px -16px rgba(2, 42, 30, .4), 0 0 0 1px rgba(17, 20, 19, .06);
+    opacity: 0; transform: translateY(10px) scale(.9); pointer-events: none; transition: opacity .2s, transform .35s cubic-bezier(.34, 1.56, .64, 1); }
+  .picker.open { opacity: 1; transform: none; pointer-events: auto; }
+  .picker button { border: 0; background: none; padding: 0; cursor: pointer; }
+  .picker .st { transition: transform .25s cubic-bezier(.34, 1.56, .64, 1); }
+  .picker button:hover .st, .picker button:focus-visible .st { transform: translateY(-8px) scale(1.15); }
+  .hint { margin-top: 18px; text-align: center; font-size: 13px; color: #6b7470; }
+
+  /* The flying sticker that slaps onto the answer */
+  .fly { position: fixed; z-index: 50; pointer-events: none; }
+  @media (prefers-reduced-motion: reduce) { .picker, .picker .st { transition: none; } }
+</style>
+
+<div class="phone">
+  <div class="q"><small>Today's question</small><b>What's the best advice you've ever received?</b></div>
+
+  <article class="card" data-card>
+    <div class="who"><div class="av" style="background:#111413;color:#D4FF00">L</div>leo.martin <span>· 4m</span></div>
+    <p class="text">Nobody thinks about you as much as you think. Once I got that, I stopped being scared of looking stupid.</p>
+    <div class="foot"><div class="stuck" data-stuck></div><span class="count" data-count></span>
+      <button class="react" type="button" aria-label="React" data-open>+</button></div>
+    <div class="picker" role="menu" data-picker></div>
+  </article>
+
+  <article class="card" data-card>
+    <div class="who"><div class="av" style="background:#2F7FE0;color:#fff">C</div>camille_b <span>· 9m</span></div>
+    <p class="text">Sleep on it before you hit send.</p>
+    <div class="foot"><div class="stuck" data-stuck></div><span class="count" data-count></span>
+      <button class="react" type="button" aria-label="React" data-open>+</button></div>
+    <div class="picker" role="menu" data-picker></div>
+  </article>
+
+  <p class="hint">Tap + and pick a reaction. Tap again to take it back.</p>
+</div>
+
+<script>
+  const IMG = "../../assets/img/emoji/";
+  const REACTIONS = [
+    { id: "love", label: "Love", img: "heart.png", tilt: -8 },
+    { id: "ha", label: "Ha", img: "joy.png", tilt: 6 },
+    { id: "touched", label: "Touched", img: "tears.png", tilt: -4 },
+    { id: "wow", label: "Wow", img: "wow.png", tilt: 9 },
+    { id: "same", label: "Same", word: "SAME", tilt: -6 },
+  ];
+  const sticker = (r) => r.word
+    ? `<i class="st word" style="--tilt:${r.tilt}deg"><b>${r.word}</b></i>`
+    : `<i class="st" style="--tilt:${r.tilt}deg"><img src="${IMG + r.img}" alt=""></i>`;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll("[data-card]").forEach((card, ci) => {
+    const picker = card.querySelector("[data-picker]");
+    const stuck = card.querySelector("[data-stuck]");
+    const count = card.querySelector("[data-count]");
+    const others = ci ? 3 : 14;
+    let mine = null;
+
+    picker.innerHTML = REACTIONS.map((r) => `<button type="button" role="menuitem" aria-label="${r.label}" data-r="${r.id}">${sticker(r)}</button>`).join("");
+    const render = () => {
+      const base = ci ? ["ha"] : ["touched", "love"];
+      const ids = mine ? [...base.filter((b) => b !== mine), mine] : base;
+      stuck.innerHTML = ids.map((id) => sticker(REACTIONS.find((r) => r.id === id))).join("");
+      count.textContent = mine ? `You and ${others} others` : `${others} reactions`;
+    };
+    render();
+
+    card.querySelector("[data-open]").addEventListener("click", () => picker.classList.toggle("open"));
+    stuck.addEventListener("click", () => { if (mine) { mine = null; render(); } });
+
+    picker.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-r]");
+      if (!btn) return;
+      const r = REACTIONS.find((x) => x.id === btn.dataset.r);
+      const from = btn.querySelector(".st").getBoundingClientRect();
+      picker.classList.remove("open");
+      mine = r.id;
+      render();
+      const target = stuck.lastElementChild;
+      if (reduce) return;
+      // Slap: the sticker leaves the picker, arcs over, lands with a squash and a little wobble.
+      const to = target.getBoundingClientRect();
+      target.style.visibility = "hidden";
+      const fly = document.createElement("div");
+      fly.className = "fly";
+      fly.innerHTML = sticker(r);
+      fly.firstElementChild.style.setProperty("--s", "44px");
+      document.body.append(fly);
+      fly.style.left = from.left + "px"; fly.style.top = from.top + "px";
+      const dx = to.left + to.width / 2 - (from.left + from.width / 2);
+      const dy = to.top + to.height / 2 - (from.top + from.height / 2);
+      const k = to.width / from.width;
+      fly.animate([
+        { transform: "translate(0,0) scale(1.15) rotate(-14deg)" },
+        { transform: `translate(${dx * .55}px, ${dy * .55 - 70}px) scale(1.6) rotate(8deg)`, offset: .5 },
+        { transform: `translate(${dx}px, ${dy}px) scale(${k * 1.25}, ${k * .8}) rotate(${r.tilt}deg)`, offset: .82 },
+        { transform: `translate(${dx}px, ${dy}px) scale(${k}) rotate(${r.tilt}deg)` },
+      ], { duration: 560, easing: "cubic-bezier(.3,.7,.4,1)" }).finished.then(() => {
+        fly.remove();
+        target.style.visibility = "";
+        target.animate([{ rotate: `${r.tilt - 10}deg` }, { rotate: `${r.tilt + 6}deg` }, { rotate: `${r.tilt}deg` }], { duration: 320, easing: "ease-out" });
+        if (navigator.vibrate) navigator.vibrate(12);
+      });
+    });
+  });
+</script>
+</html>
