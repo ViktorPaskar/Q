@@ -6,7 +6,7 @@
   // (Formspree, a Supabase Edge Function, Google Apps Script…). Empty = fall back to email.
   // Waitlist sign-ups go to Web3Forms, which emails each new address to contact@quesly.me.
   // Paste the access key from web3forms.com here (it is meant to be public).
-  const WEB3FORMS_KEY = "";
+  const WEB3FORMS_KEY = "86046b82-f2cd-47e6-aa91-569f2fe1806b";
   const SIGNUP_ENDPOINT = WEB3FORMS_KEY ? "https://api.web3forms.com/submit" : "";
   const CONTACT_EMAIL = "contact@quesly.me";
 
