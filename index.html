@@ -59,18 +59,11 @@
 <main id="main">
 
   <!-- 1. Hero: today's question, answers streaming below -->
-  <section class="hero hero-photo" id="top" aria-labelledby="hero-title">
-    <div class="hero-bg" aria-hidden="true"><img class="hero-pic" src="assets/img/people/hero-ivy.webp" alt="" width="1800" height="1337" fetchpriority="high"><span class="hero-beam"></span></div>
-    <div class="wrap hero-inner">
-      <h1 class="hero-title" id="hero-title" data-chars>Your people.<br>The whole world.<br><em>One question a day.</em></h1>
-    </div>
-    <div class="hero-answers" aria-hidden="true">
-      <div class="float-card hc-1" data-depth="1.4"><div class="fc-body"></div></div>
-      <div class="float-card hc-2" data-depth="-1.2"><div class="fc-body"></div></div>
-    </div>
-    <div class="wrap hero-foot">
-      <div class="hero-q"><small>Today's question</small><b data-today-mini></b></div>
-      <p class="hero-sub">You don't need more feed. You need one good question, and the people you care about answering it.</p>
+  <section class="hero hero-split" id="top" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 class="hero-title" id="hero-title" data-chars>Your people.<br>The whole world.<br><em>One question a day.</em></h1>
+        <p class="hero-sub">You don't need more feed. You need one good question, and the people you care about answering it.</p>
       <form class="signup hero-form" data-signup novalidate>
         <label class="sr-only" for="email-hero">Email address</label>
         <div class="signup-row">
@@ -81,6 +74,13 @@
         <p class="signup-msg" role="status" aria-live="polite"></p>
       </form>
 
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <img class="hero-pic" src="assets/img/people/hero-ivy.webp" alt="" width="1800" height="1337" fetchpriority="high">
+        <div class="hero-q"><small>Today's question</small><b data-today-mini></b></div>
+        <div class="float-card hc-1" data-depth="1.2"><div class="fc-body"></div></div>
+        <div class="float-card hc-2" data-depth="-1"><div class="fc-body"></div></div>
+      </div>
     </div>
   </section>
 
