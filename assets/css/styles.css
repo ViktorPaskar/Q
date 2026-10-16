@@ -707,3 +707,53 @@ html:not(.js) .loader { display: none; }
 }
 .hero-split .hero-title { font-size: clamp(34px, min(3.9vw, 7.4vh), 68px); }
 @media (max-width: 900px) { .hero-split .hero-title { font-size: clamp(30px, 8.6vw, 44px); } .hero-visual .float-card { width: 150px; padding: 9px 11px; font-size: 11.5px; } .hero-visual .float-card .who { font-size: 10px; } }
+
+/* ---------- Hero: one bright moment, calm words on the wall side ---------- */
+.hero-coffee { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; background: #EEF0EA; color: var(--ink); overflow: hidden; }
+.hero-coffee .hero-pic { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 30%; z-index: -2; }
+.hero-coffee::before { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(246, 247, 243, .96) 0%, rgba(246, 247, 243, .86) 30%, rgba(246, 247, 243, 0) 56%); }
+.hero-coffee .hero-grid { display: block; padding-top: 100px; padding-bottom: 60px; }
+.hero-coffee .hero-copy { display: grid; gap: 22px; justify-items: start; max-width: 560px; }
+.hero-coffee .hero-title { font-size: clamp(36px, min(4.4vw, 8vh), 72px); color: var(--ink); text-shadow: none; }
+.hero-coffee .hero-title em { color: var(--green); text-shadow: none; }
+.hero-coffee .hero-title em .cw { background: var(--lime); padding: 0 .08em; margin: 0 -.02em; }
+.hero-coffee .hero-sub { margin: 0; color: #3c4240; max-width: 28em; font-size: 18px; }
+.hero-coffee .hero-form { margin: 0; }
+.hero-coffee .signup-row { background: #fff; box-shadow: 0 0 0 1px rgba(17, 20, 19, .1), 0 20px 40px -24px rgba(2, 42, 30, .35); }
+.hero-coffee .signup input { color: var(--ink); }
+.hero-coffee .signup input::placeholder { color: #7a807d; }
+.hero-coffee .btn-lime { background: var(--green); color: var(--lime); }
+.hero-coffee .signup-note { color: #5F6467; text-align: left; }
+.hero-moment { position: absolute; inset: 0; pointer-events: none; }
+.hero-coffee .hero-q { position: absolute; right: 6%; top: 17%; width: 290px; padding: 14px 18px; border-radius: 20px; background: var(--green); color: #fff; rotate: 2deg;
+  box-shadow: 0 26px 50px -20px rgba(2, 42, 30, .6); }
+.hero-coffee .hero-q small { display: block; font: 700 11px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--lime); }
+.hero-coffee .hero-q b { display: block; margin-top: 7px; font: 900 18px/1.1 var(--display); text-transform: uppercase; }
+.hero-coffee .float-card { position: absolute; left: 34%; top: 60%; width: 230px; padding: 12px 14px; border-radius: 18px; background: #fff; color: #111413; rotate: -2deg;
+  box-shadow: 0 24px 50px -20px rgba(2, 42, 30, .5); font: 700 14.5px/1.3 var(--display); backdrop-filter: none; }
+.hero-coffee .float-card .who { color: #5F6467; font: 600 12px var(--ui); margin-bottom: 4px; }
+.hero-coffee .float-card .rx .st { --s: 24px; }
+@media (max-width: 900px) {
+  .hero-coffee { align-items: flex-start; }
+  .hero-coffee .hero-pic { object-position: 66% 30%; }
+  .hero-coffee::before { background: linear-gradient(180deg, rgba(246, 247, 243, .97) 0%, rgba(246, 247, 243, .9) 52%, rgba(246, 247, 243, 0) 72%); }
+  .hero-coffee .hero-title { font-size: clamp(30px, 8.6vw, 44px); }
+  .hero-coffee .hero-sub { font-size: 16px; }
+  .hero-coffee .hero-q { right: 12px; top: auto; bottom: 22%; width: 210px; } .hero-coffee .hero-q b { font-size: 14px; }
+  .hero-coffee .float-card { display: block; left: 12px; top: auto; bottom: 7%; width: 180px; font-size: 12.5px; }
+}
+.hero-coffee .hero-title em .cw { background: none; padding: 0; margin: 0; }
+.hero-coffee .hero-title em { color: var(--green); }
+.hero-coffee .hero-title em::after { content: none; }
+.hero-coffee .float-card { left: 57%; top: 64%; }
+@media (max-width: 900px) {
+  .hero-coffee { flex-direction: column; background: var(--paper); }
+  .hero-coffee::before { content: none; }
+  .hero-coffee .hero-grid { padding-bottom: 24px; }
+  .hero-coffee .hero-pic { position: relative; inset: auto; z-index: 0; display: block; order: 2; width: calc(100% - 32px); height: 92vw; margin: 0 16px 24px; border-radius: 28px; object-position: 58% 22%; }
+  .hero-moment { inset: auto 16px 24px; height: 92vw; }
+  .hero-coffee .hero-q { right: 12px; top: 14px; bottom: auto; width: 200px; }
+  .hero-coffee .float-card { left: 12px; top: auto; bottom: 14px; width: 180px; }
+}
+@media (max-width: 900px) { .hero-coffee .hero-q { width: 170px; padding: 10px 12px; } .hero-coffee .hero-q b { font-size: 12px; } .hero-coffee .hero-pic { object-position: 58% 12%; } }

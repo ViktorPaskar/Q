@@ -309,7 +309,7 @@
       lastY = y;
       const under = document.elementsFromPoint(innerWidth / 2, 42).find((el) => el.closest("main section, footer"));
       const sec = under && under.closest("main section, footer");
-      nav.classList.toggle("on-light", !!sec && sec.matches(".how, .faq-sec"));
+      nav.classList.toggle("on-light", !!sec && sec.matches(".how, .faq-sec, .hero-coffee, .moments, .founder-sec"));
     };
     update();
     addEventListener("scroll", update, { passive: true });
