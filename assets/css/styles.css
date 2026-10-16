@@ -648,3 +648,4 @@ html:not(.js) .loader { display: none; }
 .founder-sec .member { background: #fff; color: var(--ink); }
 @media (max-width: 600px) { .founder-sec .founder { grid-template-columns: 1fr; } .founder-sec .founder-photo { grid-row: auto; } }
 .founder-sec { padding-top: 0; }
+.hero-horizon, .cta-horizon { display: none; }
