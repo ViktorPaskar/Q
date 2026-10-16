@@ -68,8 +68,7 @@
 
   function renderQuestion(el) {
     const [text, highlights] = QUESTIONS[todayIndex()];
-    const mini = $("[data-today-mini]");
-    if (mini) mini.textContent = text;
+    $$("[data-today-mini]").forEach((el) => (el.textContent = text));
     if (!el) return;
     const words = text.split(" ");
     const marked = new Set();
@@ -244,6 +243,29 @@
   }
 
   // ---------- Waitlist form ----------
+  // Thank-you pop-up after a successful sign-up
+  function openThanks() {
+    const box = $("[data-thanks]");
+    if (!box) return;
+    box.hidden = false;
+    requestAnimationFrame(() => box.classList.add("is-open"));
+    $("[data-thanks-close]", box).focus();
+  }
+  function closeThanks() {
+    const box = $("[data-thanks]");
+    box.classList.remove("is-open");
+    setTimeout(() => (box.hidden = true), 350);
+  }
+  document.addEventListener("click", (e) => {
+    if (e.target.matches("[data-thanks-close], [data-thanks]")) closeThanks();
+    if (e.target.matches("[data-share]")) {
+      const data = { title: "Quesly", text: "One question a day. Join the Quesly waitlist with me:", url: "https://quesly.me" };
+      if (navigator.share) navigator.share(data).catch(() => {});
+      else navigator.clipboard?.writeText(data.url).then(() => (e.target.textContent = "Link copied"));
+    }
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("[data-thanks]")?.hidden) closeThanks(); });
+
   function setupSignup() {
     const valid = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
     $$("[data-signup]").forEach((form) => {
@@ -276,7 +298,7 @@
           });
           if (!res.ok) throw new Error(String(res.status));
           form.classList.add("is-done");
-          say("You're on the list 🎉 We'll email you when your invite is ready.", "ok"); emojify(msg);
+          say("✓ You're on the list", "ok"); openThanks();
         } catch {
           say("Something went wrong. Please try again in a moment.", "error");
         } finally {

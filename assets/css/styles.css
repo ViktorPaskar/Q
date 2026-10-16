@@ -783,3 +783,31 @@ html:not(.js) .loader { display: none; }
 @media (max-width: 600px) { .footer .collab-link { padding: 76px 20px 22px; } .footer .collab-link b { font-size: 22px; } .collab-arrow { width: 44px; height: 44px; top: 16px; right: 16px; } }
 .footer-top { display: flex; justify-content: center; }
 .footer-top nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px clamp(28px, 4vw, 56px); }
+
+/* ---------- Thank-you pop-up ---------- */
+.signup-msg[data-state="ok"] { color: var(--green); }
+.cta .signup-msg[data-state="ok"], .footer .signup-msg[data-state="ok"] { color: var(--lime); }
+.signup.is-done .signup-row { display: flex; opacity: .5; pointer-events: none; }
+.thanks { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; padding: 16px; background: rgba(2, 24, 16, 0); backdrop-filter: blur(0); transition: background-color .35s, backdrop-filter .35s; }
+.thanks.is-open { background: rgba(2, 24, 16, .55); backdrop-filter: blur(6px); }
+.thanks-card { position: relative; width: min(440px, 100%); padding: 64px 32px 28px; border-radius: 32px; background: var(--green); color: #fff; text-align: center;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6); transform: translateY(30px) scale(.94); opacity: 0; transition: transform .55s var(--spring), opacity .3s; }
+.thanks.is-open .thanks-card { transform: none; opacity: 1; }
+.thanks-stickers { position: absolute; top: -34px; left: 0; right: 0; display: flex; justify-content: center; gap: 4px; }
+.thanks-stickers .st { --s: 58px; opacity: 0; transform: translateY(20px) scale(.4); }
+.thanks.is-open .thanks-stickers .st { animation: slap .6s var(--spring) forwards; }
+.thanks.is-open .thanks-stickers .st:nth-child(2) { animation-delay: .08s; } .thanks.is-open .thanks-stickers .st:nth-child(3) { animation-delay: .16s; }
+.thanks.is-open .thanks-stickers .st:nth-child(4) { animation-delay: .24s; } .thanks.is-open .thanks-stickers .st:nth-child(5) { animation-delay: .32s; }
+@keyframes slap { to { opacity: 1; transform: none; } }
+.thanks-title { font: 900 clamp(30px, 6vw, 40px)/1 var(--display); text-transform: uppercase; color: var(--lime); }
+.thanks-text { margin-top: 14px; color: rgba(255, 255, 255, .82); }
+.thanks-q { margin-top: 22px; padding: 14px 16px; border-radius: 18px; background: rgba(255, 255, 255, .08); }
+.thanks-q small { display: block; font: 600 12px var(--ui); color: rgba(255, 255, 255, .6); }
+.thanks-q b { display: block; margin-top: 6px; font: 900 16px/1.15 var(--display); text-transform: uppercase; }
+.thanks-actions { display: flex; gap: 10px; margin-top: 22px; }
+.thanks-actions button { flex: 1; padding: 15px; border: 0; border-radius: 999px; cursor: pointer; font: 700 15px/1 var(--display); }
+.thanks-share { background: var(--lime); color: var(--green); }
+.thanks-close { background: rgba(255, 255, 255, .1); color: #fff; }
+@media (prefers-reduced-motion: reduce) { .thanks-card, .thanks.is-open .thanks-stickers .st { transition: none; animation: none; opacity: 1; transform: none; } }
+.thanks[hidden] { display: none; }
+@media (max-width: 600px) { .thanks-stickers .st { --s: 44px; } .thanks-card { padding-top: 52px; } }
