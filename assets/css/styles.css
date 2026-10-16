@@ -763,3 +763,21 @@ html:not(.js) .loader { display: none; }
   rotate: var(--tilt, -4deg); box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--lime), 0 4px 8px -3px rgba(2, 42, 30, .4) !important; }
 .av.av-photo { background-size: cover !important; background-position: center 30% !important; color: transparent !important; }
 .av.av-photo { background: var(--img) center 30% / cover no-repeat !important; }
+
+/* ---------- Footer collab: a lime card, not a line of text ---------- */
+.footer .collab { display: grid; gap: 28px; align-items: stretch; padding: clamp(28px, 4vw, 52px); margin-bottom: 64px; border: 0; border-radius: 36px; background: var(--lime); color: var(--green); }
+@media (min-width: 900px) { .footer .collab { grid-template-columns: 1.1fr 1fr; } }
+.footer .collab-title { color: var(--green); font-size: clamp(36px, 5vw, 72px); }
+.collab-tags { list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.collab-tags li { padding: 8px 14px; border-radius: 999px; background: rgba(7, 88, 61, .1); font: 700 14px/1 var(--display); color: var(--green); }
+.footer .collab-link { position: relative; display: grid; align-content: end; gap: 10px; padding: 28px; border-radius: 26px; background: var(--green); color: #fff;
+  text-decoration: none; font: inherit; transition: background-color .3s, transform .4s var(--expo); }
+.footer .collab-link small { font: 600 14px var(--ui); color: rgba(255, 255, 255, .7); }
+.footer .collab-link b { font: 900 clamp(24px, 2.6vw, 38px)/1.05 var(--display); color: var(--lime); word-break: break-word; }
+.collab-arrow { position: absolute; top: 20px; right: 22px; width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; background: var(--lime); color: var(--green);
+  font: 900 24px/1 var(--display); transition: transform .4s var(--expo); }
+.footer .collab-link:hover { color: #fff; background: #0A6A49; }
+.footer .collab-link:hover b { color: var(--lime); }
+.footer .collab-link:hover .collab-arrow { transform: rotate(45deg); }
+.footer .collab-link { padding-top: 92px; }
+@media (max-width: 600px) { .footer .collab-link { padding: 76px 20px 22px; } .footer .collab-link b { font-size: 22px; } .collab-arrow { width: 44px; height: 44px; top: 16px; right: 16px; } }
