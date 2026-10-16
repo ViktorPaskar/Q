@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Quesly avatar concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --green: #07583D; --lime: #D4FF00; --ink: #111413; --paper: #F6F7F3; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--paper); color: var(--ink); font: 15px/1.45 -apple-system, "Segoe UI", system-ui, sans-serif; padding: 44px 56px; width: 1400px; }
+  h2 { font: 900 30px/1 Outfit; text-transform: uppercase; letter-spacing: -.01em; }
+  h2 span { color: var(--green); }
+  .lead { margin-top: 8px; color: #5F6467; max-width: 60em; }
+  .row { display: flex; gap: 26px; align-items: flex-end; margin: 22px 0 46px; }
+  .cell { display: grid; justify-items: center; gap: 10px; font: 600 12.5px Outfit; color: #5F6467; text-align: center; }
+  canvas { display: block; }
+  .chip { display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 999px; background: #fff; box-shadow: 0 10px 24px -14px rgba(2, 42, 30, .4); font: 700 14px Outfit; }
+</style>
+
+<h2>A. <span>Aura</span>, painted by your answers</h2>
+<p class="lead">A soft living gradient. Its colours come from the reactions your answers get (❤️ rose, 💚 green, 🥰 peach, 🥹 sky, SAME lime), its shape from your username. It slowly shifts as you answer, so no two people ever look alike.</p>
+<div class="row" id="aura"></div>
+
+<h2>B. <span>Rings</span>, one for every month you showed up</h2>
+<p class="lead">Each ring is a month, each dash a day you answered. New users start with one thin lime arc; after a year it is a dense, personal pattern. Your avatar literally is your story.</p>
+<div class="row" id="rings"></div>
+
+<h2>C. <span>Sticker</span>, your photo as a die-cut sticker</h2>
+<p class="lead">Your selfie cut out like our reaction stickers: white rim, own tilt, lime ring that lights up when you've answered today. Before you add a photo, the sticker shows your aura.</p>
+<div class="row" id="stick"></div>
+
+<script>
+  const hash = (s) => { let h = 2166136261; for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0; };
+  const rnd = (seed) => () => ((seed = Math.imul(seed ^ (seed >>> 15), 2246822507) ^ Math.imul(seed ^ (seed >>> 13), 3266489909)) >>> 0) / 4294967296;
+  const PAL = { love: "#FF4D6D", green: "#1FAF6E", adore: "#FFB27A", touched: "#6FB8FF", same: "#D4FF00", deep: "#07583D" };
+  const users = [["nata.ver", ["touched", "love", "adore"]], ["leo.martin", ["same", "green", "deep"]], ["camille_b", ["love", "adore", "same"]],
+    ["yasmine.k", ["touched", "green", "same"]], ["theo_runs", ["adore", "love", "deep"]], ["AnnaViva", ["green", "same", "touched"]]];
+  const mk = (size) => { const c = document.createElement("canvas"); c.width = c.height = size * 2; c.style.width = c.style.height = size + "px"; const x = c.getContext("2d"); x.scale(2, 2); return [c, x]; };
+
+  function aura(x, size, name, moods) {
+    const r = rnd(hash(name));
+    x.save(); x.beginPath(); x.arc(size / 2, size / 2, size / 2, 0, 7); x.clip();
+    x.fillStyle = PAL[moods[0]]; x.fillRect(0, 0, size, size);
+    for (let i = 0; i < 5; i++) {
+      const col = PAL[moods[i % moods.length]], cx = r() * size, cy = r() * size, rad = size * (.35 + r() * .45);
+      const g = x.createRadialGradient(cx, cy, 0, cx, cy, rad); g.addColorStop(0, col); g.addColorStop(1, col + "00");
+      x.fillStyle = g; x.fillRect(0, 0, size, size);
+    }
+    const sh = x.createRadialGradient(size * .32, size * .26, 0, size * .32, size * .26, size * .5); sh.addColorStop(0, "rgba(255,255,255,.55)"); sh.addColorStop(1, "rgba(255,255,255,0)");
+    x.fillStyle = sh; x.fillRect(0, 0, size, size);
+    for (let i = 0; i < size * 6; i++) { x.fillStyle = `rgba(255,255,255,${r() * .08})`; x.fillRect(r() * size, r() * size, 1, 1); }
+    x.restore();
+  }
+  function rings(x, size, name, months) {
+    const r = rnd(hash(name)); const c = size / 2;
+    x.fillStyle = "#07583D"; x.beginPath(); x.arc(c, c, c, 0, 7); x.fill();
+    const n = months, gap = (c - 10) / (n + .5);
+    for (let m = 0; m < n; m++) {
+      const rad = c - 7 - m * gap, days = 30, density = .45 + r() * .5;
+      for (let d = 0; d < days; d++) {
+        if (r() > density) continue;
+        const a0 = -Math.PI / 2 + d / days * Math.PI * 2, a1 = a0 + Math.PI * 2 / days * .72;
+        x.strokeStyle = m === 0 ? "#D4FF00" : `rgba(212,255,0,${.9 - m * .07})`; x.lineWidth = Math.max(1.6, gap * .62); x.lineCap = "round";
+        x.beginPath(); x.arc(c, c, rad, a0, a1); x.stroke();
+      }
+    }
+    x.fillStyle = "#07583D"; x.beginPath(); x.arc(c, c, Math.max(6, c - 7 - n * gap), 0, 7); x.fill();
+  }
+  const add = (id, size, draw, label) => { const [cv, x] = mk(size); draw(x, size); const d = document.createElement("div"); d.className = "cell"; d.append(cv); d.insertAdjacentHTML("beforeend", label); document.getElementById(id).append(d); };
+
+  users.forEach(([n, m], i) => add("aura", [120, 96, 120, 72, 96, 48][i], (x, s) => aura(x, s, n, m), n));
+  add("aura", 34, (x, s) => aura(x, s, "nata.ver", users[0][1]), '<span class="chip">' + '<i></i>in the feed</span>');
+  [[1, "day 3"], [2, "1 month"], [4, "4 months"], [7, "7 months"], [12, "1 year"]].forEach(([m, l], i) => add("rings", 116, (x, s) => rings(x, s, "leo" + i, m), l));
+  add("rings", 48, (x, s) => rings(x, s, "leo9", 6), "small");
+
+  const faces = ["../../assets/img/viktor-paskar.webp", "../hero-concepts/curly.webp", "../hero-concepts/ivy.webp", "../hero-concepts/beanie.webp"];
+  faces.forEach((src, i) => {
+    const d = document.createElement("div"); d.className = "cell";
+    const tilt = [-6, 5, -3, 7][i], on = i !== 2;
+    d.innerHTML = `<div style="width:116px;height:116px;border-radius:50%;padding:${on ? 5 : 0}px;background:${on ? "#D4FF00" : "transparent"};rotate:${tilt}deg;box-shadow:0 10px 22px -8px rgba(2,42,30,.45)">
+      <div style="width:100%;height:100%;border-radius:50%;border:5px solid #fff;background:url(${src}) center 30%/cover"></div></div>${on ? "answered today" : "not yet today"}`;
+    document.getElementById("stick").append(d);
+  });
+  add("stick", 116, (x, s) => aura(x, s, "newbie", ["adore", "touched", "same"]), "no photo yet");
+</script>
+</html>
