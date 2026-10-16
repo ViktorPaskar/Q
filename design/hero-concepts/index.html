@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quesly hero concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --green: #07583D; --deep: #044330; --lime: #D4FF00; --ink: #111413; --paper: #F6F7F3; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font: 16px/1.5 -apple-system, "Segoe UI", system-ui, sans-serif; color: var(--ink); background: #222; }
+  .hero { position: relative; height: 100vh; min-height: 640px; overflow: hidden; }
+  .nav { position: absolute; z-index: 9; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 22px 56px; }
+  .nav img { height: 22px; }
+  .nav a { padding: 12px 20px; border-radius: 999px; background: var(--lime); color: var(--green); font: 700 15px Outfit; text-decoration: none; }
+  h1 { font: 900 clamp(44px, 6vw, 92px)/.93 Outfit; text-transform: uppercase; letter-spacing: -.03em; }
+  h1 em { font-style: normal; color: var(--lime); }
+  .sub { font-size: 18px; line-height: 1.5; max-width: 30em; }
+  .form { display: flex; gap: 6px; padding: 6px; width: min(460px, 100%); border-radius: 999px; background: rgba(255, 255, 255, .16); backdrop-filter: blur(14px); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .3); }
+  .form span { flex: 1; padding: 0 18px; align-self: center; color: rgba(255, 255, 255, .75); }
+  .form b { padding: 15px 22px; border-radius: 999px; background: var(--lime); color: var(--green); font: 700 15px Outfit; }
+  /* app pieces */
+  .qcard { border-radius: 22px; padding: 16px 18px; background: var(--green); color: #fff; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .55); }
+  .qcard small { display: block; font: 700 11px/1 Outfit; letter-spacing: .12em; color: var(--lime); text-transform: uppercase; }
+  .qcard b { display: block; margin-top: 8px; font: 900 21px/1.05 Outfit; text-transform: uppercase; }
+  .ans { position: relative; color: var(--ink); border-radius: 18px; padding: 12px 14px; background: #fff; box-shadow: 0 24px 50px -18px rgba(0, 0, 0, .5); font: 700 15px/1.3 Outfit; }
+  .ans i { display: flex; align-items: center; gap: 7px; font: 600 12px -apple-system, "Segoe UI", sans-serif; font-style: normal; color: #5F6467; margin-bottom: 4px; }
+  .av { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 900 10px Outfit; color: #fff; }
+  .st { position: absolute; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: #fff; box-shadow: 0 0 0 3px #fff, 0 6px 14px -4px rgba(0, 0, 0, .4); }
+  .st::before { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F1FF9A, var(--lime) 55%, #B5DA00); }
+  .st img { position: relative; width: 64%; }
+  .st.word { width: auto; height: 38px; padding: 0 13px; border-radius: 999px; }
+  .st.word::before { border-radius: 999px; background: var(--green); }
+  .st.word b { position: relative; font: 900 17px Outfit; color: var(--lime); }
+  .label { position: absolute; z-index: 20; bottom: 18px; right: 22px; padding: 8px 14px; border-radius: 999px; background: #000; color: #fff; font: 700 14px Outfit; }
+
+  /* A: one moment, full bleed. The question hovers over her phone. */
+  .a { background: url(steps.webp) 70% 50% / cover; color: #fff; }
+  .a::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(2, 30, 20, .88) 0%, rgba(2, 30, 20, .55) 38%, rgba(2, 30, 20, 0) 62%); }
+  .a .copy { position: absolute; left: 56px; top: 54%; translate: 0 -50%; display: grid; gap: 22px; max-width: 620px; }
+  .a h1 { font-size: clamp(40px, 4.6vw, 70px); }
+  .a .sub { color: rgba(255, 255, 255, .8); }
+  .a .qcard { position: absolute; left: 58%; top: 16%; width: 290px; rotate: -3deg; }
+  .a .ans { position: absolute; left: 62%; top: 60%; width: 250px; rotate: 2deg; }
+
+  /* B: same question, four lives */
+  .b { background: var(--paper); display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; padding: 84px 10px 10px; }
+  .b .ph { position: relative; border-radius: 26px; overflow: hidden; background-size: cover; background-position: center; }
+  .b .ph .ans { position: absolute; left: 14px; bottom: 14px; max-width: 280px; }
+  .b .center { position: absolute; z-index: 5; left: 50%; top: 54%; translate: -50% -50%; width: min(560px, 90%); padding: 30px 34px; border-radius: 34px; background: var(--green); color: #fff; text-align: center; display: grid; gap: 16px; justify-items: center; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .6); }
+  .b .center h1 { font-size: clamp(34px, 4vw, 56px); }
+  .b .center .qline { font: 700 15px Outfit; color: var(--lime); }
+  .b .center .form { background: rgba(255, 255, 255, .1); }
+  .b .nav img { filter: none; }
+
+  /* C: the answer types itself while he reads */
+  .c { background: url(ivy.webp) 50% 40% / cover; color: #fff; }
+  .c::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2, 30, 20, .7) 0%, rgba(2, 30, 20, .1) 35%, rgba(2, 30, 20, .1) 60%, rgba(2, 30, 20, .85) 100%); }
+  .c .top { position: absolute; top: 96px; left: 0; right: 0; text-align: center; display: grid; justify-items: center; gap: 14px; }
+  .c .top h1 { font-size: clamp(40px, 5.2vw, 80px); }
+  .c .phone-q { position: absolute; left: 50%; top: 54%; translate: -50% 0; width: 300px; }
+  .c .bottom { position: absolute; bottom: 44px; left: 0; right: 0; display: grid; justify-items: center; gap: 12px; }
+  .c .bottom .sub { color: rgba(255, 255, 255, .85); text-align: center; }
+  .c .bubble { position: absolute; left: calc(50% + 170px); top: 57%; width: 230px; rotate: 3deg; }
+  .c .bubble2 { position: absolute; left: calc(50% - 420px); top: 44%; width: 220px; rotate: -3deg; }
+</style>
+
+<!-- A -->
+<section class="hero a">
+  <nav class="nav"><img src="../../assets/img/quesly-logo-on-green.svg" alt="Quesly"><a>Join the waitlist</a></nav>
+  <div class="copy">
+    <h1>Your people.<br>The whole world.<br><em>One question a day.</em></h1>
+    <p class="sub">Every morning the same question lands on every phone. Answer it, then see what your friends and the world said.</p>
+    <div class="form"><span>Your email</span><b>Join the waitlist</b></div>
+  </div>
+  <div class="qcard"><small>Today's question</small><b>What made you smile today?</b></div>
+  <div class="ans"><i><span class="av" style="background:#2F7FE0">M</span>mina.k · just now</i>This message from my sister 🙂<span class="st" style="right:-18px;top:-20px"><img src="../../assets/img/emoji/hearts.png" alt=""></span></div>
+  <span class="label">A · One moment</span>
+</section>
+
+<!-- B -->
+<section class="hero b">
+  <nav class="nav"><img src="../../assets/img/quesly-logo-green.svg" alt="Quesly"><a>Join the waitlist</a></nav>
+  <div class="ph" style="background-image:url(curly.webp);background-position:40% 30%"><div class="ans"><i><span class="av" style="background:#FF6A1A">A</span>ama · Lagos</i>Moving cities alone at 22.</div></div>
+  <div class="ph" style="background-image:url(steps.webp);background-position:35% 50%"><div class="ans" style="left:auto;right:14px"><i><span class="av" style="background:#2F7FE0">M</span>mina.k · Friend</i>Telling Mom I quit my job.</div></div>
+  <div class="ph" style="background-image:url(ivy.webp);background-position:50% 35%"><div class="ans"><i><span class="av" style="background:#111413">L</span>luca · Milano</i>Proposing. She said yes. Barely.</div></div>
+  <div class="ph" style="background-image:url(beanie.webp);background-position:50% 30%"><div class="ans" style="left:auto;right:14px"><i><span class="av" style="background:#07583D">S</span>sara · Friend</i>Learning to drive at 30.</div></div>
+  <div class="center">
+    <span class="qline">Today's question · What's the bravest thing you've done?</span>
+    <h1>Same question.<br><em>Every life.</em></h1>
+    <div class="form"><span>Your email</span><b>Join the waitlist</b></div>
+  </div>
+  <span class="label">B · Same question, four lives</span>
+</section>
+
+<!-- C -->
+<section class="hero c">
+  <nav class="nav"><img src="../../assets/img/quesly-logo-on-green.svg" alt="Quesly"><a>Join the waitlist</a></nav>
+  <div class="top"><h1>One question a day.<br><em>Your people answer.</em></h1></div>
+  <div class="bubble2 ans"><i><span class="av" style="background:#FF6A1A">A</span>ama · World</i>My grandma's jollof.<span class="st word" style="right:-16px;top:-18px"><b>SAME</b></span></div>
+  <div class="bubble ans"><i><span class="av" style="background:#111413">L</span>luca · Friend</i>Pasta at 2am with you guys<span class="st" style="left:-18px;top:-20px"><img src="../../assets/img/emoji/heart.png" alt=""></span></div>
+  <div class="bottom">
+    <div class="qcard" style="width:340px;text-align:center"><small>Today's question</small><b>What food tastes like home?</b></div>
+    <div class="form"><span>Your email</span><b>Join the waitlist</b></div>
+  </div>
+  <span class="label">C · Answers around him</span>
+</section>
+</html>
