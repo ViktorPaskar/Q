@@ -204,7 +204,8 @@
       const html = list.map(card).join("");
       track.innerHTML = html + html; // doubled for a seamless loop
     });
-    $$(".float-card").forEach((el, i) => (($(".fc-body", el) || el).innerHTML = card(answers[i]).replace(/^<div class="answer-card">|<\/div>$/g, "")));
+    $$(".float-card").forEach((el, i) => (($(".fc-body", el) || el).innerHTML = card(answers[i]).replace(/^<div class="answer-card">|<\/div>$/g, "")
+      .replace("</p>", `<em class="moment-tag">${["Friend", "World", "Friend"][i]}</em></p>`)));
   }
 
   // ---------- Memories calendar (October 2026 starts on a Thursday) ----------
@@ -450,20 +451,9 @@
     };
     const mm = gsap.matchMedia();
     mm.add("(min-width: 901px)", () => {
-      const rail = $(".rail");
-      const distance = () => rail.scrollWidth - innerWidth + parseFloat(getComputedStyle($(".rail-wrap")).paddingLeft) + 40;
-      const scroller = gsap.to(rail, {
-        x: () => -distance(), ease: "none",
-        scrollTrigger: { trigger: ".features", start: "top top", end: () => "+=" + distance(), scrub: .6, invalidateOnRefresh: true },
-      });
-      // The pin lasts a little longer than the slide, so the rail settles before the page moves on.
-      ScrollTrigger.create({ trigger: ".features", start: "top top", end: () => "+=" + (distance() + innerHeight * .35), pin: ".features-pin", anticipatePin: 1, invalidateOnRefresh: true });
-      $$(".card").forEach((card) => {
-        gsap.from(card, {
-          y: 80, rotate: 3, opacity: .4, ease: "none",
-          scrollTrigger: { trigger: card, containerAnimation: scroller, start: "left 105%", end: "left 65%", scrub: true },
-        });
-        ScrollTrigger.create({ trigger: card, containerAnimation: scroller, start: "left 75%", onEnter: () => cardIn(card) });
+      $$(".card").forEach((card, i) => {
+        gsap.from(card, { y: 60, opacity: 0, duration: 1, delay: i * .08, ease: "expo.out", scrollTrigger: { trigger: ".rail", start: "top 85%", once: true } });
+        ScrollTrigger.create({ trigger: card, start: "top 80%", once: true, onEnter: () => cardIn(card) });
       });
     });
     mm.add("(max-width: 900px)", () => {
@@ -528,6 +518,11 @@
   startCountdown();
   startTyping();
   setupSignup();
+  $$("[data-feed-tab]").forEach((tab) => tab.addEventListener("click", () => {
+    $$("[data-feed-tab]").forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
+    $$("[data-feed]").forEach((p) => (p.hidden = p.dataset.feed !== tab.dataset.feedTab));
+    window.ScrollTrigger?.refresh();
+  }));
   setupNav();
 
   const libs = window.gsap && window.ScrollTrigger && window.Lenis;

@@ -577,3 +577,37 @@ html:not(.js) .loader { display: none; }
 .rx-overlay .st { --s: 30px; }
 .rx-overlay .st.word { --s: 30px; padding: 0 7px; }
 @media (max-width: 900px) { .rx-overlay .st { --s: 22px; } .rx-overlay .st.word { --s: 22px; padding: 0 5px; } }
+
+/* ---------- Restructure: hero copy, audience pills, two feeds, four cards, founder ---------- */
+.hero-title { font-size: clamp(40px, min(6.2vw, 10vh), 104px); }
+.aud { display: inline-flex; gap: 4px; margin-top: 12px; padding: 4px; border-radius: 999px; background: var(--line); }
+.aud span { padding: 6px 12px; border-radius: 999px; font: 700 13px/1 var(--display); color: var(--gray); }
+.aud span.on { background: var(--green); color: var(--lime); }
+.feed-switch { display: flex; gap: 6px; margin-top: 32px; }
+.feed-switch button { padding: 11px 20px; border: 0; border-radius: 999px; cursor: pointer; background: var(--line); color: var(--ink); font: 700 15px/1 var(--display);
+  transition: background-color .3s var(--expo), color .3s var(--expo); }
+.feed-switch button[aria-selected="true"] { background: var(--green); color: var(--lime); }
+.feeds .moments-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(980px, 100%); margin-top: 40px; }
+.feed-panel[hidden] { display: none !important; }
+.moment-tag { margin-left: auto; font-style: normal; font-weight: 600; font-size: 11px; color: var(--green); background: #EAF4EE; padding: 3px 8px; border-radius: 999px; }
+.badges-line { margin-top: 16px; font-size: clamp(16px, 1.3vw, 19px); color: var(--on-dark-2); max-width: 34em; }
+@media (min-width: 901px) {
+  .features .rail-wrap { padding: 0 var(--gutter); max-width: var(--max); margin: 0 auto; }
+  .features .rail { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: auto; padding: 0; }
+  .features .card { width: auto; }
+}
+.founder { display: grid; grid-template-columns: auto 1fr; gap: 6px 24px; align-items: center; margin-top: 48px; }
+.founder-photo { grid-row: span 2; width: 88px; height: 88px; border-radius: 50%; object-fit: cover; }
+.founder-quote { margin: 0; font: 700 clamp(20px, 2vw, 28px)/1.25 var(--display); color: #fff; }
+.founder figcaption { color: var(--on-dark-2); font-size: 14px; }
+.rx-overlay { top: 86.5%; bottom: 0; height: auto; left: 0; right: 0; display: flex; align-items: flex-start; justify-content: flex-start; gap: 12px; padding: 5% 7% 0; background: #06583D; }
+.rx-stuck { display: flex; align-items: center; }
+.rx-stuck .st { --s: 30px; margin-right: -8px; }
+.rx-stuck .st.word { --s: 30px; padding: 0 7px; }
+.rx-count { align-self: center; margin-left: 8px; color: rgba(255, 255, 255, .78); font: 600 12px/1 var(--ui); white-space: nowrap; }
+@media (max-width: 900px) { .rx-stuck .st, .rx-stuck .st.word { --s: 22px; } .rx-count { font-size: 10px; } .feeds .moments-rail { display: flex; } }
+.rx-overlay .rx-stuck, .rx-overlay .rx-count { display: flex; background: none; border-radius: 0; }
+.rx-overlay .rx-count { display: block; }
+.moment-tag { margin-left: 4px; }
+.rx-overlay { align-items: center; padding-top: 0; padding-bottom: 6%; }
+.feeds .moments-rail { width: min(760px, 100%); }
