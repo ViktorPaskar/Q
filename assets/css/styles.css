@@ -572,3 +572,8 @@ html:not(.js) .loader { display: none; }
   .fc-pic .fc-body .who { font-size: 10px; margin-bottom: 2px; } .fc-pic .fc-body .rx { display: none !important; }
   .fc1.fc-pic { left: 4px; top: 26%; } .fc2.fc-pic { right: 4px; top: 50%; }
 }
+/* Story screen: one clean row of the six stickers over the screenshot's old buttons */
+.rx-overlay { left: 0; right: 0; top: 88.6%; height: 9.4%; display: flex; align-items: center; justify-content: space-evenly; gap: 0; padding: 0 3%; background: linear-gradient(180deg, rgba(7, 90, 62, 0), #075A3E 35%); }
+.rx-overlay .st { --s: 30px; }
+.rx-overlay .st.word { --s: 30px; padding: 0 7px; }
+@media (max-width: 900px) { .rx-overlay .st { --s: 22px; } .rx-overlay .st.word { --s: 22px; padding: 0 5px; } }
