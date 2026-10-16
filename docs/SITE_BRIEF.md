@@ -78,7 +78,7 @@ design/quby-figma/  исходные SVG Quby из Figma основателя и
 - У каждого вопроса по 6 примерных ответов для потока в Hero. Они придуманы, основатель может заменить их своими.
 
 ## 7. Что ещё не сделано
-- [ ] **Форма waitlist ничего не сохраняет:** пока `SIGNUP_ENDPOINT` в начале `main.js` пустой, форма открывает почтовое приложение посетителя. Нужно выбрать сервис (Formspree или Supabase) и вписать URL.
+- [x] **Форма waitlist** работает через Web3Forms (ключ `WEB3FORMS_KEY` в начале `main.js`): каждый адрес приходит письмом «+1 on the Quesly waitlist» на contact@quesly.me. Проверено 16 октября 2026.
 - [ ] `www.quesly.me`: Worker `q` → Domains → Add Domain.
 - [ ] Ящик `hello@quesly.me` в Spacemail.
 - [ ] Privacy и Terms проверить юристом.
