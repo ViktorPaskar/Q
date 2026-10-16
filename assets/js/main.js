@@ -204,7 +204,7 @@
       const html = list.map(card).join("");
       track.innerHTML = html + html; // doubled for a seamless loop
     });
-    $$(".float-card").forEach((el, i) => (el.innerHTML = card(answers[i]).replace(/^<div class="answer-card">|<\/div>$/g, "")));
+    $$(".float-card").forEach((el, i) => (($(".fc-body", el) || el).innerHTML = card(answers[i]).replace(/^<div class="answer-card">|<\/div>$/g, "")));
   }
 
   // ---------- Memories calendar (October 2026 starts on a Thursday) ----------
