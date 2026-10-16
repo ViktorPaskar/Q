@@ -757,3 +757,7 @@ html:not(.js) .loader { display: none; }
 @media (prefers-reduced-motion: reduce) { .hero-coffee .hero-q, .hero-coffee .float-card { animation: none; } }
 /* Hero is a daylight photo: keep it light in dark mode too */
 .hero-coffee { --paper: #F6F7F3; --ink: #111413; background: #F6F7F3; color: #111413; }
+
+/* Classic sticker avatar (founder pick, Oct 2026) */
+.av { background: radial-gradient(circle at 30% 25%, var(--a1), var(--a2) 50%, var(--a3)) !important; color: #07583D !important; font-weight: 900 !important;
+  rotate: var(--tilt, -4deg); box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--lime), 0 4px 8px -3px rgba(2, 42, 30, .4) !important; }

@@ -124,13 +124,16 @@
     el.innerHTML = text.split(/\s+/).map((w) => `<span class="sw" aria-hidden="true"><span>${esc(w)}</span></span>`).join(" ");
   }
 
-  // ---------- Initials avatars: colour pair picked from the username, so it never changes ----------
-  const AV = [["#07583D", "#D4FF00"], ["#D4FF00", "#07583D"], ["#022A1E", "#FFFFFF"], ["#EAF4EE", "#07583D"], ["#111413", "#D4FF00"], ["#FF6A1A", "#FFFFFF"], ["#2F7FE0", "#FFFFFF"], ["#F6F7F3", "#111413"]];
+  // ---------- Sticker avatars: white die-cut rim, own tilt, lime ring = answered today ----------
+  // Without a photo the sticker is filled with an aura picked from the username, plus the initial.
+  const AURA = [["#FFE2C6", "#FFB27A", "#FF4D6D"], ["#F1FF9A", "#D4FF00", "#1FAF6E"], ["#D8ECFF", "#6FB8FF", "#1FAF6E"],
+    ["#FFD3DC", "#FF4D6D", "#FFB27A"], ["#E4FFB0", "#1FAF6E", "#07583D"], ["#FFF1C2", "#FFB27A", "#6FB8FF"]];
   const avatar = (user) => {
     let hsh = 0;
     for (const ch of user) hsh = (hsh * 31 + ch.charCodeAt(0)) >>> 0;
-    const [bg, fg] = AV[hsh % AV.length];
-    return `<span class="av" style="--av-bg:${bg};--av-fg:${fg}" aria-hidden="true">${esc(user.replace(/[^a-z]/gi, "").slice(0, 1))}</span>`;
+    const [a1, a2, a3] = AURA[hsh % AURA.length];
+    const tilt = ((hsh >> 4) % 13) - 6;
+    return `<span class="av" style="--a1:${a1};--a2:${a2};--a3:${a3};--tilt:${tilt}deg" aria-hidden="true">${esc(user.replace(/[^a-z]/gi, "").slice(0, 1))}</span>`;
   };
 
   // ---------- Hero title: one span per letter for the reveal ----------
