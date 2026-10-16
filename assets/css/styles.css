@@ -769,3 +769,7 @@ html:not(.js) .loader { display: none; }
 .hero-coffee .float-card.swap { opacity: 0; transform: translateY(16px) scale(.96); }
 @keyframes heroFloat { 50% { translate: 0 -10px; } }
 @media (prefers-reduced-motion: reduce) { .hero-coffee .hero-q, .hero-coffee .float-card { animation: none; } }
+/* Hero is a daylight photo: keep it light in dark mode too */
+.hero-coffee { --paper: #F6F7F3; --ink: #111413; background: #F6F7F3; color: #111413; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .nav.on-light .logo { --logo-text: #111413; --logo-mark: #07583D; } :root:not([data-theme="light"]) .nav.on-light .nav-links a { color: #5F6467; } :root:not([data-theme="light"]) .nav.on-light::before { background: rgba(246, 247, 243, .82); } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .nav.on-light .nav-links { background: rgba(246, 247, 243, .78); box-shadow: inset 0 0 0 1px #E3E6E1; } :root:not([data-theme="light"]) .nav.on-light .nav-links a { color: #3c4240; } }
