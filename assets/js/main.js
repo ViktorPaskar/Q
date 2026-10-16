@@ -518,6 +518,10 @@
   startCountdown();
   startTyping();
   setupSignup();
+  $$("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "Copied"; } catch { location.href = "mailto:" + b.dataset.copy; }
+    setTimeout(() => (b.textContent = "Copy email"), 1800);
+  }));
   $$("[data-feed-tab]").forEach((tab) => tab.addEventListener("click", () => {
     $$("[data-feed-tab]").forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
     $$("[data-feed]").forEach((p) => (p.hidden = p.dataset.feed !== tab.dataset.feedTab));
