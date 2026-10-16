@@ -757,3 +757,15 @@ html:not(.js) .loader { display: none; }
   .hero-coffee .float-card { left: 12px; top: auto; bottom: 14px; width: 180px; }
 }
 @media (max-width: 900px) { .hero-coffee .hero-q { width: 170px; padding: 10px 12px; } .hero-coffee .hero-q b { font-size: 12px; } .hero-coffee .hero-pic { object-position: 58% 12%; } }
+/* hero: girl further right, question and answer beside her phone, gentle float */
+@media (min-width: 901px) {
+  .hero-coffee .hero-pic { inset: 0 0 0 16%; width: 84%; object-position: 35% 28%; }
+  .hero-coffee::before { background: linear-gradient(90deg, var(--paper) 0%, var(--paper) 22%, rgba(246, 247, 243, .85) 34%, rgba(246, 247, 243, 0) 52%); }
+  .hero-coffee .hero-q { right: auto; left: 66%; top: 34%; width: 280px; }
+  .hero-coffee .float-card { left: 66%; top: 56%; width: 250px; }
+}
+.hero-coffee .hero-q { animation: heroFloat 6s ease-in-out infinite; }
+.hero-coffee .float-card { animation: heroFloat 6s ease-in-out -3s infinite; transition: opacity .45s, transform .45s var(--expo); }
+.hero-coffee .float-card.swap { opacity: 0; transform: translateY(16px) scale(.96); }
+@keyframes heroFloat { 50% { translate: 0 -10px; } }
+@media (prefers-reduced-motion: reduce) { .hero-coffee .hero-q, .hero-coffee .float-card { animation: none; } }

@@ -309,7 +309,7 @@
       lastY = y;
       const under = document.elementsFromPoint(innerWidth / 2, 42).find((el) => el.closest("main section, footer"));
       const sec = under && under.closest("main section, footer");
-      nav.classList.toggle("on-light", !!sec && sec.matches(".how, .faq-sec, .hero-coffee, .moments, .founder-sec"));
+      nav.classList.toggle("on-light", !sec || sec.matches(".how, .faq-sec, .hero-coffee, .moments, .founder-sec"));
     };
     update();
     addEventListener("scroll", update, { passive: true });
@@ -526,6 +526,22 @@
   startCountdown();
   startTyping();
   setupSignup();
+  // Hero: answers to today's question arrive one after another next to her phone
+  (() => {
+    const card = $(".hero-coffee .float-card");
+    if (!card || reduceMotion) return;
+    let i = 0;
+    setInterval(() => {
+      const list = QUESTIONS[todayIndex()][2];
+      card.classList.add("swap");
+      setTimeout(() => {
+        i = (i + 1) % list.length;
+        const [a, user, rx] = list[i];
+        $(".fc-body", card).innerHTML = `<p class="who">${avatar(user)}${user}<em class="moment-tag">${i % 2 ? "World" : "Friend"}</em></p><p>${esc(a)}</p><p class="rx">${stickers(rx)}</p>`;
+        card.classList.remove("swap");
+      }, 450);
+    }, 3800);
+  })();
   $$("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
     try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "Copied"; } catch { location.href = "mailto:" + b.dataset.copy; }
     setTimeout(() => (b.textContent = "Copy email"), 1800);
