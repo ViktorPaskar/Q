@@ -781,3 +781,5 @@ html:not(.js) .loader { display: none; }
 .footer .collab-link:hover .collab-arrow { transform: rotate(45deg); }
 .footer .collab-link { padding-top: 92px; }
 @media (max-width: 600px) { .footer .collab-link { padding: 76px 20px 22px; } .footer .collab-link b { font-size: 22px; } .collab-arrow { width: 44px; height: 44px; top: 16px; right: 16px; } }
+.footer-top { display: flex; justify-content: center; }
+.footer-top nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px clamp(28px, 4vw, 56px); }

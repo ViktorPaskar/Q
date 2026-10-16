@@ -4,7 +4,10 @@
 
   // Where waitlist emails go: any endpoint that accepts a JSON POST {email, source}
   // (Formspree, a Supabase Edge Function, Google Apps Script…). Empty = fall back to email.
-  const SIGNUP_ENDPOINT = "";
+  // Waitlist sign-ups go to Web3Forms, which emails each new address to contact@quesly.me.
+  // Paste the access key from web3forms.com here (it is meant to be public).
+  const WEB3FORMS_KEY = "";
+  const SIGNUP_ENDPOINT = WEB3FORMS_KEY ? "https://api.web3forms.com/submit" : "";
   const CONTACT_EMAIL = "contact@quesly.me";
 
   const $ = (s, el = document) => el.querySelector(s);
@@ -269,7 +272,7 @@
           const res = await fetch(SIGNUP_ENDPOINT, {
             method: "POST",
             headers: { "Content-Type": "application/json", Accept: "application/json" },
-            body: JSON.stringify({ email, source: "quesly.me" }),
+            body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject: "+1 on the Quesly waitlist", from_name: "quesly.me", email, message: `New waitlist sign-up: ${email}` }),
           });
           if (!res.ok) throw new Error(String(res.status));
           form.classList.add("is-done");
