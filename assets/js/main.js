@@ -537,6 +537,8 @@
   (() => {
     const card = $(".hero-coffee .float-card");
     if (!card || reduceMotion) return;
+    // load every answer's avatar up front, so a new answer never shows an empty frame
+    QUESTIONS[todayIndex()][2].forEach(([, user]) => { if (PHOTOS.has(user)) new Image().src = `/assets/img/avatars/${user}.webp`; });
     let i = 0;
     setInterval(() => {
       const list = QUESTIONS[todayIndex()][2];
