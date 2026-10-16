@@ -128,11 +128,15 @@
   // Without a photo the sticker is filled with an aura picked from the username, plus the initial.
   const AURA = [["#FFE2C6", "#FFB27A", "#FF4D6D"], ["#F1FF9A", "#D4FF00", "#1FAF6E"], ["#D8ECFF", "#6FB8FF", "#1FAF6E"],
     ["#FFD3DC", "#FF4D6D", "#FFB27A"], ["#E4FFB0", "#1FAF6E", "#07583D"], ["#FFF1C2", "#FFB27A", "#6FB8FF"]];
+  // Sample users with a stock portrait (Unsplash) in assets/img/avatars/<username>.webp
+  const PHOTOS = new Set(["AnnaViva", "camille_b", "chill_mara", "nata.ver", "yasmine.k", "koko_lilly", "funnnnyyy1", "alexo91",
+    "arturo_sun", "john.john", "leo.martin", "mr.smith", "theo_runs", "van.derss2", "misslilly_57"]);
   const avatar = (user) => {
     let hsh = 0;
     for (const ch of user) hsh = (hsh * 31 + ch.charCodeAt(0)) >>> 0;
     const [a1, a2, a3] = AURA[hsh % AURA.length];
     const tilt = ((hsh >> 4) % 13) - 6;
+    if (PHOTOS.has(user)) return `<span class="av av-photo" style="--tilt:${tilt}deg;--img:url(/assets/img/avatars/${user}.webp)" aria-hidden="true"></span>`;
     return `<span class="av" style="--a1:${a1};--a2:${a2};--a3:${a3};--tilt:${tilt}deg" aria-hidden="true">${esc(user.replace(/[^a-z]/gi, "").slice(0, 1))}</span>`;
   };
 
