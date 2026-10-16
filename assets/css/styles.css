@@ -517,33 +517,40 @@ html:not(.js) .loader { display: none; }
 @media (max-width: 900px) { .burst .st { --s: 36px; } .art-reactions .st { --s: 64px; } }
 
 /* ---------- Real moments ---------- */
-.moments { position: relative; background: var(--paper); padding: clamp(96px, 12vw, 160px) 0 clamp(64px, 8vw, 110px); overflow: hidden; }
+.moments { position: relative; background: var(--paper); padding: clamp(96px, 12vw, 160px) 0 clamp(96px, 10vw, 150px); overflow: hidden; }
 .moments-head { display: grid; gap: 20px; align-items: end; }
 @media (min-width: 900px) { .moments-head { grid-template-columns: 1.1fr .9fr; } }
 .moments-head .h2 { margin-top: 0; }
-.moments-rail { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); align-items: start;
-  width: min(1480px, 100%); margin: clamp(48px, 6vw, 80px) auto 0; padding: 0 var(--gutter); }
-.moment { position: relative; margin: 0; }
-.moment:nth-child(even) { margin-top: clamp(40px, 6vw, 96px); }
-.moment img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 28px; background: var(--mint); }
-.moment-card { position: absolute; left: 10px; right: 10px; bottom: 10px; display: grid; gap: 4px; padding: 12px 14px 13px; border-radius: 18px;
-  background: rgba(255, 255, 255, .94); color: #111413; backdrop-filter: blur(10px); box-shadow: 0 18px 40px -18px rgba(2, 42, 30, .45); }
-.moment-q { font-size: 11.5px; line-height: 1.3; color: #5F6467; }
-.moment-a { font: 700 15px/1.25 var(--display); }
-.moment-who { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 12px; font-weight: 700; color: #3c4240; }
-.moment-who .av { width: 20px; height: 20px; font-size: 9px; }
-.moment-st { position: absolute; top: -14px; right: -8px; z-index: 2; }
-.moment-st .st { --s: 54px; }
-.moment-st .st.word { --s: 50px; }
-.moments-note { margin-top: 28px; font-size: 13px; color: var(--gray); }
+.moments-rail { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 40px); align-items: start;
+  width: min(1400px, 100%); margin: clamp(48px, 6vw, 80px) auto 0; padding: 0 var(--gutter); }
+.moment { position: relative; margin: 0 0 56px; }
+.moment:nth-child(even) { margin-top: clamp(48px, 7vw, 110px); }
+.moment > .moment-photo { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 26px; background: var(--mint); }
+/* The question sits on the photo like the app's question chip */
+.moment-q { position: absolute; top: 14px; left: 14px; right: 14px; padding: 9px 12px; border-radius: 14px;
+  background: rgba(2, 42, 30, .72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; font: 700 13px/1.25 var(--display); }
+.moment-q::before { content: "Today's question"; display: block; margin-bottom: 3px; font: 600 10px/1 var(--ui); color: var(--lime); }
+/* The answer is a note pinned over the bottom edge, tilted, with its reaction stuck on the corner */
+.moment-card { position: absolute; bottom: -44px; width: 86%; display: grid; gap: 6px; padding: 14px 16px 16px; border-radius: 18px;
+  background: #fff; color: #111413; rotate: var(--tilt); box-shadow: 0 1px 0 rgba(0, 0, 0, .04), 0 24px 44px -20px rgba(2, 42, 30, .5); }
+.moment-left { left: -10px; }
+.moment-right { right: -10px; }
+.moment-who { display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; color: #3c4240; }
+.moment-who .av { width: 22px; height: 22px; font-size: 10px; }
+.moment-a { font: 700 16px/1.28 var(--display); }
+.moment-st { position: absolute; top: -18px; }
+.moment-left .moment-st { right: -12px; }
+.moment-right .moment-st { right: -12px; }
+.moment-st .st { --s: 48px; }
+.moment-st .st.word { --s: 46px; }
 @media (max-width: 900px) {
-  .moments-rail { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 14px; padding-top: 14px; }
+  .moments-rail { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 22px; padding-top: 4px; padding-bottom: 8px; }
   .moments-rail::-webkit-scrollbar { display: none; }
-  .moment { flex: none; width: 72vw; max-width: 300px; scroll-snap-align: center; }
+  .moment { flex: none; width: 74vw; max-width: 300px; scroll-snap-align: center; }
   .moment:nth-child(even) { margin-top: 0; }
+  .moment-left { left: 8px; } .moment-right { right: 8px; }
 }
 /* Final CTA: friends at sunset, sunk into the dark */
 .cta-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; opacity: .32; filter: saturate(.8); }
 .cta-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #010604 0%, rgba(1, 6, 4, .55) 45%, rgba(1, 6, 4, .75) 80%, #010604 100%); }
 .cta-glow, .cta-horizon { z-index: 1; }
-.moment:last-child .moment-st { right: auto; left: -8px; }

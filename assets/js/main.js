@@ -386,9 +386,9 @@
     $$(".moment").forEach((m) => {
       const st = $(".st", m);
       if (!st) return;
-      gsap.fromTo(st, { scale: 2.2, opacity: 0, rotate: -30 }, { scale: 1, opacity: 1, rotate: 0, duration: .55, ease: "back.out(2.2)",
+      gsap.fromTo(st, { scale: 2.2, opacity: 0 }, { scale: 1, opacity: 1, duration: .55, ease: "back.out(2.2)",
         scrollTrigger: { trigger: m, start: "top 75%", once: true } });
-      gsap.from($("img", m), { scale: 1.08, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: m, start: "top 90%", once: true } });
+      gsap.from($(".moment-photo", m), { scale: 1.08, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: m, start: "top 90%", once: true } });
     });
 
     // ----- Split headings -----
