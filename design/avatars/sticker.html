@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Quesly sticker avatars</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --green: #07583D; --lime: #D4FF00; --ink: #111413; --paper: #F6F7F3; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--paper); color: var(--ink); font: 14px/1.4 -apple-system, "Segoe UI", system-ui, sans-serif; padding: 40px 52px; width: 1380px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px 28px; }
+  .v { background: #fff; border-radius: 26px; padding: 26px 20px 20px; display: grid; gap: 16px; box-shadow: 0 14px 30px -24px rgba(2, 42, 30, .45); }
+  .v h3 { font: 900 18px/1 Outfit; text-transform: uppercase; } .v h3 span { color: var(--green); }
+  .v p { color: #5F6467; font-size: 13px; }
+  .stage { height: 150px; display: flex; align-items: center; justify-content: center; gap: 22px; }
+  .ph { background-size: cover; background-position: center 30%; }
+  .p1 { background-image: url(../../assets/img/viktor-paskar.webp); } .p2 { background-image: url(../hero-concepts/curly.webp); }
+  .p3 { background-image: url(../hero-concepts/beanie.webp); background-position: 40% 25%; } .p4 { background-image: url(../hero-concepts/ivy.webp); }
+  .st { --s: 54px; position: absolute; width: var(--s); height: var(--s); border-radius: 50%; display: grid; place-items: center; background: #fff; box-shadow: 0 0 0 3px #fff, 0 5px 10px -3px rgba(2, 42, 30, .4); }
+  .st::before { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F1FF9A, var(--lime) 55%, #B5DA00); }
+  .st img { position: relative; width: 64%; }
+  .st.word { width: auto; height: calc(var(--s) * .8); padding: 0 12px; border-radius: 999px; } .st.word::before { border-radius: 999px; background: var(--green); }
+  .st.word b { position: relative; font: 900 14px Outfit; color: var(--lime); }
+
+  /* 1 classic */
+  .c1 { width: 112px; height: 112px; border-radius: 50%; border: 6px solid #fff; rotate: -6deg; box-shadow: 0 0 0 5px var(--lime), 0 14px 26px -10px rgba(2, 42, 30, .5); }
+  /* 2 peel */
+  .c2 { position: relative; width: 116px; height: 116px; rotate: 5deg; filter: drop-shadow(0 12px 14px rgba(2, 42, 30, .35)); }
+  .c2 .face { position: absolute; inset: 0; border-radius: 50%; border: 6px solid #fff; clip-path: polygon(0 0, 100% 0, 100% 66%, 66% 100%, 0 100%); }
+  .c2 .curl { position: absolute; right: 9px; bottom: 9px; width: 34px; height: 34px; border-radius: 0 0 0 100%; background: linear-gradient(135deg, #e9ece8 0%, #fff 55%, #cfd4d0 100%); box-shadow: -3px -3px 6px rgba(0,0,0,.18); }
+  /* 3 with last reaction */
+  .c3 { position: relative; width: 112px; height: 112px; rotate: -4deg; }
+  .c3 .face { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #fff; box-shadow: 0 14px 26px -10px rgba(2, 42, 30, .5); }
+  .c3 .st { right: -10px; bottom: -6px; rotate: 12deg; }
+  /* 4 bubble */
+  .c4 { width: 118px; height: 118px; rotate: 4deg; filter: drop-shadow(0 0 0 #fff) drop-shadow(0 12px 14px rgba(2, 42, 30, .35)); }
+  .c4 .face { width: 100%; height: 100%; border-radius: 50% 50% 50% 14%; outline: 6px solid #fff; outline-offset: -6px; }
+  /* 5 streak arc */
+  .c5 { position: relative; width: 122px; height: 122px; display: grid; place-items: center; rotate: -3deg; }
+  .c5 svg { position: absolute; inset: 0; }
+  .c5 .face { width: 96px; height: 96px; border-radius: 50%; border: 5px solid #fff; }
+  .c5 .n { position: absolute; bottom: -4px; right: 4px; padding: 3px 9px; border-radius: 999px; background: var(--green); color: var(--lime); font: 900 13px Outfit; border: 3px solid #fff; }
+  /* 6 polaroid */
+  .c6 { position: relative; width: 108px; padding: 7px 7px 26px; background: #fff; rotate: -5deg; box-shadow: 0 14px 24px -10px rgba(2, 42, 30, .45); }
+  .c6 .face { width: 100%; aspect-ratio: 1; }
+  .c6 .tape { position: absolute; top: -9px; left: 50%; translate: -50% 0; width: 46px; height: 16px; background: rgba(212, 255, 0, .75); rotate: 4deg; }
+  .c6 small { position: absolute; bottom: 6px; left: 0; right: 0; text-align: center; font: 800 11px Outfit; color: var(--green); }
+  /* 7 sticker sheet */
+  .c7 { position: relative; width: 112px; height: 112px; }
+  .c7 .face { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #fff; rotate: 6deg; box-shadow: 0 14px 26px -10px rgba(2, 42, 30, .5); }
+  .c7 .st { --s: 34px; } .c7 .s1 { left: -14px; top: 4px; rotate: -14deg; } .c7 .s2 { right: -16px; top: 30px; rotate: 10deg; } .c7 .s3 { left: 30px; bottom: -14px; rotate: -6deg; }
+  /* 8 no photo */
+  .c8 { position: relative; width: 112px; height: 112px; border-radius: 50%; border: 6px solid #fff; rotate: -5deg; display: grid; place-items: center; overflow: hidden; box-shadow: 0 14px 26px -10px rgba(2, 42, 30, .5); }
+  .c8 b { font: 900 54px/1 Outfit; color: var(--green); }
+  .small { display: flex; gap: 10px; align-items: center; justify-content: center; }
+  .mini { width: 34px; height: 34px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--lime); }
+</style>
+
+<div class="grid">
+  <div class="v"><div class="stage"><div class="c1 ph p1"></div></div><h3>1. <span>Classic</span></h3><p>White die-cut rim, own tilt. The lime ring lights up when you have answered today.</p></div>
+
+  <div class="v"><div class="stage"><div class="c2"><div class="face ph p2"></div><span class="curl"></span></div></div><h3>2. <span>Peel</span></h3><p>The corner peels up a little. Tap it in the app and the sticker flips to show your answer of the day.</p></div>
+
+  <div class="v"><div class="stage"><div class="c3"><div class="face ph p3"></div><span class="st"><img src="../../assets/img/emoji/hearts.png" alt=""></span></div></div><h3>3. <span>Last reaction</span></h3><p>The reaction your last answer got most is stuck on your avatar until tomorrow.</p></div>
+
+  <div class="v"><div class="stage"><div class="c4"><div class="face ph p4"></div></div></div><h3>4. <span>Speech bubble</span></h3><p>Avatar cut as a speech bubble, the shape of an answer. Recognisable even at 24 px.</p></div>
+
+  <div class="v"><div class="stage"><div class="c5"><svg viewBox="0 0 122 122"><circle cx="61" cy="61" r="56" fill="none" stroke="#E3E6E1" stroke-width="7"/><circle cx="61" cy="61" r="56" fill="none" stroke="#D4FF00" stroke-width="7" stroke-linecap="round" stroke-dasharray="246 352" transform="rotate(-90 61 61)"/></svg><div class="face ph p1"></div><span class="n">🔥 23</span></div></div><h3>5. <span>Streak arc</span></h3><p>The ring fills as your streak grows towards the next badge. Streak number on a small tag.</p></div>
+
+  <div class="v"><div class="stage"><div class="c6"><span class="tape"></span><div class="face ph p2"></div><small>ama · Lagos</small></div></div><h3>6. <span>Polaroid</span></h3><p>Profile only: a taped polaroid with your name and city. Warm, a bit nostalgic.</p></div>
+
+  <div class="v"><div class="stage"><div class="c7"><div class="face ph p4"></div><span class="st s1"><img src="../../assets/img/emoji/heart.png" alt=""></span><span class="st word s2"><b>SAME</b></span><span class="st s3"><img src="../../assets/img/emoji/green-heart.png" alt=""></span></div></div><h3>7. <span>Collected</span></h3><p>Profile only: badges you earned stick around your photo, like a laptop covered in stickers.</p></div>
+
+  <div class="v"><div class="stage"><div class="c8" style="background:radial-gradient(circle at 30% 25%,#FFE2C6,#FFB27A 45%,#FF4D6D)"><b>A</b></div><div class="c8" style="background:radial-gradient(circle at 30% 25%,#F1FF9A,#D4FF00 50%,#1FAF6E);rotate:6deg"><b>L</b></div></div><h3>8. <span>No photo yet</span></h3><p>Same sticker, filled with your aura colours and initial until you add a photo.</p></div>
+</div>
+
+<div class="v" style="margin-top:34px"><h3>In the feed at real size</h3>
+  <div class="small"><div class="mini ph p1"></div><div class="mini ph p2"></div><div class="mini ph p3" style="box-shadow:none"></div><div class="mini ph p4"></div><span style="color:#5F6467">lime ring = answered today, no ring = not yet</span></div>
+</div>
+</html>
