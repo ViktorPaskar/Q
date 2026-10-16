@@ -59,12 +59,17 @@
 <main id="main">
 
   <!-- 1. Hero: today's question, answers streaming below -->
-  <section class="hero" id="top" aria-labelledby="hero-title">
-    <div class="hero-bg" aria-hidden="true">
-      <span class="hero-beam"></span><span class="hero-spot"></span><span class="hero-stars"></span>
-    </div>
+  <section class="hero hero-photo" id="top" aria-labelledby="hero-title">
+    <div class="hero-bg" aria-hidden="true"><img class="hero-pic" src="assets/img/people/hero-ivy.webp" alt="" width="1800" height="1337" fetchpriority="high"><span class="hero-beam"></span></div>
     <div class="wrap hero-inner">
       <h1 class="hero-title" id="hero-title" data-chars>Your people.<br>The whole world.<br><em>One question a day.</em></h1>
+    </div>
+    <div class="hero-answers" aria-hidden="true">
+      <div class="float-card hc-1" data-depth="1.4"><div class="fc-body"></div></div>
+      <div class="float-card hc-2" data-depth="-1.2"><div class="fc-body"></div></div>
+    </div>
+    <div class="wrap hero-foot">
+      <div class="hero-q"><small>Today's question</small><b data-today-mini></b></div>
       <p class="hero-sub">You don't need more feed. You need one good question, and the people you care about answering it.</p>
       <form class="signup hero-form" data-signup novalidate>
         <label class="sr-only" for="email-hero">Email address</label>
@@ -75,24 +80,7 @@
         <p class="signup-note">Private beta. When it's your turn, we'll email you an invite to the app.</p>
         <p class="signup-msg" role="status" aria-live="polite"></p>
       </form>
-    </div>
-    <div class="hero-stage" aria-hidden="true">
-      <div class="hero-scene">
-        <div class="float-card fc1 fc-pic" data-depth="1.6"><img class="fc-photo" src="assets/img/people/selfie.webp" alt="" width="520" height="400"><div class="fc-body"></div></div>
-        <div class="float-card fc2 fc-pic" data-depth="-1.2"><img class="fc-photo" src="assets/img/people/street.webp" alt="" width="520" height="400"><div class="fc-body"></div></div>
-        <div class="device device-hero">
-          <div class="screen app-q">
-            <span class="app-island"></span>
-            <img class="app-logo" src="assets/img/quesly-logo-on-green.svg" alt="" width="96" height="16">
-            <p class="app-label">Today's question</p>
-            <p class="app-text" data-today-mini></p>
-            <p class="app-typing"><span data-typing></span><i></i></p>
-            <span class="app-btn">Answer</span>
-          </div>
-        </div>
-        <div class="float-card fc3" data-depth="2">  </div>
-        <div class="hero-chip" data-depth="-1.8"><span class="lock"></span>Answer to unlock the feed</div>
-      </div>
+
     </div>
   </section>
 

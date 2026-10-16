@@ -139,11 +139,19 @@
     const walk = (node) => [...node.childNodes].forEach((n) => {
       if (n.nodeType === 3) {
         const frag = document.createDocumentFragment();
-        for (const ch of n.textContent) {
-          const s = document.createElement("span");
-          s.className = "ch"; s.textContent = ch; s.setAttribute("aria-hidden", "true");
-          frag.appendChild(s);
-        }
+        // letters live inside one no-wrap span per word, so a word never breaks across lines
+        n.textContent.split(/(\s+)/).forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.append(part); return; }
+          const w = document.createElement("span");
+          w.className = "cw";
+          for (const ch of part) {
+            const s = document.createElement("span");
+            s.className = "ch"; s.textContent = ch; s.setAttribute("aria-hidden", "true");
+            w.appendChild(s);
+          }
+          frag.appendChild(w);
+        });
         n.replaceWith(frag);
       } else if (n.nodeType === 1 && n.tagName !== "BR") walk(n);
     });
@@ -350,7 +358,7 @@
     gsap.set(chars, { opacity: 0, yPercent: 60, filter: "blur(12px)" });
     gsap.set([".hero-sub", ".hero-form", "#nav"], { opacity: 0, y: 20 });
     gsap.set(".hero-beam", { opacity: 0 });
-    gsap.set(".hero-scene", { opacity: 0, y: 120, rotateX: 34 });
+    gsap.set(".hero-q", { opacity: 0, y: 30 });
     gsap.set([".float-card", ".hero-chip"], { opacity: 0, scale: .85 });
     lenis.stop();
 
@@ -359,10 +367,10 @@
       .to(".loader-mark", { scale: .8, opacity: 0, duration: .6, ease: "power2.in" }, 1.1)
       .to(".loader", { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "expo.inOut" }, 1.4)
       .set(".loader", { display: "none" }, 2.4)
-      .to(".hero-beam", { opacity: .9, duration: 2.4, ease: "power2.out" }, 1.8)
+      .fromTo(".hero-pic", { scale: 1.12 }, { scale: 1, duration: 2.6, ease: "expo.out" }, 1.4)
       .to(chars, { opacity: 1, yPercent: 0, filter: "blur(0px)", duration: 1.1, stagger: .035, ease: "power3.out" }, 2.1)
       .to([".hero-sub", ".hero-form", "#nav"], { opacity: 1, y: 0, duration: 1.1, stagger: .08 }, 2.5)
-      .to(".hero-scene", { opacity: 1, y: 0, rotateX: 24, duration: 2, ease: "expo.out" }, 2.5)
+      .to(".hero-q", { opacity: 1, y: 0, duration: 1.2 }, 2.4)
       .to([".float-card", ".hero-chip"], { opacity: 1, scale: 1, duration: 1.1, stagger: .14, ease: "back.out(1.6)" }, 3.0);
 
     // ----- Hero: cards drift gently with the cursor (nothing moves on scroll) -----
