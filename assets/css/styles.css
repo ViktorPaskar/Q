@@ -625,3 +625,14 @@ html:not(.js) .loader { display: none; }
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16); font: 700 14px/1 var(--ui); }
 .collab-copy-btn:hover { background: rgba(255, 255, 255, .14); }
 .founder-quote { max-width: 34em; font-size: clamp(18px, 1.7vw, 24px); }
+.founder-quote mark { background: none; color: var(--lime); }
+.team { margin-top: 56px; }
+.team-title { font: 700 14px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--lime); }
+.team-grid { list-style: none; padding: 0; margin: 20px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+.member { display: grid; gap: 4px; padding: 14px; border-radius: 22px; background: rgba(255, 255, 255, .06); color: #fff; }
+.member img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 16px; margin-bottom: 8px; }
+.member b { font: 700 16px/1.2 var(--display); }
+.member span, .member a { font-size: 13px; color: var(--on-dark-2); }
+.member-join { place-content: center; text-align: center; box-shadow: inset 0 0 0 1px rgba(212, 255, 0, .3); background: none; }
+.member-join .plus { font: 900 36px/1 var(--display); color: var(--lime); }
+.member-join a { color: var(--lime); }
