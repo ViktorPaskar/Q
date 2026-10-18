@@ -856,3 +856,27 @@ html:not(.js) .loader { display: none; }
 .features .rail { gap: clamp(14px, 1.4vw, 22px); }
 @media (min-width: 1280px) { .features .rail-wrap { max-width: 1180px; } }
 .founder-sec { padding-bottom: clamp(80px, 9vw, 128px); }
+
+/* Badges card */
+.c-badges { background: var(--green, #07583D); color: #fff; }
+.c-badges .card-copy p { color: rgba(255,255,255,.75); }
+.art-badges { display: flex; gap: clamp(14px, 3vw, 40px); justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+.hexb { margin: 0; display: grid; justify-items: center; gap: 10px; text-align: center; }
+.hexb .hex { width: clamp(72px, 7vw, 104px); aspect-ratio: 1; display: grid; place-items: center; background: var(--c); clip-path: polygon(50% 0, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%); filter: drop-shadow(0 8px 14px rgba(0,0,0,.25)); }
+.hexb:nth-child(2) .hex { translate: 0 -8px; }
+.hexb .hex img { width: 50%; }
+.hexb b { font: 800 15px/1.1 Outfit, sans-serif; color: var(--lime, #D4FF00); }
+.hexb em { font-style: normal; font-size: 12px; color: rgba(255,255,255,.7); }
+@media (min-width: 901px) {
+  .features .card.c-badges { grid-column: 1 / -1; aspect-ratio: auto; flex-direction: row; align-items: center; gap: 32px; padding: clamp(28px, 3vw, 44px); }
+  .c-badges .card-copy { margin: 0; flex: 0 1 380px; }
+  .c-badges .art-badges { flex: 1; scale: 1; }
+}
+.c-badges { background: #fff; color: #111413; }
+.c-badges .card-copy p { color: #5F6467; }
+.art-badges { flex-wrap: nowrap; container-type: normal !important; }
+.hexb figcaption { display: grid; gap: 4px; }
+.hexb b { color: #07583D; }
+.hexb em { color: #5F6467; }
+@media (min-width: 901px) { .features .card.c-badges { min-height: 0; height: auto; } }
+@media (max-width: 900px) { .art-badges { gap: 10px; } .hexb .hex { width: 64px; } .hexb b { font-size: 13px; } .hexb em { font-size: 11px; } }
