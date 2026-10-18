@@ -839,3 +839,5 @@ html:not(.js) .loader { display: none; }
 /* Big screens: everything grows together instead of a small site floating in the middle */
 @media (min-width: 1800px) { body { zoom: 1.15; } }
 @media (min-width: 2200px) { body { zoom: 1.33; } }
+.how { position: relative; z-index: 1; overflow: clip; }
+.how-stage .device { box-shadow: 0 0 0 1px rgba(0, 0, 0, .55), inset 0 0 0 1px rgba(255, 255, 255, .28), 0 30px 50px -20px rgba(1, 20, 14, .45), 0 10px 20px -10px rgba(1, 20, 14, .3); }
