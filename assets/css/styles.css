@@ -892,3 +892,10 @@ html:not(.js) .loader { display: none; }
   .c-badges .art-badges { grid-template-columns: repeat(10, 1fr); gap: 0; }
   .c-badges .art-badges img { max-width: 76px; margin: 0 -2px; }
 }
+/* Badges: no shadow, honeycomb wave with a gentle float */
+.c-badges .art-badges img { filter: none; rotate: 0deg !important; animation: badge-float 4s ease-in-out infinite; animation-delay: calc(var(--i) * -0.4s); }
+.c-badges .art-badges img:nth-child(even) { translate: 0 22px; }
+@media (min-width: 901px) { .c-badges .art-badges { gap: 0; padding-bottom: 22px; } .c-badges .art-badges img { margin: 0 -1px; } }
+@keyframes badge-float { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-6px) rotate(3deg); } }
+.c-badges .art-badges img:hover { animation-play-state: paused; transform: translateY(-8px) scale(1.12); }
+@media (prefers-reduced-motion: reduce) { .c-badges .art-badges img { animation: none; } }
