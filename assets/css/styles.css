@@ -884,3 +884,11 @@ html:not(.js) .loader { display: none; }
 .art-badges img { width: 100%; max-width: 84px; height: auto; filter: drop-shadow(0 8px 12px rgba(2,42,30,.18)); transition: transform .3s; }
 .art-badges img:nth-child(odd) { rotate: -4deg; } .art-badges img:nth-child(3n) { rotate: 5deg; }
 .art-badges img:hover { transform: translateY(-4px) scale(1.06); }
+/* Badges card: one compact row */
+@media (min-width: 901px) {
+  .features .card.c-badges { padding: clamp(20px, 2vw, 28px) clamp(24px, 2.6vw, 40px); gap: clamp(20px, 3vw, 48px); }
+  .c-badges .card-copy { flex: 0 0 auto; max-width: 360px; } .c-badges .card-copy h3 { text-wrap: balance; }
+  .c-badges .card-copy h3 { font-size: clamp(20px, 1.7vw, 26px); }
+  .c-badges .art-badges { grid-template-columns: repeat(10, 1fr); gap: 0; }
+  .c-badges .art-badges img { max-width: 76px; margin: 0 -2px; }
+}
