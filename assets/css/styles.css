@@ -327,7 +327,7 @@ html:not(.js) .loader { display: none; }
 /* private */
 .art-private { gap: 16px; place-content: center; }
 .art-private .count { display: flex; align-items: center; gap: 10px; padding: 14px 20px; border-radius: 18px; background: #F3F5F4; font-size: 22px; }
-.art-private .count b { font: 900 36px/1 var(--display); filter: blur(7px); }
+.art-private .count b { font: 900 36px/1 var(--display); letter-spacing: 2px; color: #B9C0BC; margin-left: 4px; }
 .art-private .count em { font-style: normal; font-size: 15px; color: #6B6F73; }
 .art-private .lock { justify-self: center; display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: var(--green); color: #fff; font-size: 14px; font-weight: 700; }
 .art-private .lock svg { width: 16px; height: 16px; color: var(--lime); }
