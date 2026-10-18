@@ -899,3 +899,5 @@ html:not(.js) .loader { display: none; }
 @keyframes badge-float { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-6px) rotate(3deg); } }
 .c-badges .art-badges img:hover { animation-play-state: paused; transform: translateY(-8px) scale(1.12); }
 @media (prefers-reduced-motion: reduce) { .c-badges .art-badges img { animation: none; } }
+.c-badges .art-badges img { animation: none !important; transform: none; rotate: 0deg !important; }
+.c-badges .art-badges img:hover { transform: translateY(-4px); }
