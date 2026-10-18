@@ -811,3 +811,6 @@ html:not(.js) .loader { display: none; }
 @media (prefers-reduced-motion: reduce) { .thanks-card, .thanks.is-open .thanks-stickers .st { transition: none; animation: none; opacity: 1; transform: none; } }
 .thanks[hidden] { display: none; }
 @media (max-width: 600px) { .thanks-stickers .st { --s: 44px; } .thanks-card { padding-top: 52px; } }
+
+/* Two feeds: four moments each */
+@media (min-width: 901px) { .feeds .moments-rail { grid-template-columns: repeat(4, minmax(0, 1fr)); width: min(1400px, 100%); } }
