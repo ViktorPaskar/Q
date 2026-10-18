@@ -814,3 +814,16 @@ html:not(.js) .loader { display: none; }
 
 /* Two feeds: four moments each */
 @media (min-width: 901px) { .feeds .moments-rail { grid-template-columns: repeat(4, minmax(0, 1fr)); width: min(1400px, 100%); } }
+
+/* Four cards in a grid: art scales with the card, not with a fixed pixel size */
+@media (min-width: 901px) {
+  .features .card { height: auto; aspect-ratio: 3 / 4.2; min-height: 0; }
+  .features .card .art { scale: 1; container-type: inline-size; width: 100%; }
+  .art-cal { width: 100%; justify-items: center; }
+  .art-cal .grid { grid-template-columns: repeat(7, 1fr); gap: 3.2cqw; width: min(100%, 300px); }
+  .art-cal .grid i { width: 100%; height: auto; aspect-ratio: 1; font-size: clamp(9px, 3.6cqw, 12px); }
+  .art-private { width: 100%; justify-items: center; }
+  .art-private .count { flex-wrap: nowrap; white-space: nowrap; justify-content: center; gap: 10px; padding: 14px 18px; }
+  .art-private .count span { white-space: nowrap; }
+  .art-streak .num { font-size: clamp(110px, 36cqw, 168px); }
+}
