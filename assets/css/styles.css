@@ -842,3 +842,17 @@ html:not(.js) .loader { display: none; }
 /* Big screens: wider container instead of zoom (zoom breaks the scroll animations) */
 @media (min-width: 1800px) { :root { --max: 1560px; } }
 @media (min-width: 2300px) { :root { --max: 1800px; } }
+
+/* ---------- Calmer scale (Oct 18): hero and final CTA stay loud, sections speak quieter ---------- */
+.h2, .how-copy .h2, .features-head .h2 { font-size: clamp(30px, min(3.3vw, 6.4vh), 52px) !important; line-height: 1; }
+.how-stage .device-lg { --w: clamp(180px, min(18vw, calc((100svh - 220px) * .4815)), 290px); }
+.how-ring { width: min(440px, 34vw, calc(100svh - 260px)); }
+.how-pin { padding-top: 88px; padding-bottom: 32px; }
+.moments { padding: clamp(80px, 9vw, 128px) 0 clamp(80px, 8vw, 120px); }
+@media (min-width: 1280px) { .feeds .moments-rail { width: min(1180px, 100%) !important; gap: clamp(24px, 2.6vw, 44px); } }
+.moment { margin-bottom: 64px; }
+.faq-sec { padding: clamp(80px, 9vw, 128px) 0; }
+.features-pin { min-height: 0 !important; padding: clamp(80px, 9vw, 128px) 0 !important; }
+.features .rail { gap: clamp(14px, 1.4vw, 22px); }
+@media (min-width: 1280px) { .features .rail-wrap { max-width: 1180px; } }
+.founder-sec { padding-bottom: clamp(80px, 9vw, 128px); }
