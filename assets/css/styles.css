@@ -827,3 +827,15 @@ html:not(.js) .loader { display: none; }
   .art-private .count span { white-space: nowrap; }
   .art-streak .num { font-size: clamp(110px, 36cqw, 168px); }
 }
+
+/* ---------- Size audit fixes ---------- */
+/* Laptops and tablets in landscape: two-by-two instead of four squeezed columns */
+@media (min-width: 901px) and (max-width: 1279px) {
+  .features .rail { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .features .card { aspect-ratio: 4 / 3.4; }
+  .feeds .moments-rail { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; width: min(820px, 100%) !important; row-gap: 72px; }
+  .feeds .moment:nth-child(even) { margin-top: 48px; }
+}
+/* Big screens: everything grows together instead of a small site floating in the middle */
+@media (min-width: 1800px) { body { zoom: 1.15; } }
+@media (min-width: 2200px) { body { zoom: 1.33; } }
