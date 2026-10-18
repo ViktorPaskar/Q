@@ -906,3 +906,7 @@ html:not(.js) .loader { display: none; }
   .features .card:not(.c-badges) .card-copy h3 { white-space: nowrap; }
   .features .card:not(.c-badges) .card-copy p { min-height: 2lh; }
 }
+/* CTA: calmer size, brand green instead of photo */
+.cta { background: #05402C; padding: clamp(90px, 10vw, 150px) 0; }
+.cta-bg::after { background: radial-gradient(60% 70% at 50% 110%, rgba(212, 255, 0, .22), transparent 70%), radial-gradient(40% 50% at 15% 0%, rgba(31, 175, 110, .25), transparent 70%); }
+.cta-title { font-size: clamp(36px, min(5vw, 9vh), 76px); }
