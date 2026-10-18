@@ -901,3 +901,8 @@ html:not(.js) .loader { display: none; }
 @media (prefers-reduced-motion: reduce) { .c-badges .art-badges img { animation: none; } }
 .c-badges .art-badges img { animation: none !important; transform: none; rotate: 0deg !important; }
 .c-badges .art-badges img:hover { transform: translateY(-4px); }
+/* Feature cards: titles on one line, copy block same height so titles align */
+@media (min-width: 901px) {
+  .features .card:not(.c-badges) .card-copy h3 { white-space: nowrap; }
+  .features .card:not(.c-badges) .card-copy p { min-height: 2lh; }
+}
