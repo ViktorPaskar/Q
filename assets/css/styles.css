@@ -958,3 +958,10 @@ body, p, li, .lead, .hero-sub, .answer p, .card-copy p { font-weight: 400; }
 .footer a, .footer-bottom, .footer .collab-link small { font-family: var(--display) !important; font-weight: 500 !important; letter-spacing: 0 !important; }
 :root { --fs-display: clamp(40px, min(4.8vw, 10vh), 88px); }
 @media (min-width: 901px) { .hero-title { font-size: var(--fs-display) !important; } }
+/* Nav links: no pill, more air */
+.nav-links, .nav.on-light .nav-links { background: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; gap: clamp(20px, 2.4vw, 36px); padding: 0; margin-right: clamp(20px, 2.4vw, 36px); }
+.nav-links a { padding: 8px 0 !important; background: none !important; }
+.nav-links a:hover { color: #fff; }
+.nav.on-light .nav-links a:hover { color: var(--ink); }
+.nav.on-light .nav-links a { color: var(--ink) !important; text-shadow: 0 0 14px rgba(255, 255, 255, .9), 0 0 4px rgba(255, 255, 255, .7); }
+.nav.on-light .nav-links a:hover { color: #08563B !important; }
