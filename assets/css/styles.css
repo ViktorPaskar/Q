@@ -1079,3 +1079,24 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
   .cta-pic { position: relative; inset: auto; display: block; width: 100%; height: auto !important; aspect-ratio: 4 / 3; border-radius: 24px; }
   .cta-card { right: 12px; bottom: 12px; }
 }
+/* CTA v4: full-bleed photo, neutral shade, no green fill, no card */
+.cta { background: #0c0f0e !important; padding: clamp(140px, 14vw, 220px) 0 !important; }
+.cta-bg { position: absolute !important; inset: 0 !important; margin: 0 !important; height: auto !important; overflow: hidden !important; }
+.cta-pic { position: absolute !important; inset: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; border-radius: 0 !important; aspect-ratio: auto !important; object-fit: cover; object-position: 62% 40%; -webkit-mask-image: none !important; mask-image: none !important; }
+.cta-bg::after { display: block !important; content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 10, 9, .86) 0%, rgba(8, 10, 9, .6) 38%, rgba(8, 10, 9, 0) 70%) !important; }
+.cta-card { display: none !important; }
+@media (max-width: 900px) {
+  .cta { padding: 52vw 0 64px !important; }
+  .cta-pic { object-position: 58% 30%; }
+  .cta-bg::after { background: linear-gradient(180deg, rgba(8, 10, 9, 0) 20%, rgba(8, 10, 9, .75) 52%, rgba(8, 10, 9, .94) 75%) !important; }
+}
+@media (min-width: 901px) {
+  .cta-pic { left: 34% !important; width: 66% !important; object-position: 50% 35%; }
+  .cta-bg::after { background: linear-gradient(90deg, #0c0f0e 0%, #0c0f0e 34%, rgba(12, 15, 14, .55) 44%, rgba(12, 15, 14, 0) 62%) !important; }
+}
+@media (max-width: 900px) {
+  .cta { padding: 96vw 0 64px !important; }
+  .cta-pic { height: 118vw !important; bottom: auto !important; object-position: 50% 30%; }
+  .cta-bg::after { bottom: auto; height: 118vw; background: linear-gradient(180deg, rgba(12, 15, 14, 0) 45%, #0c0f0e 98%) !important; }
+}
+@media (min-width: 901px) { .cta-bg::after { background: linear-gradient(90deg, #0c0f0e 0%, #0c0f0e 36%, rgba(12, 15, 14, .7) 42%, rgba(12, 15, 14, 0) 62%) !important; } }
