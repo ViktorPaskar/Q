@@ -2,9 +2,6 @@
    Brand tokens mirror the app (Quesly/Core/Theme.swift). Lime is an accent on green;
    on light surfaces it's only ever a fill behind green text. */
 
-@font-face { font-family: "Outfit"; src: url("../fonts/Outfit-SemiBold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
-@font-face { font-family: "Outfit"; src: url("../fonts/Outfit-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "Outfit"; src: url("../fonts/Outfit-Black.woff2") format("woff2"); font-weight: 900; font-display: swap; }
 
 :root {
   --green: #07583D;
@@ -865,7 +862,7 @@ html:not(.js) .loader { display: none; }
 .hexb .hex { width: clamp(72px, 7vw, 104px); aspect-ratio: 1; display: grid; place-items: center; background: var(--c); clip-path: polygon(50% 0, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%); filter: drop-shadow(0 8px 14px rgba(0,0,0,.25)); }
 .hexb:nth-child(2) .hex { translate: 0 -8px; }
 .hexb .hex img { width: 50%; }
-.hexb b { font: 800 15px/1.1 Outfit, sans-serif; color: var(--lime, #D4FF00); }
+.hexb b { font: 600 15px/1.1 var(--display); color: var(--lime, #D4FF00); }
 .hexb em { font-style: normal; font-size: 12px; color: rgba(255,255,255,.7); }
 @media (min-width: 901px) {
   .features .card.c-badges { grid-column: 1 / -1; aspect-ratio: auto; flex-direction: row; align-items: center; gap: 32px; padding: clamp(28px, 3vw, 44px); }
@@ -912,7 +909,6 @@ html:not(.js) .loader { display: none; }
 .cta-title { font-size: clamp(36px, min(5vw, 9vh), 76px); }
 
 /* Typography: Chillax for headings and UI (matches the logo), body stays neutral */
-@font-face { font-family: "Chillax"; src: url("../fonts/Chillax-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Chillax"; src: url("../fonts/Chillax-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
 @font-face { font-family: "Chillax"; src: url("../fonts/Chillax-Semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
 :root { --display: "Chillax", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
@@ -973,3 +969,37 @@ body, p, li, .lead, .hero-sub, .answer p, .card-copy p { font-weight: 400; }
 @keyframes lGlance { 0%, 100% { transform: none; } 25%, 40% { transform: translate(-4%, -3%); } 60%, 75% { transform: translate(4%, -3%); } 90% { transform: scaleY(.9); } }
 @keyframes lName { from { clip-path: inset(0 100% 0 0); transform: translateX(-40px); } to { clip-path: inset(0 0 0 0); transform: none; } }
 @media (prefers-reduced-motion: reduce) { .loader-mark * { animation: none !important; } }
+
+/* ===== Type scale v2 (founder's audit, Oct 24 2026) =====
+   Display Chillax 600 · interface/quotes Chillax 500 · reading Manrope 400 · eyebrow Manrope 700 caps */
+@font-face { font-family: "Manrope"; src: url("../fonts/Manrope-latin.woff2") format("woff2"); font-weight: 200 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Manrope"; src: url("../fonts/Manrope-latin-ext.woff2") format("woff2"); font-weight: 200 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Manrope"; src: url("../fonts/Manrope-cyrillic.woff2") format("woff2"); font-weight: 200 800; font-display: swap; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+:root {
+  --ui: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --fs-hero: clamp(48px, 4.9vw, 84px);
+  --fs-cta: clamp(40px, 4vw, 68px);
+  --fs-h2: clamp(36px, 3.75vw, 54px);
+  --fs-quote: clamp(24px, 2.4vw, 34px);
+  --fs-h3: clamp(22px, 1.9vw, 27px);
+  --fs-faq: clamp(18px, 1.5vw, 21px);
+  --fs-lead: clamp(18px, 1.4vw, 20px);
+  --fs-body: 17px;
+  --fs-small: 14px;
+  --fs-eyebrow: 13px;
+}
+body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
+.hero-title { font-size: var(--fs-hero) !important; letter-spacing: -.035em !important; }
+.cta-title, .collab-title { font-size: var(--fs-cta) !important; letter-spacing: -.035em !important; line-height: 1.02 !important; }
+.h2, .how-copy .h2, .features-head .h2, .team-title, .manifesto .big { font-size: var(--fs-h2) !important; letter-spacing: -.025em !important; }
+.founder-quote { font-size: var(--fs-quote) !important; font-weight: 500 !important; letter-spacing: -.015em !important; }
+.card h3, .step h3, .card-copy h3, .c-badges .card-copy h3 { font-size: var(--fs-h3) !important; letter-spacing: -.01em !important; }
+.faq summary { font-size: var(--fs-faq) !important; font-family: var(--display) !important; font-weight: 500 !important; }
+.lead, .hero-sub { font-family: var(--ui) !important; font-size: var(--fs-lead) !important; line-height: 1.55 !important; font-weight: 400 !important; }
+.answer p, .card-copy p, .step p { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
+.signup-note, .footer-bottom, .founder-name, .moment-tr { font-family: var(--ui) !important; font-size: var(--fs-small) !important; }
+.eyebrow { font-family: var(--ui) !important; font-weight: 700 !important; font-size: var(--fs-eyebrow) !important; text-transform: uppercase !important; letter-spacing: .12em !important; }
+/* nothing readable below 11px inside mockups */
+.moment-tag { font-size: max(11px, 1em) !important; } .hero-q small { font-size: 12px !important; }
+.rx-count { font-size: 12px !important; }
+@media (max-width: 900px) { .hero-title { font-size: clamp(36px, 10.6vw, 48px) !important; } }
