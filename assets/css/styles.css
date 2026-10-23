@@ -1100,3 +1100,24 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
   .cta-bg::after { bottom: auto; height: 118vw; background: linear-gradient(180deg, rgba(12, 15, 14, 0) 45%, #0c0f0e 98%) !important; }
 }
 @media (min-width: 901px) { .cta-bg::after { background: linear-gradient(90deg, #0c0f0e 0%, #0c0f0e 36%, rgba(12, 15, 14, .7) 42%, rgba(12, 15, 14, 0) 62%) !important; } }
+/* CTA v5: lime box, arch photo breaking out of the top */
+.cta { background: var(--paper, #f6f7f2) !important; color: var(--ink) !important; padding: clamp(140px, 13vw, 200px) 0 clamp(80px, 8vw, 120px) !important; text-align: left !important; overflow: visible !important; }
+.cta-box { position: relative; background: #D4FF00; border-radius: 40px; padding: clamp(56px, 6vw, 88px) clamp(28px, 5vw, 72px); min-height: 460px; display: flex; align-items: center; }
+.cta-box .cta-inner { position: relative; z-index: 2; max-width: 560px; display: block !important; }
+.cta .eyebrow { color: #07583d !important; }
+.cta-title { color: #07583d !important; }
+.cta-title .ct2 { color: var(--ink) !important; }
+.cta-arch { position: absolute; right: clamp(28px, 5vw, 72px); bottom: 0; width: min(36%, 440px); height: calc(100% + 90px); border-radius: 240px 240px 0 0; overflow: hidden; }
+.cta-arch img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
+.cta .signup-row { background: #fff !important; box-shadow: 0 12px 30px -14px rgba(1, 40, 28, .35) !important; border: 0 !important; }
+.cta .signup input { color: var(--ink) !important; }
+.cta .signup input::placeholder { color: #7a807d; }
+.cta .signup .btn { background: #07583d !important; color: #D4FF00 !important; }
+.cta .signup-note { color: #2f4a2e !important; text-align: left !important; }
+.cta .signup-note a { color: #07583d !important; }
+@media (max-width: 900px) {
+  .cta { padding: 120px 0 64px !important; }
+  .cta-box { flex-direction: column; align-items: stretch; padding: 0 22px 36px; margin: 0 16px; min-height: 0; }
+  .cta-arch { position: relative; right: auto; width: 74%; height: auto; aspect-ratio: 4 / 5; margin: -80px auto 28px; border-radius: 200px 200px 28px 28px; }
+}
+@media (max-width: 900px) { .cta-box { margin: 0 !important; } }
