@@ -1062,3 +1062,20 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
   .cta-inner { margin-top: 8px; }
 }
 @media (max-width: 900px) { .cta-card { width: 180px; padding: 10px 12px; bottom: 0; right: 12px; } .cta-card b { font-size: 13px; } .cta-card span { font-size: 12.5px; } .cta-bg { height: 78vw; } }
+/* CTA v3: clean photo card, no green wash */
+.cta-bg::after { display: none !important; }
+.cta-pic { top: clamp(48px, 5vw, 72px); bottom: clamp(48px, 5vw, 72px); right: max(24px, calc((100vw - 1240px) / 2)); height: auto; width: min(46%, 600px); border-radius: 32px; -webkit-mask-image: none; mask-image: none; object-position: 50% 65%; }
+.cta-card { right: calc(max(24px, (100vw - 1240px) / 2) + 24px); bottom: clamp(72px, 7vw, 100px); }
+@media (max-width: 900px) {
+  .cta { padding-top: 16px !important; }
+  .cta-pic { top: 0; bottom: 0; left: 16px; right: 16px; width: auto; height: 100%; border-radius: 24px; }
+  .cta-bg { margin: 0 0 0; }
+  .cta-card { right: 28px; bottom: 12px; }
+}
+.cta-pic { --o: clamp(48px, 5vw, 72px); top: var(--o); bottom: auto; height: calc(100% - var(--o) * 2) !important; }
+.cta-card { bottom: calc(clamp(48px, 5vw, 72px) + 28px); right: calc(max(24px, (100vw - 1240px) / 2) + 28px); }
+@media (max-width: 900px) {
+  .cta-bg { overflow: visible !important; margin: 0 16px 28px; height: auto !important; min-height: 0; }
+  .cta-pic { position: relative; inset: auto; display: block; width: 100%; height: auto !important; aspect-ratio: 4 / 3; border-radius: 24px; }
+  .cta-card { right: 12px; bottom: 12px; }
+}
