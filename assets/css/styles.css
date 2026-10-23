@@ -1134,3 +1134,27 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
 @media (max-width: 900px) { .cta .wrap.cta-box { margin: 0 16px !important; width: auto !important; max-width: none; } }
 .cta .wrap.cta-box { margin-inline: auto; }
 .cta-mark { rotate: 0deg !important; }
+/* CTA box: same edges as the team cards, lower height, fluid on every screen */
+.cta { padding: clamp(56px, 7vw, 112px) 0 !important; }
+.cta .wrap.cta-box { width: calc(100% - 2 * var(--gutter)) !important; max-width: calc(var(--max) - 2 * var(--gutter)) !important; margin: 0 auto !important;
+  padding: clamp(32px, 4vw, 56px) clamp(24px, 4.5vw, 64px) !important; border-radius: clamp(28px, 3vw, 40px); min-height: 0 !important; }
+.cta-box .cta-inner { max-width: min(640px, 62%) !important; }
+.cta-box .cta-title { margin-top: 14px; }
+.cta-box .signup { margin-top: clamp(20px, 2.4vw, 32px); }
+.cta-mark { width: clamp(150px, 20vw, 260px) !important; right: clamp(28px, 5vw, 80px) !important; }
+@media (max-width: 900px) {
+  .cta-box .cta-inner { max-width: none !important; }
+  .cta-mark { width: clamp(84px, 22vw, 120px) !important; margin-bottom: 18px !important; }
+}
+.cta-box .cta-inner { max-width: min(780px, 64%) !important; }
+.team-sec { padding-bottom: 0 !important; }
+@media (max-width: 900px) {
+  .team-sec .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .team-sec .member img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+  .team-sec .member b { font-size: 16px; } .team-sec .member span { font-size: 13px; }
+  .member-in { width: 32px; height: 32px; right: 12px; bottom: 14px; }
+}
+@media (max-width: 520px) { .team-sec .member-join { padding: 18px 12px; } .team-sec .member-join .plus { width: 52px; height: 52px; font-size: 30px; } .team-sec .member-join a { font-size: 12px; padding: 9px 12px; } }
+@media (max-width: 900px) { .cta-box .cta-inner { max-width: none !important; } }
+@media (min-width: 901px) { .cta-box .cta-title { max-width: none !important; } .cta-box .cta-title .ct { white-space: nowrap; } }
+@media (max-width: 900px) { .team-sec .member-in { top: 22px; right: 22px; bottom: auto; background: rgba(255,255,255,.92); } }
