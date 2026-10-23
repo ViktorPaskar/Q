@@ -1040,3 +1040,25 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
 @media (max-width: 900px) { .fx-top { grid-template-columns: 1fr 1fr; gap: 36px 24px; } .fx-brand { grid-column: 1 / -1; } .fx-col:last-child { grid-column: 1 / -1; } }
 .fx-logo { --logo-text: #fff; } .fx-logo svg { height: 34px !important; }
 .fx-logo { --logo-mark: #D4FF00; --logo-face: #08563B; }
+/* CTA v2: photo of friends on the right, text on the left */
+.cta { text-align: left !important; padding: clamp(110px, 11vw, 170px) 0 !important; background: #05402C; }
+.cta-inner { align-items: flex-start !important; max-width: 1240px; }
+.cta-inner > * { max-width: 560px; }
+.cta .signup { width: 100%; }
+.cta .signup-note { text-align: left; }
+.cta-pic { position: absolute; top: 0; right: 0; width: 62%; height: 100%; object-fit: cover; object-position: 50% 70%; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 38%); mask-image: linear-gradient(90deg, transparent 0%, #000 38%); }
+.cta-bg::after { background: linear-gradient(90deg, #05402C 30%, rgba(5, 64, 44, .35) 60%, rgba(5, 64, 44, .05) 100%), linear-gradient(0deg, rgba(5, 64, 44, .55), transparent 40%) !important; }
+.cta-glow { display: none; }
+.cta-card { position: absolute; z-index: 2; right: clamp(24px, 7vw, 120px); bottom: clamp(32px, 6vw, 80px); width: 250px; padding: 14px 16px; border-radius: 18px; background: #fff; color: var(--ink); box-shadow: 0 24px 50px -18px rgba(0, 0, 0, .5); rotate: 2deg; }
+.cta-card small { display: block; font: 600 11px/1 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--green); }
+.cta-card b { display: block; margin-top: 6px; font: 600 15px/1.25 var(--display); }
+.cta-card span { display: block; margin-top: 8px; padding-top: 8px; border-top: 1px solid #eef0ec; font: 500 14px/1.3 var(--display); color: #3c4240; }
+@media (max-width: 900px) {
+  .cta { padding: 0 0 72px !important; }
+  .cta-bg { position: relative !important; height: 64vw; min-height: 260px; }
+  .cta-pic { width: 100%; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent); mask-image: linear-gradient(180deg, #000 55%, transparent); object-position: 50% 75%; }
+  .cta-bg::after { background: none !important; }
+  .cta-card { right: 16px; bottom: 12px; width: 210px; }
+  .cta-inner { margin-top: 8px; }
+}
+@media (max-width: 900px) { .cta-card { width: 180px; padding: 10px 12px; bottom: 0; right: 12px; } .cta-card b { font-size: 13px; } .cta-card span { font-size: 12.5px; } .cta-bg { height: 78vw; } }
