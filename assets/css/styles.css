@@ -1011,3 +1011,8 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
 @media (max-width: 900px) { .team-sec .team-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
 .team-sec .member img { height: auto !important; aspect-ratio: 1 / 1 !important; align-self: start; }
 .team-sec .member:not(.member-join) { align-content: start; }
+/* LinkedIn on team cards */
+.team-sec .member { position: relative; }
+.member-in { position: absolute; right: 16px; bottom: 22px; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: #EEF1EA; color: #0A66C2 !important; transition: background .2s, color .2s; }
+.member-in svg { width: 16px; height: 16px; }
+.member-in:hover { background: #0A66C2; color: #fff !important; }
