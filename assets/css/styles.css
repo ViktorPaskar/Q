@@ -82,8 +82,8 @@ h1, h2, h3, p, ol { margin: 0; }
 /* ---------- Nav ---------- */
 .nav { position: fixed; inset: 0 0 auto; z-index: 60; color: #fff; transition: transform .6s var(--expo); }
 .nav-inner { display: flex; align-items: center; gap: 32px; height: 84px; }
-.nav .logo { --logo-mark: var(--lime); --logo-text: #fff; display: flex; }
-.nav .logo svg { height: 22px; width: auto; aspect-ratio: 3038 / 521; }
+.nav .logo { --logo-mark: var(--lime); --logo-face: #08563B; --logo-text: #fff; display: flex; }
+.nav .logo svg { height: 26px; width: auto; aspect-ratio: 3000 / 602; }
 .nav-links { display: flex; gap: 6px; margin-left: auto; padding: 6px; border-radius: 999px; background: rgba(2, 42, 30, .5); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 .nav-links a { text-decoration: none; font-size: 14px; font-weight: 600; padding: 9px 16px; border-radius: 999px; color: rgba(255, 255, 255, .8); transition: background-color .3s, color .3s; }
 .nav-links a:hover { background: rgba(255, 255, 255, .1); color: #fff; }
@@ -91,7 +91,7 @@ h1, h2, h3, p, ol { margin: 0; }
 .nav::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; background: rgba(4, 67, 48, .78); backdrop-filter: saturate(160%) blur(18px); -webkit-backdrop-filter: saturate(160%) blur(18px); transition: opacity .4s, background-color .4s; }
 .nav.is-scrolled::before { opacity: 1; }
 .nav.on-light::before { background: color-mix(in srgb, var(--paper) 82%, transparent); box-shadow: 0 1px 0 var(--line); }
-.nav.on-light .logo { --logo-mark: var(--green); --logo-text: var(--ink); }
+.nav.on-light .logo { --logo-mark: #08563B; --logo-face: var(--lime); --logo-text: var(--ink); }
 .nav.on-light .nav-links { background: color-mix(in srgb, var(--paper) 70%, transparent); box-shadow: inset 0 0 0 1px var(--line); }
 .nav.on-light .nav-links a { color: var(--gray); }
 .nav.on-light .nav-links a:hover { color: var(--ink); background: var(--line); }
@@ -441,8 +441,8 @@ html:not(.js) .loader { display: none; }
 .footer .tag { font: 900 clamp(22px, 2.4vw, 32px)/1.05 var(--display); text-transform: uppercase; color: #fff; }
 .footer nav { display: flex; flex-wrap: wrap; gap: 8px 28px; align-content: flex-start; max-width: 520px; }
 .footer a { text-decoration: none; transition: color .3s; } .footer a:hover { color: var(--lime); }
-.footer-word { --logo-mark: var(--lime); --logo-text: #fff; margin-top: clamp(56px, 8vw, 120px); }
-.footer-word svg { width: 100%; height: auto; aspect-ratio: 3038 / 521; }
+.footer-word { --logo-mark: var(--lime); --logo-face: #08563B; --logo-text: #fff; margin-top: clamp(56px, 8vw, 120px); }
+.footer-word svg { width: 100%; height: auto; aspect-ratio: 3000 / 602; }
 .footer-bottom { margin-top: 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; }
 
 /* ---------- Generic reveal (JS adds .is-in) ---------- */
