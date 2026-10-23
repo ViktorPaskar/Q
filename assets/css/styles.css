@@ -965,3 +965,11 @@ body, p, li, .lead, .hero-sub, .answer p, .card-copy p { font-weight: 400; }
 .nav.on-light .nav-links a:hover { color: var(--ink); }
 .nav.on-light .nav-links a { color: var(--ink) !important; text-shadow: 0 0 14px rgba(255, 255, 255, .9), 0 0 4px rgba(255, 255, 255, .7); }
 .nav.on-light .nav-links a:hover { color: #08563B !important; }
+/* Loader: the mark pops in, glances around, the name slides out */
+.loader-mark .l-mark { transform-box: fill-box; transform-origin: 50% 100%; animation: lPop .55s cubic-bezier(.34, 1.56, .64, 1) both; }
+.loader-mark .l-face { transform-box: fill-box; transform-origin: center; animation: lGlance 1s .4s ease-in-out both; }
+.loader-mark .l-text { animation: lName .6s .3s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes lPop { 0% { transform: scale(.2) rotate(-12deg); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes lGlance { 0%, 100% { transform: none; } 25%, 40% { transform: translate(-4%, -3%); } 60%, 75% { transform: translate(4%, -3%); } 90% { transform: scaleY(.9); } }
+@keyframes lName { from { clip-path: inset(0 100% 0 0); transform: translateX(-40px); } to { clip-path: inset(0 0 0 0); transform: none; } }
+@media (prefers-reduced-motion: reduce) { .loader-mark * { animation: none !important; } }

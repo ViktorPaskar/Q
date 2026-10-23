@@ -396,9 +396,9 @@
 
     const intro = gsap.timeline({ defaults: { ease: "expo.out" }, onComplete: () => lenis.start() });
     intro
-      .to(".loader-mark", { scale: .8, opacity: 0, duration: .6, ease: "power2.in" }, 1.1)
-      .to(".loader", { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "expo.inOut" }, 1.4)
-      .set(".loader", { display: "none" }, 2.4)
+      .to(".loader-mark", { scale: .9, opacity: 0, duration: .45, ease: "power2.in" }, 1.45)
+      .to(".loader", { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "expo.inOut" }, 1.7)
+      .set(".loader", { display: "none" }, 2.7)
       .fromTo(".hero-pic", { scale: 1.12 }, { scale: 1, duration: 2.6, ease: "expo.out" }, 1.4)
       .to(chars, { opacity: 1, yPercent: 0, filter: "blur(0px)", duration: 1.1, stagger: .035, ease: "power3.out" }, 2.1)
       .to([".hero-sub", ".hero-form", "#nav"], { opacity: 1, y: 0, duration: 1.1, stagger: .08 }, 2.5)
