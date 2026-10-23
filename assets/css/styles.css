@@ -1121,3 +1121,16 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
   .cta-arch { position: relative; right: auto; width: 74%; height: auto; aspect-ratio: 4 / 5; margin: -80px auto 28px; border-radius: 200px 200px 28px 28px; }
 }
 @media (max-width: 900px) { .cta-box { margin: 0 !important; } }
+/* CTA v6: compact lime box with the logo mark */
+.cta { padding: clamp(96px, 9vw, 140px) 0 !important; }
+.cta-box { max-width: 1040px; min-height: 0; padding: clamp(48px, 5vw, 72px) clamp(28px, 5vw, 72px); }
+.cta-mark { position: absolute; right: clamp(40px, 6vw, 88px); top: 50%; translate: 0 -50%; width: min(30%, 280px); rotate: -6deg; --logo-mark: #08563B; --logo-face: #D4FF00; }
+.cta-mark svg { display: block; width: 100%; height: auto; }
+@media (max-width: 900px) {
+  .cta { padding: 72px 0 !important; }
+  .cta-box { padding: 40px 22px 36px; }
+  .cta-mark { position: static; translate: none; width: 120px; margin: 0 0 24px; rotate: -6deg; }
+}
+@media (max-width: 900px) { .cta .wrap.cta-box { margin: 0 16px !important; width: auto !important; max-width: none; } }
+.cta .wrap.cta-box { margin-inline: auto; }
+.cta-mark { rotate: 0deg !important; }
