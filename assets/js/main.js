@@ -596,3 +596,12 @@
   setupReveal();
   animate();
 })();
+
+// Team card: open the mail app and copy the address, so it works even without a mail app
+document.querySelectorAll(".join-mail").forEach((a) => a.addEventListener("click", () => {
+  const email = a.dataset.email;
+  navigator.clipboard?.writeText(email).then(() => {
+    a.textContent = "Email copied";
+    setTimeout(() => (a.textContent = email), 2200);
+  }).catch(() => {});
+}));
