@@ -1016,3 +1016,9 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
 .member-in { position: absolute; right: 16px; bottom: 22px; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: #EEF1EA; color: #0A66C2 !important; transition: background .2s, color .2s; }
 .member-in svg { width: 16px; height: 16px; }
 .member-in:hover { background: #0A66C2; color: #fff !important; }
+/* Footer contact: one quiet line instead of the big lime card */
+.footer-contact { text-align: center; padding-top: clamp(56px, 7vw, 96px); font: 400 var(--fs-body, 17px)/1.6 var(--ui); color: rgba(255, 255, 255, .7); }
+.footer-contact a { color: var(--lime) !important; font-family: var(--display) !important; font-weight: 500; text-decoration: underline; text-decoration-color: rgba(212, 255, 0, .4); text-underline-offset: 4px; }
+.footer-contact a:hover { text-decoration-color: var(--lime); }
+.footer-contact span { color: var(--lime); }
+.footer-contact + .footer-top { margin-top: 36px; }
