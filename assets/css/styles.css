@@ -1158,3 +1158,7 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
 @media (max-width: 900px) { .cta-box .cta-inner { max-width: none !important; } }
 @media (min-width: 901px) { .cta-box .cta-title { max-width: none !important; } .cta-box .cta-title .ct { white-space: nowrap; } }
 @media (max-width: 900px) { .team-sec .member-in { top: 22px; right: 22px; bottom: auto; background: rgba(255,255,255,.92); } }
+/* Logo never clipped: explicit width from the 3000x602 ratio, no overflow clipping */
+.nav .logo svg, .footer-word svg, .loader-mark { overflow: visible !important; }
+.nav .logo svg { height: 26px !important; width: calc(26px * 3000 / 602) !important; aspect-ratio: auto !important; flex: none; }
+.nav .logo { flex: none; overflow: visible; }
