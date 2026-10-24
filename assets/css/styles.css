@@ -1207,3 +1207,19 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
 /* Nav button hides while the hero form is on screen */
 .nav .btn-sm { transition: opacity .35s, transform .35s, visibility .35s; }
 .nav.hide-cta .btn-sm { opacity: 0; visibility: hidden; transform: translateY(-6px); pointer-events: none; }
+/* Nav v4: one glass pill (blur) holding links + language, equal weight and spacing */
+.nav-links, .nav.on-light .nav-links { align-items: center; gap: 4px !important; padding: 5px !important; margin-right: 16px !important; border-radius: 999px;
+  background: rgba(255, 255, 255, .55) !important; -webkit-backdrop-filter: blur(14px) saturate(1.4) !important; backdrop-filter: blur(14px) saturate(1.4) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .6), 0 6px 20px -12px rgba(2, 42, 30, .25) !important; }
+.nav:not(.on-light) .nav-links { background: rgba(255, 255, 255, .1) !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14) !important; }
+.nav-links a, .nav-links .lang summary { font: 500 14px/1 var(--display) !important; padding: 10px 16px !important; border-radius: 999px; text-shadow: none !important; }
+.nav-links a:hover, .nav-links .lang summary:hover { background: rgba(255, 255, 255, .6) !important; }
+.nav:not(.on-light) .nav-links a:hover, .nav:not(.on-light) .nav-links .lang summary:hover { background: rgba(255, 255, 255, .12) !important; }
+.nav-links .lang { margin: 0 !important; font: inherit; }
+.nav-links .lang summary { gap: 6px; }
+.nav-links .lang summary:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.nav-links .lang summary:focus:not(:focus-visible) { outline: none; }
+.nav.on-light .nav-links a { color: var(--ink) !important; font-weight: 500 !important; }
+@media (max-width: 760px) { .nav-links { display: flex !important; background: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 4px 0 auto !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } .nav-links a { display: none; } }
+@media (max-width: 760px) { .nav-links .lang summary { padding: 8px !important; } .nav-links { margin-right: 2px !important; } .nav .btn-sm { padding: 10px 13px !important; } }
+@media (max-width: 760px) { .nav-inner { gap: 10px !important; } }
