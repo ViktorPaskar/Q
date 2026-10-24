@@ -1179,3 +1179,9 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
   .hero-form .signup-row input { font-size: 16px; }
   .hero-form .btn { font-size: 16px; padding: 14px 22px; }
 }
+/* Hero: photo fades into the page at the top so the nav reads cleanly (no pill) */
+@media (min-width: 901px) {
+  .hero-coffee::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 170px; z-index: -1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(246, 247, 243, .92) 0%, rgba(246, 247, 243, .6) 45%, transparent 100%); }
+  .nav.on-light .nav-links a { text-shadow: none !important; font-weight: 600 !important; }
+}
