@@ -1162,3 +1162,9 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
 .nav .logo svg, .footer-word svg, .loader-mark { overflow: visible !important; }
 .nav .logo svg { height: 26px !important; width: calc(26px * 3000 / 602) !important; aspect-ratio: auto !important; flex: none; }
 .nav .logo { flex: none; overflow: visible; }
+/* Kill the browser autofill tint in signup fields */
+.signup input:-webkit-autofill, .signup input:-webkit-autofill:hover, .signup input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important; box-shadow: 0 0 0 1000px #fff inset !important;
+  -webkit-text-fill-color: var(--ink) !important; caret-color: var(--ink); transition: background-color 9999s; border-radius: 999px; }
+.cta .signup input:-webkit-autofill, .footer .signup input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #fff inset !important; }
+.signup input:autofill { background: transparent !important; }
