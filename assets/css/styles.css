@@ -1226,3 +1226,5 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
 .nav-links .lang summary, .nav-links .lang summary:focus, .nav-links .lang summary:focus-visible, .nav-links .lang[open] summary { outline: none !important; box-shadow: none !important; border: 0 !important; }
 .nav-links .lang summary:focus-visible { background: rgba(255, 255, 255, .7) !important; }
 .nav-links .lang[open] summary { background: rgba(255, 255, 255, .6) !important; }
+/* One background at a time: the menu pill only over the hero; once the bar has its own blur, no pill */
+.nav.is-scrolled .nav-links, .nav.is-scrolled.on-light .nav-links { background: none !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
