@@ -605,3 +605,10 @@ document.querySelectorAll(".join-mail").forEach((a) => a.addEventListener("click
     setTimeout(() => (a.textContent = email), 2200);
   }).catch(() => {});
 }));
+
+// One action on the first screen: hide the nav button while the hero form is visible
+(() => {
+  const form = document.querySelector(".hero-form"), nav = document.querySelector(".nav");
+  if (!form || !nav || !("IntersectionObserver" in window)) return;
+  new IntersectionObserver(([e]) => nav.classList.toggle("hide-cta", e.isIntersecting), { rootMargin: "-80px 0px 0px 0px" }).observe(form);
+})();

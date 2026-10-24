@@ -1204,3 +1204,6 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
 @media (max-width: 380px) { .nav .btn-sm span { font-size: 13px; } }
 .lang { flex: none; } .lang summary { min-width: 30px; color: var(--ink); } .nav .lang summary { color: inherit; } .lang summary svg { flex: none; }
 @media (max-width: 760px) { .lang { margin-left: auto !important; margin-right: 2px !important; } .nav .btn-sm { padding: 10px 14px !important; font-size: 13px !important; } }
+/* Nav button hides while the hero form is on screen */
+.nav .btn-sm { transition: opacity .35s, transform .35s, visibility .35s; }
+.nav.hide-cta .btn-sm { opacity: 0; visibility: hidden; transform: translateY(-6px); pointer-events: none; }
