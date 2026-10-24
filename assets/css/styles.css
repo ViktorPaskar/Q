@@ -1223,3 +1223,6 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
 @media (max-width: 760px) { .nav-links { display: flex !important; background: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 4px 0 auto !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } .nav-links a { display: none; } }
 @media (max-width: 760px) { .nav-links .lang summary { padding: 8px !important; } .nav-links { margin-right: 2px !important; } .nav .btn-sm { padding: 10px 13px !important; } }
 @media (max-width: 760px) { .nav-inner { gap: 10px !important; } }
+.nav-links .lang summary, .nav-links .lang summary:focus, .nav-links .lang summary:focus-visible, .nav-links .lang[open] summary { outline: none !important; box-shadow: none !important; border: 0 !important; }
+.nav-links .lang summary:focus-visible { background: rgba(255, 255, 255, .7) !important; }
+.nav-links .lang[open] summary { background: rgba(255, 255, 255, .6) !important; }
