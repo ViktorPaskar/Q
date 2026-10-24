@@ -1185,3 +1185,22 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
     background: linear-gradient(180deg, rgba(246, 247, 243, .92) 0%, rgba(246, 247, 243, .6) 45%, transparent 100%); }
   .nav.on-light .nav-links a { text-shadow: none !important; font-weight: 600 !important; }
 }
+/* Language picker */
+.lang { position: relative; margin-right: 14px; font: 500 14px var(--display); }
+.lang summary { list-style: none; display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 8px 6px; color: inherit; }
+.lang summary::-webkit-details-marker { display: none; }
+.lang svg { width: 18px; height: 18px; }
+.nav .lang { color: #fff; } .nav.on-light .lang { color: var(--ink); }
+.lang ul { position: absolute; right: 0; top: calc(100% + 8px); min-width: 170px; list-style: none; margin: 0; padding: 6px; background: #fff; color: var(--ink); border-radius: 16px; box-shadow: 0 18px 40px -18px rgba(2, 42, 30, .4), 0 0 0 1px rgba(2, 42, 30, .06); }
+.lang li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; }
+.lang li[aria-current] { background: #EEF1EA; color: var(--green); }
+.lang li.soon { color: var(--gray); }
+.lang li em { font-style: normal; font-size: 11px; padding: 3px 8px; border-radius: 999px; background: var(--lime); color: var(--green); }
+@media (max-width: 760px) { .lang { margin-left: auto; margin-right: 8px; } .nav .btn { margin-left: 0 !important; } }
+@media (max-width: 760px) {
+  .lang { margin-right: 4px; } .lang summary span { display: none; } .lang summary svg { display: block !important; width: 22px; height: 22px; }
+  .nav .btn-sm { padding: 11px 16px !important; font-size: 14px !important; white-space: nowrap; }
+}
+@media (max-width: 380px) { .nav .btn-sm span { font-size: 13px; } }
+.lang { flex: none; } .lang summary { min-width: 30px; color: var(--ink); } .nav .lang summary { color: inherit; } .lang summary svg { flex: none; }
+@media (max-width: 760px) { .lang { margin-left: auto !important; margin-right: 2px !important; } .nav .btn-sm { padding: 10px 14px !important; font-size: 13px !important; } }
