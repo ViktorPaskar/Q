@@ -1168,3 +1168,14 @@ body { font-family: var(--ui); font-size: var(--fs-body); line-height: 1.6; }
   -webkit-text-fill-color: var(--ink) !important; caret-color: var(--ink); transition: background-color 9999s; border-radius: 999px; }
 .cta .signup input:-webkit-autofill, .footer .signup input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #fff inset !important; }
 .signup input:autofill { background: transparent !important; }
+/* Hero v3: calmer type, no floating cards, subject further right */
+.hero-moment { display: none !important; }
+@media (min-width: 901px) {
+  .hero-coffee .hero-pic { left: 24% !important; width: 76% !important; object-position: 50% 30% !important; }
+  .hero-coffee::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 40%; z-index: -1; pointer-events: none; background: linear-gradient(90deg, var(--paper) 62%, transparent); }
+  .hero-title { font-size: clamp(44px, 4.2vw, 68px) !important; line-height: 1.02 !important; }
+  .hero-sub { font-size: 18px !important; max-width: 34ch; margin-top: 20px !important; }
+  .hero-form { max-width: 480px; margin-top: 28px !important; }
+  .hero-form .signup-row input { font-size: 16px; }
+  .hero-form .btn { font-size: 16px; padding: 14px 22px; }
+}
